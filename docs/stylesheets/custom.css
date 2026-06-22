@@ -190,6 +190,43 @@
   padding-left: 1.1rem;
 }
 
+/* ── Auto-play typewriter animation (JS adds .anim; falls back to full static) ── */
+.ss-chat-cursor {
+  display: none;
+  width: 7px;
+  height: 0.95em;
+  margin-left: 1px;
+  background: #4d82ec;
+  vertical-align: text-bottom;
+}
+.ss-chat.anim .ss-chat-cursor {
+  display: inline-block;
+  animation: ss-blink 1s steps(2, start) infinite;
+}
+@keyframes ss-blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+/* Hidden initial state applies ONLY when JS has marked the card (.anim),
+   so a no-JS / pre-script render still shows the complete transcript. */
+.ss-chat.anim .ss-chat-step,
+.ss-chat.anim .ss-chat-tool,
+.ss-chat.anim .ss-chat-code,
+.ss-chat.anim .ss-chat-done {
+  opacity: 0;
+  transform: translateY(5px);
+}
+.ss-chat.anim .is-shown {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ss-chat.anim .ss-chat-step,
+  .ss-chat.anim .ss-chat-tool,
+  .ss-chat.anim .ss-chat-code,
+  .ss-chat.anim .ss-chat-done { opacity: 1; transform: none; }
+  .ss-chat.anim .ss-chat-cursor { animation: none; }
+}
+
 /* ─── Hero shield badges ─── */
 .ss-hero-shields {
   display: flex;

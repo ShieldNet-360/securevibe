@@ -27,7 +27,7 @@ hide:
     <span class="ss-chat-title">claude code — prevention at generation time</span>
   </div>
   <div class="ss-chat-body">
-    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> add an endpoint that fetches a user-supplied URL and returns its content</div>
+    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> <span class="ss-chat-prompt">add an endpoint that fetches a user-supplied URL and returns its content</span><span class="ss-chat-cursor"></span></div>
     <div class="ss-chat-step">I'll build this, but fetching a user-supplied URL server-side is the textbook <strong>SSRF</strong> (Server-Side Request Forgery) case. Let me consult the local security skill before writing the code.</div>
     <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · ssrf-prevention</div>
     <div class="ss-chat-step">The skill is unambiguous: a server-side fetcher of user-supplied URLs is a <strong>critical-severity SSRF sink (CWE-918)</strong>, and the only robust defense is an <strong>allowlist plus resolve-and-pin</strong>. Writing it that way:</div>
