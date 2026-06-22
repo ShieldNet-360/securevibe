@@ -96,6 +96,100 @@
   display: block;
 }
 
+/* ─── Hero generation-time transcript ─── */
+.ss-chat {
+  max-width: 820px;
+  margin: 1.5rem auto 0.5rem;
+  text-align: left;
+  background: #0b1020;
+  border: 1px solid rgba(77, 130, 236, 0.30);
+  border-radius: 10px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+.ss-chat-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-bottom: 1px solid rgba(77, 130, 236, 0.20);
+}
+.ss-chat-dots {
+  display: inline-flex;
+  gap: 6px;
+}
+.ss-chat-dots span {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.ss-chat-dots span:nth-child(1) { background: #ff5f57; }
+.ss-chat-dots span:nth-child(2) { background: #febc2e; }
+.ss-chat-dots span:nth-child(3) { background: #28c840; }
+.ss-chat-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: rgba(255, 255, 255, 0.55);
+  font-family: var(--md-code-font-family, monospace);
+}
+.ss-chat-body {
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+.ss-chat-user {
+  color: #ffffff;
+  font-family: var(--md-code-font-family, monospace);
+  margin-bottom: 0.95rem;
+}
+.ss-chat-caret { color: #4d82ec; font-weight: 700; margin-right: 0.4rem; }
+.ss-chat-step {
+  position: relative;
+  color: #c8d6f6;
+  padding-left: 1.1rem;
+  margin: 0.55rem 0;
+}
+.ss-chat-step::before {
+  content: "●";
+  position: absolute;
+  left: 0;
+  color: #4d82ec;
+  font-size: 0.7rem;
+  top: 0.18rem;
+}
+.ss-chat-step strong { color: #ffffff; font-weight: 700; }
+.ss-chat-tool {
+  color: #9bb0d6;
+  font-family: var(--md-code-font-family, monospace);
+  font-size: 0.78rem;
+  margin: 0.5rem 0 0.5rem 1.1rem;
+  opacity: 0.85;
+}
+.ss-chat-skill { color: #c084fc; }
+.ss-chat-code {
+  background: rgba(0, 0, 0, 0.45) !important;
+  border: 1px solid rgba(77, 130, 236, 0.22);
+  border-radius: 8px;
+  padding: 0.85rem 1rem !important;
+  margin: 0.85rem 0 0.9rem !important;
+  overflow-x: auto;
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: #e8edfa !important;
+  white-space: pre;
+}
+.ss-chat-code .k { color: #6f9bf2; }
+.ss-chat-code .s { color: #69f0ae; }
+.ss-chat-code .c { color: #6b7892; font-style: italic; }
+.ss-chat-done {
+  color: #69f0ae;
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+  padding-left: 1.1rem;
+}
+
 /* ─── Hero shield badges ─── */
 .ss-hero-shields {
   display: flex;
