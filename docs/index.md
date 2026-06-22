@@ -8,7 +8,7 @@ hide:
 
 # SecureVibe
 
-Prevention-first security for AI-written code. Signed security skills shape what your assistant writes, deterministic scanners back it up, and a CI gate blocks what slips through — across Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin.
+Your AI assistant writes the vulnerability. SecureVibe stops it at the keystroke. Signed security skills give Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin the security context they're missing — so the insecure code is never written in the first place, not caught in review.
 
 <div class="ss-hero-shields">
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
@@ -21,13 +21,25 @@ Prevention-first security for AI-written code. Signed security skills shape what
   <img src="https://img.shields.io/badge/AI%20clients-8-16a34a" alt="AI clients">
 </div>
 
-<div class="ss-hero-demo">
-  <img src="assets/demo.gif" alt="secure-code-check gate catching a typosquatted dependency and leaked secrets before commit" loading="eager">
+<div class="ss-chat">
+  <div class="ss-chat-bar">
+    <span class="ss-chat-dots"><span></span><span></span><span></span></span>
+    <span class="ss-chat-title">claude code — prevention at generation time</span>
+  </div>
+  <div class="ss-chat-body">
+    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> add an endpoint that fetches a user-supplied URL and returns its content</div>
+    <div class="ss-chat-step">I'll build this, but fetching a user-supplied URL server-side is the textbook <strong>SSRF</strong> (Server-Side Request Forgery) case. Let me consult the local security skill before writing the code.</div>
+    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · ssrf-prevention</div>
+    <div class="ss-chat-step">The skill is unambiguous: a server-side fetcher of user-supplied URLs is a <strong>critical-severity SSRF sink (CWE-918)</strong>, and the only robust defense is an <strong>allowlist plus resolve-and-pin</strong>. Writing it that way:</div>
+    <pre class="ss-chat-code"><span class="c">// SSRF-safe by construction — securevibe/ssrf-prevention</span>
+<span class="k">const</span> { host } = <span class="k">new</span> URL(url);
+<span class="k">if</span> (!ALLOWLIST.has(host)) <span class="k">throw new</span> Blocked(<span class="s">"host not on allowlist"</span>);
+<span class="k">const</span> ip = <span class="k">await</span> resolveAndPin(host);          <span class="c">// pin the resolved address</span>
+<span class="k">if</span> (isPrivate(ip)) <span class="k">throw new</span> Blocked(<span class="s">"private range blocked"</span>); <span class="c">// RFC1918, link-local, …</span>
+<span class="k">return</span> fetch(url, { redirect: <span class="s">"manual"</span>, lookup: pinnedLookup(ip) });</pre>
+    <div class="ss-chat-done">✓ Secure on the first write — no insecure diff to catch, no review round, no scanner alert.</div>
+  </div>
 </div>
-
-```
-npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile --severity-floor high
-```
 
 <div class="ss-hero-badges">
   <a href="quickstart/">🚀 Quick Start</a>
