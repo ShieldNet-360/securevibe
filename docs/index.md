@@ -4,11 +4,11 @@ hide:
   - toc
 ---
 
-<div class="ss-hero" markdown>
+<div class="ss-hero">
 
-# SecureVibe
+<h1>SecureVibe</h1>
 
-Your AI assistant writes the vulnerability. SecureVibe stops it at the keystroke. Signed security skills give Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin the security context they're missing — so the insecure code is never written in the first place, not caught in review.
+<p>Your AI assistant writes the vulnerability. SecureVibe stops it at the keystroke. Signed security skills give Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin the security context they're missing — so the insecure code is never written in the first place, not caught in review.</p>
 
 <div class="ss-hero-shields">
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
