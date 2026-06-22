@@ -90,7 +90,17 @@ func loadVulnerabilitySummary(repoRoot string) (string, error) {
 		if si != sj {
 			return si < sj
 		}
-		return items[i].entry.Discovered > items[j].entry.Discovered
+		if items[i].entry.Discovered != items[j].entry.Discovered {
+			return items[i].entry.Discovered > items[j].entry.Discovered
+		}
+		// Total-order tiebreakers so the top-N selection is deterministic
+		// regardless of Go's (unstable) sort: many entries share the same
+		// severity+date, and without this the rendered list varied by Go
+		// version, breaking the dist-drift CI check.
+		if items[i].ecosystem != items[j].ecosystem {
+			return items[i].ecosystem < items[j].ecosystem
+		}
+		return items[i].entry.Name < items[j].entry.Name
 	})
 
 	max := 8
