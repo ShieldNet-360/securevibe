@@ -21,25 +21,8 @@ hide:
   <img src="https://img.shields.io/badge/AI%20clients-8-16a34a" alt="AI clients">
 </div>
 
-<div class="ss-chat">
-  <div class="ss-chat-bar">
-    <span class="ss-chat-dots"><span></span><span></span><span></span></span>
-    <span class="ss-chat-title">claude code — prevention at generation time</span>
-  </div>
-  <div class="ss-chat-body">
-    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> <span class="ss-chat-prompt">add a search endpoint that looks users up by name</span><span class="ss-chat-cursor"></span></div>
-    <div class="ss-chat-step">Before I add the logging dependency you asked for — <strong>log4j-core 2.14.1</strong> is the <strong>Log4Shell</strong> version (CVE-2021-44228, remote code execution). Pinning a patched release instead:</div>
-    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · dependency-audit</div>
-    <pre class="ss-chat-code"><span class="c">&lt;!-- pom.xml --&gt;</span>
-<span class="d">- &lt;version&gt;2.14.1&lt;/version&gt;</span>
-<span class="a">+ &lt;version&gt;2.17.1&lt;/version&gt;</span>   <span class="c">// Log4Shell patched</span></pre>
-    <div class="ss-chat-step">And building the query by pasting the search term into SQL is the classic <strong>SQL-injection</strong> hole (<code>' OR 1=1 --</code>). Parameterized query instead:</div>
-    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · database-security</div>
-    <pre class="ss-chat-code"><span class="k">var</span> ps = conn.prepareStatement(
-    <span class="s">"SELECT * FROM users WHERE name = ?"</span>);   <span class="c">// bound, not concatenated</span>
-ps.setString(<span class="n">1</span>, name);</pre>
-    <div class="ss-chat-done">✓ A known-RCE dependency and a SQL-injection hole — both stopped before either line shipped.</div>
-  </div>
+<div class="ss-hero-demo">
+  <img src="assets/hero-demo.gif" alt="Claude Code consulting SecureVibe: catching the Log4Shell dependency (CVE-2021-44228) and writing a parameterized query instead of a SQL-injection-prone one" loading="eager">
 </div>
 
 <div class="ss-hero-badges">
