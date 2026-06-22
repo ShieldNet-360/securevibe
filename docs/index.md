@@ -8,7 +8,7 @@ hide:
 
 <h1>SecureVibe</h1>
 
-<p>Your AI assistant writes the vulnerability. SecureVibe stops it at the keystroke. Signed security skills give Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin the security context they're missing — so the insecure code is never written in the first place, not caught in review.</p>
+<p>Your AI assistant writes the vulnerability. SecureVibe stops it at the keystroke. Signed security skills give Claude Code, Cursor, Copilot, Codex, Windsurf, Cline, Antigravity, and Devin the security context they're missing — current supply-chain intel and secure-by-default patterns — so the bad dependency is never installed and the insecure code is never written, not caught in review.</p>
 
 <div class="ss-hero-shields">
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
@@ -27,17 +27,18 @@ hide:
     <span class="ss-chat-title">claude code — prevention at generation time</span>
   </div>
   <div class="ss-chat-body">
-    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> <span class="ss-chat-prompt">add an endpoint that fetches a user-supplied URL and returns its content</span><span class="ss-chat-cursor"></span></div>
-    <div class="ss-chat-step">I'll build this, but fetching a user-supplied URL server-side is the textbook <strong>SSRF</strong> (Server-Side Request Forgery) case. Let me consult the local security skill before writing the code.</div>
-    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · ssrf-prevention</div>
-    <div class="ss-chat-step">The skill is unambiguous: a server-side fetcher of user-supplied URLs is a <strong>critical-severity SSRF sink (CWE-918)</strong>, and the only robust defense is an <strong>allowlist plus resolve-and-pin</strong>. Writing it that way:</div>
-    <pre class="ss-chat-code"><span class="c">// SSRF-safe by construction — securevibe/ssrf-prevention</span>
-<span class="k">const</span> { host } = <span class="k">new</span> URL(url);
-<span class="k">if</span> (!ALLOWLIST.has(host)) <span class="k">throw new</span> Blocked(<span class="s">"host not on allowlist"</span>);
-<span class="k">const</span> ip = <span class="k">await</span> resolveAndPin(host);          <span class="c">// pin the resolved address</span>
-<span class="k">if</span> (isPrivate(ip)) <span class="k">throw new</span> Blocked(<span class="s">"private range blocked"</span>); <span class="c">// RFC1918, link-local, …</span>
-<span class="k">return</span> fetch(url, { redirect: <span class="s">"manual"</span>, lookup: pinnedLookup(ip) });</pre>
-    <div class="ss-chat-done">✓ Secure on the first write — no insecure diff to catch, no review round, no scanner alert.</div>
+    <div class="ss-chat-user"><span class="ss-chat-caret">&gt;</span> <span class="ss-chat-prompt">add a search endpoint that looks users up by name</span><span class="ss-chat-cursor"></span></div>
+    <div class="ss-chat-step">Before I add the logging dependency you asked for — <strong>log4j-core 2.14.1</strong> is the <strong>Log4Shell</strong> version (CVE-2021-44228, remote code execution). Pinning a patched release instead:</div>
+    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · dependency-audit</div>
+    <pre class="ss-chat-code"><span class="c">&lt;!-- pom.xml --&gt;</span>
+<span class="d">- &lt;version&gt;2.14.1&lt;/version&gt;</span>
+<span class="a">+ &lt;version&gt;2.17.1&lt;/version&gt;</span>   <span class="c">// Log4Shell patched</span></pre>
+    <div class="ss-chat-step">And building the query by pasting the search term into SQL is the classic <strong>SQL-injection</strong> hole (<code>' OR 1=1 --</code>). Parameterized query instead:</div>
+    <div class="ss-chat-tool">⌁ Called <span class="ss-chat-skill">securevibe</span> · database-security</div>
+    <pre class="ss-chat-code"><span class="k">var</span> ps = conn.prepareStatement(
+    <span class="s">"SELECT * FROM users WHERE name = ?"</span>);   <span class="c">// bound, not concatenated</span>
+ps.setString(<span class="n">1</span>, name);</pre>
+    <div class="ss-chat-done">✓ A known-RCE dependency and a SQL-injection hole — both stopped before either line shipped.</div>
   </div>
 </div>
 

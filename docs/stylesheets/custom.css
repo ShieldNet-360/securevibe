@@ -183,6 +183,17 @@
 .ss-chat-code .k { color: #6f9bf2; }
 .ss-chat-code .s { color: #69f0ae; }
 .ss-chat-code .c { color: #6b7892; font-style: italic; }
+.ss-chat-code .n { color: #d8b4fe; }
+.ss-chat-code .a { color: #69f0ae; }   /* added line  */
+.ss-chat-code .d { color: #ff8787; }   /* removed line */
+.ss-chat-step code {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(77, 130, 236, 0.22);
+  border-radius: 4px;
+  padding: 0.05rem 0.3rem;
+  font-size: 0.86em;
+  color: #ffd166;
+}
 .ss-chat-done {
   color: #69f0ae;
   font-size: 0.82rem;
