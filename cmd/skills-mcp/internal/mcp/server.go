@@ -5,14 +5,17 @@ package mcp
 
 import (
 	"bufio"
+	"context"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
+	"os"
 	"regexp"
 	"strings"
 
 	"github.com/shieldnet-360/securevibe/internal/tools"
+	"github.com/shieldnet-360/securevibe/internal/verify"
 )
 
 // Server is the JSON-RPC dispatcher. It owns one Library and exposes the
@@ -386,8 +389,61 @@ func (s *Server) invokeTool(name string, args map[string]interface{}) (interface
 			stringArg(args, "file_path"),
 			stringArg(args, "severity_floor"),
 		)
+	case "verify_finding":
+		// Active DAST verify. Scope + Confirm come from the operator's env,
+		// never from the model: unset scope ⇒ dry-run only (builds payload,
+		// sends nothing). See verify package safety rails.
+		allow, scoped := verifyScopeFromEnv()
+		f := verify.Finding{
+			Type:   stringArg(args, "type"),
+			Target: stringArg(args, "target"),
+			Param:  stringArg(args, "param"),
+			Method: stringArg(args, "method"),
+			Query:  mapArg(args, "query"),
+		}
+		return verify.Run(context.Background(), f, verify.Opts{
+			Confirm:     scoped,
+			AllowTarget: allow,
+		})
 	}
 	return nil, fmt.Errorf("%w: %s", errToolNotFound, name)
+}
+
+// mapArg extracts a string→string map argument (e.g. "query").
+func mapArg(args map[string]interface{}, key string) map[string]string {
+	out := map[string]string{}
+	if v, ok := args[key].(map[string]interface{}); ok {
+		for k, val := range v {
+			if s, ok := val.(string); ok {
+				out[k] = s
+			}
+		}
+	}
+	return out
+}
+
+// verifyScopeFromEnv builds the verify scope gate from SECURECODE_VERIFY_SCOPE
+// (comma-separated host[:port] substrings). Unset ⇒ deny all (dry-run only).
+// The scope is operator-controlled and is never chosen by the model.
+func verifyScopeFromEnv() (allow func(string) bool, scoped bool) {
+	raw := strings.TrimSpace(os.Getenv("SECURECODE_VERIFY_SCOPE"))
+	if raw == "" {
+		return func(string) bool { return false }, false
+	}
+	var allowed []string
+	for _, p := range strings.Split(raw, ",") {
+		if p = strings.TrimSpace(p); p != "" {
+			allowed = append(allowed, p)
+		}
+	}
+	return func(target string) bool {
+		for _, a := range allowed {
+			if strings.Contains(target, a) {
+				return true
+			}
+		}
+		return false
+	}, len(allowed) > 0
 }
 
 func stringArg(args map[string]interface{}, key string) string {
