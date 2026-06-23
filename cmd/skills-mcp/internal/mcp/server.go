@@ -10,7 +10,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"os"
 	"regexp"
 	"strings"
 
@@ -393,13 +392,15 @@ func (s *Server) invokeTool(name string, args map[string]interface{}) (interface
 		// Active DAST verify. Scope + Confirm come from the operator's env,
 		// never from the model: unset scope ⇒ dry-run only (builds payload,
 		// sends nothing). See verify package safety rails.
-		allow, scoped := verifyScopeFromEnv()
+		allow, headers, scoped := loadVerifyScope()
+		target := stringArg(args, "target")
 		f := verify.Finding{
 			Type:   stringArg(args, "type"),
-			Target: stringArg(args, "target"),
+			Target: target,
 			Param:  stringArg(args, "param"),
 			Method: stringArg(args, "method"),
 			Query:  mapArg(args, "query"),
+			Header: headers(target), // operator-resolved auth (scope file), never from the model
 		}
 		return verify.Run(context.Background(), f, verify.Opts{
 			Confirm:     scoped,
@@ -420,30 +421,6 @@ func mapArg(args map[string]interface{}, key string) map[string]string {
 		}
 	}
 	return out
-}
-
-// verifyScopeFromEnv builds the verify scope gate from SECURECODE_VERIFY_SCOPE
-// (comma-separated host[:port] substrings). Unset ⇒ deny all (dry-run only).
-// The scope is operator-controlled and is never chosen by the model.
-func verifyScopeFromEnv() (allow func(string) bool, scoped bool) {
-	raw := strings.TrimSpace(os.Getenv("SECURECODE_VERIFY_SCOPE"))
-	if raw == "" {
-		return func(string) bool { return false }, false
-	}
-	var allowed []string
-	for _, p := range strings.Split(raw, ",") {
-		if p = strings.TrimSpace(p); p != "" {
-			allowed = append(allowed, p)
-		}
-	}
-	return func(target string) bool {
-		for _, a := range allowed {
-			if strings.Contains(target, a) {
-				return true
-			}
-		}
-		return false
-	}, len(allowed) > 0
 }
 
 func stringArg(args map[string]interface{}, key string) string {
