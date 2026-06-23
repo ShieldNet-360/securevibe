@@ -280,11 +280,14 @@
 
 /* ─── Hero stats ─── */
 .ss-stats {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  justify-items: center;
+  gap: 1.75rem 2.5rem;
   margin-top: 1.75rem;
+  max-width: 760px;
+  margin-left: auto;
+  margin-right: auto;
 }
 .ss-stat {
   text-align: center;
@@ -372,6 +375,35 @@
   color: var(--ss-text-muted);
   line-height: 1.5;
   display: block;
+}
+
+/* ─── Compliance band ─── */
+.ss-compliance-lead {
+  font-size: 0.95rem;
+  color: var(--ss-text);
+  margin: 0.9rem 0 0;
+}
+.ss-compliance-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 1.1rem 0 0.9rem;
+}
+.ss-chip {
+  display: inline-block;
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(37, 95, 229, 0.08);
+  color: var(--md-primary-fg-color);
+  border: 1px solid rgba(37, 95, 229, 0.22);
+  white-space: nowrap;
+}
+.ss-compliance-note {
+  font-size: 0.78rem;
+  color: var(--ss-text-muted);
+  margin: 0;
 }
 
 /* ─── Per-component card accent (left border + title color) ─── */
@@ -552,6 +584,6 @@
 @media (max-width: 768px) {
   .ss-hero { padding: 2rem 1rem; }
   .ss-hero h1 { font-size: 1.7rem; }
-  .ss-stats { gap: 1.5rem; }
+  .ss-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; max-width: 420px; }
   .ss-stat-value { font-size: 1.4rem; }
 }

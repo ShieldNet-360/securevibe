@@ -13,6 +13,30 @@
       "action": "unchanged"
     },
     {
+      "path": "compliance/iso_27001_mapping.yaml",
+      "sha256": "5c03bd29822b39de8b9488cf5b2f53f5c821b9fe5dba6527865cfb95967fd1ee",
+      "size": 5527,
+      "action": "unchanged"
+    },
+    {
+      "path": "compliance/iso_27017_mapping.yaml",
+      "sha256": "77214c3d7ee219eb3c5298ab64d977fd77a185b7784d9bd85709295d72db368d",
+      "size": 2389,
+      "action": "unchanged"
+    },
+    {
+      "path": "compliance/iso_27701_mapping.yaml",
+      "sha256": "b0957a8f6c3c0c11cb1c33b71b161988becc4dee77e24b9ed03bdd1cd55691be",
+      "size": 2987,
+      "action": "unchanged"
+    },
+    {
+      "path": "compliance/iso_42001_mapping.yaml",
+      "sha256": "b9d1cc17ce653a2b6854a028300b090494296f25e818218a3e26ffc59c51f044",
+      "size": 2812,
+      "action": "unchanged"
+    },
+    {
       "path": "compliance/pci_dss_mapping.yaml",
       "sha256": "0ec365a11550963af0ba7817802ebf465da42f5e12d1eee8bfc0e30ea41d5ba5",
       "size": 3739,
@@ -7874,8 +7898,8 @@
     },
     {
       "path": "vulnerabilities/supply-chain/malicious-packages/npm.json",
-      "sha256": "20471f1f87261c1508b47399dbb95bb42b54b7b81d99944d72d83b5f34e40998",
-      "size": 690721,
+      "sha256": "5cb9c3e598bbc555d0d2676b1054a1aa6f6bb7d27cbb6e8308b93afd5cc4cd34",
+      "size": 1057858,
       "action": "unchanged"
     },
     {
@@ -7886,8 +7910,8 @@
     },
     {
       "path": "vulnerabilities/supply-chain/malicious-packages/pypi.json",
-      "sha256": "9a288157252173055f70c6570808736681130bcd1602fa40ddf5e04c55ebcc0c",
-      "size": 323014,
+      "sha256": "52d3528871c4843e4c84d2af65239cded84c179a383ec704d102ebb9bdb0a2a8",
+      "size": 362980,
       "action": "unchanged"
     },
     {
@@ -7934,8 +7958,8 @@
     },
     {
       "path": "vulnerabilities/supply-chain/typosquat-db/known_typosquats.json",
-      "sha256": "3f937acd8af4e6543f01d6730295c9a644c1db51e9203133df720c294ae8a93e",
-      "size": 120776,
+      "sha256": "4f7566ad46c780c65bd430c1b247fad004942b45313055c18a81588dff40e03b",
+      "size": 124857,
       "action": "unchanged"
     }
   ]

@@ -93,10 +93,11 @@ func loadVulnerabilitySummary(repoRoot string) (string, error) {
 		if items[i].entry.Discovered != items[j].entry.Discovered {
 			return items[i].entry.Discovered > items[j].entry.Discovered
 		}
-		// Total-order tiebreakers so the top-N selection is deterministic
-		// regardless of Go's (unstable) sort: many entries share the same
-		// severity+date, and without this the rendered list varied by Go
-		// version, breaking the dist-drift CI check.
+		// Deterministic tiebreak so the top-N summary is byte-identical
+		// across platforms — without it, sort.Slice leaves entries that
+		// share a severity and discovered date in an unstable order, and
+		// the top-8 cutoff would pick different ties on arm64 vs amd64,
+		// drifting dist/SECURITY-SKILLS.md between local and CI.
 		if items[i].ecosystem != items[j].ecosystem {
 			return items[i].ecosystem < items[j].ecosystem
 		}

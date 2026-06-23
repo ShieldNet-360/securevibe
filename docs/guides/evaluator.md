@@ -52,7 +52,7 @@ curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/insta
 
 ### 2. Catch a malicious / typosquat dependency
 
-The dependency scanner checks against a curated malicious-package database of **2,022 web-cited entries across 9 ecosystems**. Exact-match lookups produce zero false positives — that is the data moat.
+The dependency scanner checks against a curated malicious-package database of **3,623 web-cited entries across 10 ecosystems**. Exact-match lookups produce zero false positives — that is the data moat.
 
 Create a `package.json` that references a known-bad package:
 
@@ -101,7 +101,7 @@ Scanning secrets in config.env
 1 issue found (1 high)
 ```
 
-The secret scanner ships **74 secret-detection patterns**.
+The secret scanner ships **83 secret-detection patterns**.
 
 !!! tip "Tested edge"
     On SecureVibe's own tuned corpus, the secret scanner measured **100% precision / 100% recall** versus gitleaks at **92.4% / 65.9%** (76.9 F1) — **on the shapes we tested**. The honest signal there is gitleaks' *recall* gap on those shapes, not a universal claim that SecureVibe beats gitleaks everywhere.

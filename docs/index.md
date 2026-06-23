@@ -13,10 +13,11 @@ hide:
 <div class="ss-hero-shields">
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
   <img src="https://img.shields.io/github/actions/workflow/status/shieldnet-360/securevibe/validate.yml?branch=main&label=CI" alt="CI">
+  <img src="https://img.shields.io/github/last-commit/shieldnet-360/securevibe?label=last%20update&color=brightgreen" alt="Last commit">
   <img src="https://img.shields.io/badge/skills-29-blue" alt="Skills">
   <img src="https://img.shields.io/badge/CVE%20patterns-58-orange" alt="CVE patterns">
-  <img src="https://img.shields.io/badge/supply--chain%20ecosystems-9-purple" alt="Supply-chain ecosystems">
-  <img src="https://img.shields.io/badge/Secret%20patterns-74-red" alt="secret-detection patterns">
+  <img src="https://img.shields.io/badge/supply--chain%20ecosystems-10-purple" alt="Supply-chain ecosystems">
+  <img src="https://img.shields.io/badge/Secret%20patterns-83-red" alt="secret-detection patterns">
   <img src="https://img.shields.io/badge/platforms-win%20%7C%20mac%20%7C%20linux-green" alt="Platforms">
   <img src="https://img.shields.io/badge/AI%20clients-8-16a34a" alt="AI clients">
 </div>
@@ -34,12 +35,15 @@ hide:
 </div>
 
 <div class="ss-stats">
-  <div class="ss-stat"><span class="ss-stat-value">29</span><span class="ss-stat-label">Skills</span></div>
-  <div class="ss-stat"><span class="ss-stat-value">58</span><span class="ss-stat-label">CVE Patterns</span></div>
-  <div class="ss-stat"><span class="ss-stat-value">9</span><span class="ss-stat-label">Supply-Chain Ecosystems</span></div>
-  <div class="ss-stat"><span class="ss-stat-value">74</span><span class="ss-stat-label">Secret Patterns</span></div>
-  <div class="ss-stat"><span class="ss-stat-value">8</span><span class="ss-stat-label">AI Client Integrations</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="malicious">3,623</span><span class="ss-stat-label">Curated Entries</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="ecosystems">10</span><span class="ss-stat-label">Supply-Chain Ecosystems</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="skills">29</span><span class="ss-stat-label">Skills</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="cve">58</span><span class="ss-stat-label">CVE Patterns</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="secret">83</span><span class="ss-stat-label">Secret Patterns</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="integrations">8</span><span class="ss-stat-label">AI Client Integrations</span></div>
 </div>
+
+<p data-sv-freshness style="text-align:center;opacity:.66;font-size:.82em;margin:.5rem auto 0">Curated database refreshed 2026-06-23 · +1,601 entries in the last 30 days · OSSF malicious-packages @ 8c093db5</p>
 
 </div>
 
@@ -98,7 +102,7 @@ flowchart LR
         SK["skills/<br/>29 SKILL.md"]
         VU["vulnerabilities/<br/>npm · pypi · cargo · gem · go ·<br/>nuget · maven · gh-actions · docker"]
         CV["CVE patterns<br/>58 code-relevant"]
-        SECRETS["Secret patterns<br/>74 detection rules"]
+        SECRETS["Secret patterns<br/>83 detection rules"]
         CO["compliance/<br/>SOC2 · HIPAA · PCI"]
     end
     DIST --> LIB
@@ -130,12 +134,12 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="supply" href="threat-intel/">
 <span class="ss-card-icon">📦</span>
 <span class="ss-card-body"><span class="ss-card-title">Supply-Chain Intel</span>
-<span class="ss-card-desc">2,022 web-cited malicious-package entries across 10 ecosystems + typosquats. Browse the curated canon →</span></span>
+<span class="ss-card-desc" data-sv-card="supply">3,623 web-cited malicious-package entries across 10 ecosystems + typosquats. Browse the curated canon →</span></span>
 </a>
 <a class="ss-card" data-pkg="secrets" href="https://github.com/shieldnet-360/securevibe/tree/main/skills/secret-detection">
 <span class="ss-card-icon">🔐</span>
 <span class="ss-card-body"><span class="ss-card-title">Secret Patterns</span>
-<span class="ss-card-desc">74 secret-detection patterns optimised for AI-assistant context, with entropy and hotword-proximity scoring.</span></span>
+<span class="ss-card-desc" data-sv-card="secrets">83 secret-detection patterns optimised for AI-assistant context, with entropy and hotword-proximity scoring.</span></span>
 </a>
 <a class="ss-card" data-pkg="signing" href="https://github.com/shieldnet-360/securevibe/blob/main/SIGNING.md">
 <span class="ss-card-icon">✍️</span>
@@ -147,10 +151,10 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <span class="ss-card-body"><span class="ss-card-title">CLI + MCP Server</span>
 <span class="ss-card-desc"><code>skills-check</code> Go binary for init / validate / update / regenerate / gate. <code>skills-mcp</code> exposes 16 JSON-RPC tools.</span></span>
 </a>
-<a class="ss-card" data-pkg="compliance" href="https://github.com/shieldnet-360/securevibe/tree/main/compliance">
+<a class="ss-card" data-pkg="compliance" href="compliance/">
 <span class="ss-card-icon">📋</span>
-<span class="ss-card-body"><span class="ss-card-title">Compliance Evidence</span>
-<span class="ss-card-desc">Automated SOC 2 / HIPAA / PCI-DSS control coverage reports. <code>skills-check evidence --framework SOC2</code>.</span></span>
+<span class="ss-card-body"><span class="ss-card-title">Compliance Coverage</span>
+<span class="ss-card-desc" data-sv-card="compliance">Live control → skill matrix across SOC 2, HIPAA, PCI-DSS and ISO/IEC 27001 · 27701 · 27017 · 42001 (AI) — 81 mapped controls. <code>skills-check evidence --framework</code>.</span></span>
 </a>
 <a class="ss-card" data-pkg="enterprise" href="https://github.com/shieldnet-360/securevibe/tree/main/profiles">
 <span class="ss-card-icon">🏢</span>
@@ -158,6 +162,26 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <span class="ss-card-desc">Locked policy bundles for managed deployments: financial-services, healthcare, government. <code>--profile</code> on init / regenerate.</span></span>
 </a>
 </div>
+</div>
+
+<div class="ss-section" markdown>
+
+## Compliance coverage
+
+<p class="ss-compliance-lead">Signed skills map to the controls you're audited against. <strong><span data-sv-stat="frameworks">7</span> frameworks · <span data-sv-stat="controls">81</span> mapped controls</strong> — <a href="compliance/">browse the live control&nbsp;→&nbsp;skill matrix →</a></p>
+
+<div class="ss-compliance-chips" data-sv-frameworks>
+  <span class="ss-chip">SOC 2</span>
+  <span class="ss-chip">HIPAA</span>
+  <span class="ss-chip">PCI-DSS</span>
+  <span class="ss-chip">ISO/IEC 27001</span>
+  <span class="ss-chip">ISO/IEC 27701</span>
+  <span class="ss-chip">ISO/IEC 27017</span>
+  <span class="ss-chip">ISO/IEC 42001</span>
+</div>
+
+<p class="ss-compliance-note">Honest scope: each mapping links SecureVibe's technical controls to the framework — it helps you implement and evidence those controls, it does not certify your ISMS / AIMS / PIMS programme.</p>
+
 </div>
 
 <div class="ss-section" markdown>

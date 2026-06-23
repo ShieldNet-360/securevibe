@@ -86,7 +86,11 @@ docs-serve: ## Live-reload docs preview on http://127.0.0.1:8000
 		$(VENV)/bin/mkdocs serve
 
 .PHONY: docs-data
-docs-data: threat-data skills-data compliance-data ## Regenerate all docs datasets
+docs-data: threat-data skills-data compliance-data stats-data ## Regenerate all docs datasets
+
+.PHONY: stats-data
+stats-data: ## Regenerate the homepage "by the numbers" stats (cve/secret/integration counts)
+	python3 scripts/gen-stats.py
 
 .PHONY: threat-data
 threat-data: ## Regenerate the docs Threat-Intel dataset from the curated DB
