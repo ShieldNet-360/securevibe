@@ -229,5 +229,20 @@ func toolDefinitions() []map[string]interface{} {
 				"required": []string{"file_path"},
 			},
 		},
+		{
+			"name":        "verify_finding",
+			"description": "Actively VERIFY a detected finding against a LIVE target by sending a probe and checking a deterministic oracle (the dynamic 'verify' lane). Types: ssrf (out-of-band / cloud-metadata), sqli (time-based blind), xss (reflected), redirect (open redirect). SAFETY: this sends attack payloads, so it is gated — it runs DRY-RUN (builds the payload, sends NOTHING) unless the operator set the SECURECODE_VERIFY_SCOPE env to an allow-list AND the target matches it. The model chooses WHICH finding to verify; it never chooses the scope or credentials. Use only on targets you are authorized to test.",
+			"inputSchema": map[string]interface{}{
+				"type": "object",
+				"properties": map[string]interface{}{
+					"type":   map[string]interface{}{"type": "string", "description": "Vulnerability class to verify.", "enum": []string{"ssrf", "sqli", "xss", "redirect"}},
+					"target": map[string]string{"type": "string", "description": "URL of the endpoint to probe, e.g. http://localhost:4000/research"},
+					"param":  map[string]string{"type": "string", "description": "The parameter believed injectable, e.g. url"},
+					"method": map[string]interface{}{"type": "string", "description": "HTTP method (default GET).", "enum": []string{"", "GET", "POST"}},
+					"query":  map[string]interface{}{"type": "object", "description": "Other required query params, e.g. {\"symbol\":\"AAPL\"}."},
+				},
+				"required": []string{"type", "target", "param"},
+			},
+		},
 	}
 }
