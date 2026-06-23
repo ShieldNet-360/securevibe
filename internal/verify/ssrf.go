@@ -10,7 +10,7 @@ import (
 var ssrfInternalSignatures = []string{
 	"iam/security-credentials", "ami-id", "instance-id", // AWS IMDS
 	"computeMetadata", // GCP
-	"INTERNAL-SECRET",  // generic marker for local test fixtures
+	"INTERNAL-SECRET", // generic marker for local test fixtures
 }
 
 // SSRFProbe verifies server-side request forgery.
