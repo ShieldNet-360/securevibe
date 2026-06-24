@@ -122,6 +122,7 @@ nav:
     - How it compares: concepts/comparison.md
     - Benchmarks & methodology: concepts/benchmarks.md
     - Architecture: concepts/architecture.md
+    - How detection works: concepts/detection.md
     - Roadmap: concepts/roadmap.md
   - Reference:
     - CLI (skills-check): reference/cli.md
