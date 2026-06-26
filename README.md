@@ -74,8 +74,8 @@ generation*, before the diff ever touches your repo.
 | **Compliance maps** | [`compliance/`](./compliance) | OWASP Top 10, CWE Top 25, SANS Top 25 framework mappings plus developer-facing compliance coverage maps (SOC 2, HIPAA, PCI-DSS, FedRAMP). |
 | **Dictionaries** | [`dictionaries/`](./dictionaries) | Security term definitions, CWE catalogue, MITRE ATT&CK technique references — context the AI needs to reason about security. |
 | **Pre-compiled IDE files** | [`dist/`](./dist) | Ready-to-drop-in `CLAUDE.md`, `.cursorrules`, `copilot-instructions.md`, `AGENTS.md`, `.windsurfrules`, `devin.md`, `.clinerules`, and a universal `SECURITY-SKILLS.md`. |
-| **CLI** | [`cmd/skills-check/`](./cmd/skills-check) | Single static Go binary for installing, updating, and validating skills across every supported IDE. |
-| **MCP server** | [`cmd/skills-mcp/`](./cmd/skills-mcp) | JSON-RPC 2.0 Model Context Protocol server for on-demand skill / vulnerability lookups. |
+| **CLI + MCP binary** | [`cmd/securevibe/`](./cmd/securevibe) | Single static Go binary: scanners, CI gate, IDE config, maintainer (`dev`) commands, and the `securevibe mcp` server. |
+| **MCP server** | [`internal/mcp/`](./internal/mcp) | JSON-RPC 2.0 Model Context Protocol server for on-demand skill / vulnerability lookups, exposed via `securevibe mcp`. |
 
 ## Install & run
 
