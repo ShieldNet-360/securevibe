@@ -129,30 +129,27 @@ files `init` writes). Prefer a persistent command? `npm install -g
 curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
 ```
 
-Downloads the `skills-check` binary for your OS/arch from the latest GitHub
+Downloads the `securevibe` binary for your OS/arch from the latest GitHub
 release, **verifies its SHA-256** against the release `SHA256SUMS.txt`, and
-installs it to `~/.local/bin`. Override with `SKILLS_CHECK_BIN_DIR` (install
-dir) or `SKILLS_CHECK_VERSION` (pin a tag). macOS + Linux, amd64 + arm64.
+installs it to `~/.local/bin`. Override with `SECUREVIBE_BIN_DIR` (install
+dir) or `SECUREVIBE_VERSION` (pin a tag). macOS + Linux, amd64 + arm64.
 
 ### C. Go — `go install`
 
 ```bash
-# the MCP server
-go install github.com/shieldnet-360/securevibe/cmd/skills-mcp@latest
-
-# the CLI (install/update/validate skills across IDEs)
-go install github.com/shieldnet-360/securevibe/cmd/skills-check@latest
+# one binary: CLI + MCP server + maintainer (dev) commands
+go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
 ```
 
-`skills-mcp` reads its library data from disk (it does not embed it), so point
+`securevibe` reads its library data from disk (it does not embed it), so point
 it at a **library directory** via `--path` (or `$SKILLS_LIBRARY_PATH`). Get one
-by cloning (section D below); `skills-check update` keeps that directory's
+by cloning (section D below); `securevibe update` keeps that directory's
 signed skills + vulnerability data current:
 
 ```bash
 git clone https://github.com/shieldnet-360/securevibe.git lib
-skills-mcp --path ./lib            # run the server against ./lib
-skills-check update --path ./lib   # later: pull signed updates into ./lib
+securevibe mcp --path ./lib        # run the MCP server against ./lib
+securevibe update --path ./lib     # later: pull signed updates into ./lib
 ```
 
 ### D. From source (clone)
@@ -161,12 +158,11 @@ skills-check update --path ./lib   # later: pull signed updates into ./lib
 git clone https://github.com/shieldnet-360/securevibe.git
 cd securevibe
 
-# build both binaries
-go build -o skills-mcp   ./cmd/skills-mcp
-go build -o skills-check ./cmd/skills-check
+# build the single binary
+go build -o securevibe ./cmd/securevibe
 
 # run the MCP server against this checkout
-./skills-mcp --path .
+./securevibe mcp --path .
 ```
 
 Wire the local binary into an agent by absolute path:
@@ -175,8 +171,8 @@ Wire the local binary into an agent by absolute path:
 {
   "mcpServers": {
     "SecureVibe": {
-      "command": "/abs/path/securevibe/skills-mcp",
-      "args": ["--path", "/abs/path/securevibe"]
+      "command": "/abs/path/securevibe/securevibe",
+      "args": ["mcp", "--path", "/abs/path/securevibe"]
     }
   }
 }

@@ -21,7 +21,7 @@ jobs:
   # binaries are uploaded as `raw-<goos>-<goarch>` artifacts and handed
   # off to platform-specific jobs below for signing + checksumming.
   build:
-    name: Cross-compile skills-check ${{ matrix.goos }}/${{ matrix.goarch }}
+    name: Cross-compile securevibe ${{ matrix.goos }}/${{ matrix.goarch }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -66,27 +66,20 @@ jobs:
             ext=".exe"
           fi
           mkdir -p dist-build
-          # skills-check: the CLI. Carries the embedded public key + CLI
-          # version via -ldflags -X so `skills-check manifest verify` and
-          # `skills-check version` work on the shipped binary.
+          # securevibe: the single binary (CLI + `securevibe mcp` server).
+          # Carries the embedded public key + CLI version via -ldflags -X so
+          # `securevibe dev manifest verify` and `securevibe version` work on
+          # the shipped binary. This is the asset install.sh / Homebrew pull
+          # and the binary `go install .../cmd/securevibe@latest` produces.
           go build \
             -trimpath \
             -ldflags "-s -w \
-              -X github.com/shieldnet-360/securevibe/cmd/skills-check/cmd.CLIVersion=${GITHUB_REF_NAME:-dev} \
-              -X github.com/shieldnet-360/securevibe/cmd/skills-check/internal/manifest.EmbeddedPublicKey=${SKILLS_LIBRARY_PUBKEY_B64:-} \
-              -X github.com/shieldnet-360/securevibe/cmd/skills-check/internal/manifest.EmbeddedPublicKeyID=${SKILLS_LIBRARY_PUBKEY_ID:-} \
+              -X github.com/shieldnet-360/securevibe/cmd/securevibe/cmd.CLIVersion=${GITHUB_REF_NAME:-dev} \
+              -X github.com/shieldnet-360/securevibe/cmd/securevibe/internal/manifest.EmbeddedPublicKey=${SKILLS_LIBRARY_PUBKEY_B64:-} \
+              -X github.com/shieldnet-360/securevibe/cmd/securevibe/internal/manifest.EmbeddedPublicKeyID=${SKILLS_LIBRARY_PUBKEY_ID:-} \
             " \
-            -o "dist-build/skills-check-${GOOS}-${GOARCH}${ext}" \
-            ./cmd/skills-check
-          # skills-mcp: the MCP server. No -X vars to inject (it has no
-          # CLIVersion / embedded-key symbols); ship it stripped. This is
-          # the binary the npm/npx channel wraps and the asset that lets
-          # `go install .../cmd/skills-mcp@latest` be paired with a release.
-          go build \
-            -trimpath \
-            -ldflags "-s -w" \
-            -o "dist-build/skills-mcp-${GOOS}-${GOARCH}${ext}" \
-            ./cmd/skills-mcp
+            -o "dist-build/securevibe-${GOOS}-${GOARCH}${ext}" \
+            ./cmd/securevibe
 
       - name: Upload unsigned binary
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
@@ -118,14 +111,13 @@ jobs:
           set -euo pipefail
           cd dist-build
           sha256sum \
-            skills-check-linux-${{ matrix.goarch }} \
-            skills-mcp-linux-${{ matrix.goarch }} \
+            securevibe-linux-${{ matrix.goarch }} \
             > checksums-linux-${{ matrix.goarch }}.txt
 
       - name: Upload final binary artifact
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
-          name: skills-check-linux-${{ matrix.goarch }}
+          name: securevibe-linux-${{ matrix.goarch }}
           path: dist-build/
 
   # macOS Developer ID signing + notarization. Runs on `macos-latest`
@@ -168,8 +160,8 @@ jobs:
           security unlock-keychain -p actions build.keychain
           security import /tmp/cert.p12 -k build.keychain -P "$APPLE_DEVELOPER_ID_CERT_PASSWORD" -T /usr/bin/codesign
           security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k actions build.keychain
-          # Sign + notarize both shipped binaries with the same identity.
-          for out in skills-check-darwin-${{ matrix.goarch }} skills-mcp-darwin-${{ matrix.goarch }}; do
+          # Sign + notarize the shipped binary.
+          for out in securevibe-darwin-${{ matrix.goarch }}; do
             codesign --force --options runtime --timestamp \
               --sign "$APPLE_DEVELOPER_ID" "dist-build/${out}"
             ditto -c -k --keepParent "dist-build/${out}" "/tmp/${out}.zip"
@@ -189,14 +181,13 @@ jobs:
           set -euo pipefail
           cd dist-build
           shasum -a 256 \
-            skills-check-darwin-${{ matrix.goarch }} \
-            skills-mcp-darwin-${{ matrix.goarch }} \
+            securevibe-darwin-${{ matrix.goarch }} \
             > checksums-darwin-${{ matrix.goarch }}.txt
 
       - name: Upload final binary artifact
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
-          name: skills-check-darwin-${{ matrix.goarch }}
+          name: securevibe-darwin-${{ matrix.goarch }}
           path: dist-build/
 
   # Windows Authenticode signing. Runs on `windows-latest` so
@@ -231,8 +222,8 @@ jobs:
             | Sort-Object FullName -Descending `
             | Select-Object -First 1).FullName
           if (-not $signtool) { throw 'signtool.exe not found on runner' }
-          # Sign both shipped binaries with the same Authenticode cert.
-          foreach ($bin in @('dist-build/skills-check-windows-amd64.exe', 'dist-build/skills-mcp-windows-amd64.exe')) {
+          # Sign the shipped binary with the Authenticode cert.
+          foreach ($bin in @('dist-build/securevibe-windows-amd64.exe')) {
             & $signtool sign `
               /f $pfxPath `
               /p $env:WINDOWS_CERT_PFX_PASSWORD `
@@ -250,7 +241,7 @@ jobs:
           Set-Location dist-build
           # Match the `sha256sum` output format: "<hash>  <filename>\n".
           # Use UTF-8 without BOM so the file reads cleanly on Unix tooling.
-          $lines = foreach ($name in @('skills-check-windows-amd64.exe', 'skills-mcp-windows-amd64.exe')) {
+          $lines = foreach ($name in @('securevibe-windows-amd64.exe')) {
             $hash = (Get-FileHash $name -Algorithm SHA256).Hash.ToLower()
             "$hash  $name"
           }
@@ -259,7 +250,7 @@ jobs:
       - name: Upload final binary artifact
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 # v5
         with:
-          name: skills-check-windows-amd64
+          name: securevibe-windows-amd64
           path: dist-build/
 
   publish:
@@ -279,14 +270,14 @@ jobs:
           go-version: "1.22"
           cache: true
 
-      - name: Build local skills-check (for manifest tooling)
-        run: go build -trimpath -ldflags "-s -w" -o /tmp/skills-check ./cmd/skills-check
+      - name: Build local securevibe (for manifest tooling)
+        run: go build -trimpath -ldflags "-s -w" -o /tmp/securevibe ./cmd/securevibe
 
       - name: Compute manifest checksums
-        run: /tmp/skills-check manifest compute --path . --write
+        run: /tmp/securevibe dev manifest compute --path . --write
 
       - name: Verify manifest checksums
-        run: /tmp/skills-check manifest verify --path . --checksums-only
+        run: /tmp/securevibe dev manifest verify --path . --checksums-only
 
       - name: Compute delta against previous version (best effort)
         shell: bash
@@ -300,7 +291,7 @@ jobs:
           fi
           PREV_MANIFEST=$(mktemp)
           if git show "$PREV_TAG:manifest.json" > "$PREV_MANIFEST" 2>/dev/null; then
-            /tmp/skills-check manifest delta --from "$PREV_MANIFEST" --to manifest.json --out deltas || true
+            /tmp/securevibe dev manifest delta --from "$PREV_MANIFEST" --to manifest.json --out deltas || true
           fi
 
       - name: Download every binary artifact
@@ -310,13 +301,13 @@ jobs:
           # Only pull the signed/finalized artifacts; the `raw-*`
           # artifacts are intermediate and must not appear in the
           # release.
-          pattern: skills-check-*
+          pattern: securevibe-*
 
       - name: Build full OSV cache from upstream
         # The committed `vulnerabilities/osv/` tree is a small
         # latest-first sample (see scripts/ingest-osv.py:DEFAULT_PER_ECO);
         # the release additionally ships the full upstream archive as a
-        # standalone asset so `skills-check fetch-vulns --from-release`
+        # standalone asset so `securevibe dev fetch-vulns --from-release`
         # can populate the user cache without hitting osv.dev directly.
         shell: bash
         run: |
@@ -333,12 +324,11 @@ jobs:
         run: |
           set -e
           mkdir -p release
-          # Flatten binary artifacts (both the skills-check CLI and the
-          # skills-mcp server, per platform) plus their checksum files.
-          find artifacts -type f \( -name 'skills-check-*' -o -name 'skills-mcp-*' -o -name 'checksums-*.txt' \) -exec cp {} release/ \;
+          # Flatten the per-platform securevibe binaries plus their checksum files.
+          find artifacts -type f \( -name 'securevibe-*' -o -name 'checksums-*.txt' \) -exec cp {} release/ \;
           cp manifest.json release/
           # Bundle the distributable library tree into a single tarball so
-          # `skills-check update` (default --source) can pull the whole
+          # `securevibe update` (default --source) can pull the whole
           # library in one HTTP request. Individual files under skills/,
           # vulnerabilities/, dictionaries/, and dist/ are NOT published
           # as separate release assets — this bundle is the canonical
@@ -378,9 +368,9 @@ jobs:
           fi
 
       - name: Stamp Homebrew formula
-        # Make `brew install shieldnet-360/tap/skills-check` real: fill the
+        # Make `brew install shieldnet-360/tap/securevibe` real: fill the
         # formula template's version + per-arch SHA-256 from the binaries we
-        # just built, and publish the stamped formula as the `skills-check.rb`
+        # just built, and publish the stamped formula as the `securevibe.rb`
         # release asset. The formula's `url` lines interpolate `v#{version}`,
         # so setting the version resolves them to this release's download URLs.
         # The tap repo itself is updated by the release manager (or a
@@ -391,27 +381,27 @@ jobs:
         run: |
           set -euo pipefail
           version="${TAG#v}"
-          da=$(sha256sum release/skills-check-darwin-arm64 | awk '{print $1}')
-          dx=$(sha256sum release/skills-check-darwin-amd64 | awk '{print $1}')
-          la=$(sha256sum release/skills-check-linux-arm64  | awk '{print $1}')
-          lx=$(sha256sum release/skills-check-linux-amd64  | awk '{print $1}')
+          da=$(sha256sum release/securevibe-darwin-arm64 | awk '{print $1}')
+          dx=$(sha256sum release/securevibe-darwin-amd64 | awk '{print $1}')
+          la=$(sha256sum release/securevibe-linux-arm64  | awk '{print $1}')
+          lx=$(sha256sum release/securevibe-linux-amd64  | awk '{print $1}')
           sed \
             -e "s/^  version \"0.0.0\"/  version \"${version}\"/" \
             -e "s/REPLACE_WITH_DARWIN_ARM64_SHA256/${da}/" \
             -e "s/REPLACE_WITH_DARWIN_AMD64_SHA256/${dx}/" \
             -e "s/REPLACE_WITH_LINUX_ARM64_SHA256/${la}/" \
             -e "s/REPLACE_WITH_LINUX_AMD64_SHA256/${lx}/" \
-            packaging/homebrew/skills-check.rb > release/skills-check.rb
-          if grep -q "REPLACE_WITH\|0.0.0" release/skills-check.rb; then
+            packaging/homebrew/securevibe.rb > release/securevibe.rb
+          if grep -q "REPLACE_WITH\|0.0.0" release/securevibe.rb; then
             echo "::error::Homebrew formula was not fully stamped (a placeholder or 0.0.0 remains)."
             exit 1
           fi
           echo "Stamped Homebrew formula for ${version}:"
-          grep -E '  version|sha256' release/skills-check.rb
+          grep -E '  version|sha256' release/securevibe.rb
 
       - name: Publish GitHub Release (draft)
         # The release is created as a DRAFT so that consumers cannot
-        # download it via `skills-check update` (which follows the
+        # download it via `securevibe update` (which follows the
         # "latest" pointer) before the manifest has been signed
         # offline and re-verified by `sign-and-publish.yml`. The
         # draft → sign → verify → publish flow is documented in
@@ -430,24 +420,23 @@ jobs:
 
             > ⚠️ This release is a **draft**. The bundled `manifest.json`
             > still contains `"signature": "TBD"` and is not consumable by
-            > `skills-check update`. The release manager must sign the
+            > `securevibe update`. The release manager must sign the
             > manifest offline per [SIGNING.md](../SIGNING.md), re-upload
             > it to the draft, and then run the `Sign & publish` workflow
             > (`.github/workflows/sign-and-publish.yml`) to mark this
             > release as published.
 
             **Assets:**
-            - `skills-check-<goos>-<goarch>[.exe]` — CLI binary (reproducible build).
-            - `skills-mcp-<goos>-<goarch>[.exe]` — MCP server binary (reproducible build). The binary the npm/npx channel wraps; reads its library data from `--path` / `$SKILLS_LIBRARY_PATH` (it does not embed the data tree).
-            - `checksums-<goos>-<goarch>.txt` — SHA-256 of both binaries for that platform.
+            - `securevibe-<goos>-<goarch>[.exe]` — the single binary: CLI + MCP server (`securevibe mcp`), reproducible build. This is what `install.sh` and Homebrew download, and what `go install .../cmd/securevibe@latest` produces. Reads its library data from `--path` / `$SKILLS_LIBRARY_PATH` (it does not embed the data tree).
+            - `checksums-<goos>-<goarch>.txt` — SHA-256 of the binary for that platform.
             - `manifest.json` — library manifest (signed out-of-band before publish).
-            - `skills-library-data.tar.gz` — library payload (skills, vulnerabilities, dictionaries, dist, rules, compliance, profiles, manifest.json). This is what `skills-check update` downloads by default. The bundled `vulnerabilities/osv/` tree is a small latest-first sample.
-            - `osv-cache.tar.gz` — full upstream OSV catalogue (`osv/<eco>/...`). Consumed by `skills-check fetch-vulns --from-release` to populate the user cache with complete coverage without hitting osv.dev.
+            - `skills-library-data.tar.gz` — library payload (skills, vulnerabilities, dictionaries, dist, rules, compliance, profiles, manifest.json). This is what `securevibe update` downloads by default. The bundled `vulnerabilities/osv/` tree is a small latest-first sample.
+            - `osv-cache.tar.gz` — full upstream OSV catalogue (`osv/<eco>/...`). Consumed by `securevibe dev fetch-vulns --from-release` to populate the user cache with complete coverage without hitting osv.dev.
             - `deltas.tar.gz` — patch set against the previous release (best effort).
             - `SHA256SUMS.txt` — checksum of every asset above.
 
             **Verification (post-publish):**
             - Verify the binary with the matching `checksums-<goos>-<goarch>.txt` file.
-            - Verify `manifest.json` with `skills-check manifest verify --path .`.
+            - Verify `manifest.json` with `securevibe dev manifest verify --path .`.
             - The `Sign & publish` workflow runs the same verification in CI
               before flipping the draft to public.

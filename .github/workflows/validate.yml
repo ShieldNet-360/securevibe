@@ -11,7 +11,7 @@ permissions:
 
 # Two consolidated jobs instead of one-job-per-check: a single runner +
 # toolchain setup per group cuts ~10 redundant runner spin-ups (and rebuilds
-# skills-check once instead of 4x). Each check is a named step, so a failure
+# securevibe once instead of 4x). Each check is a named step, so a failure
 # still points at exactly which check broke. Steps are fail-fast within a job.
 jobs:
   static-checks:
@@ -380,7 +380,7 @@ jobs:
         run: python3 evals/benchmarks/secret-detection-vs-gitleaks.py --check
 
       - name: Per-skill corpus tests (hard gate)
-        # Runs every skills/<id>/tests/corpus.json through `skills-check test`.
+        # Runs every skills/<id>/tests/corpus.json through `securevibe dev test`.
         # Gate-driven corpora scan their fixtures with the same PolicyCheck the
         # CI gate command uses, so this step is the quality floor for the gate
         # itself. continue-on-error keeps it advisory while the corpora burn
