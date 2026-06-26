@@ -15,7 +15,7 @@ Users install with:
 # APT (Ubuntu / Debian)
 curl -fsSL https://shieldnet-360.github.io/skills-library/apt/pubkey.gpg | sudo gpg --dearmor -o /etc/apt/keyrings/skills-library.gpg
 echo "deb [signed-by=/etc/apt/keyrings/skills-library.gpg] https://shieldnet-360.github.io/skills-library/apt stable main" | sudo tee /etc/apt/sources.list.d/skills-library.list
-sudo apt update && sudo apt install skills-check
+sudo apt update && sudo apt install securevibe
 
 # YUM / DNF (RHEL / Fedora)
 sudo tee /etc/yum.repos.d/skills-library.repo <<EOF
@@ -26,7 +26,7 @@ enabled=1
 gpgcheck=1
 gpgkey=https://shieldnet-360.github.io/skills-library/yum/RPM-GPG-KEY-skills-library
 EOF
-sudo dnf install skills-check
+sudo dnf install securevibe
 ```
 
 ## How the repo is built
@@ -52,11 +52,11 @@ site/
 ├── apt/
 │   ├── pubkey.gpg
 │   ├── dists/stable/{InRelease,Release,Release.gpg,main/binary-amd64/Packages*}
-│   └── pool/main/s/skills-check/skills-check_<VERSION>_amd64.deb
+│   └── pool/main/s/securevibe/securevibe_<VERSION>_amd64.deb
 └── yum/
     ├── RPM-GPG-KEY-skills-library
     ├── repodata/...
-    └── packages/skills-check-<VERSION>.x86_64.rpm
+    └── packages/securevibe-<VERSION>.x86_64.rpm
 ```
 
 ## Reproducibility

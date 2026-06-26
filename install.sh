@@ -1,23 +1,23 @@
 #!/bin/sh
-# install.sh — one-line installer for the skills-check CLI.
+# install.sh — one-line installer for the securevibe CLI.
 #
 #   curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
 #
-# Downloads the skills-check binary for your OS/arch from the latest GitHub
+# Downloads the securevibe binary for your OS/arch from the latest GitHub
 # release, verifies its SHA-256 against the release's SHA256SUMS.txt, and
 # installs it to ~/.local/bin. Override with these environment variables:
 #
-#   SKILLS_CHECK_BIN_DIR   install directory          (default: ~/.local/bin)
-#   SKILLS_CHECK_VERSION   release tag to install     (default: latest)
-#   SKILLS_CHECK_BASE_URL  release download base URL  (default: GitHub releases)
+#   SECUREVIBE_BIN_DIR   install directory          (default: ~/.local/bin)
+#   SECUREVIBE_VERSION   release tag to install     (default: latest)
+#   SECUREVIBE_BASE_URL  release download base URL  (default: GitHub releases)
 #
 # POSIX sh, no bashisms — runs under dash/ash/busybox as well as bash.
 set -eu
 
 REPO="shieldnet-360/securevibe"
-BIN="skills-check"
-BIN_DIR="${SKILLS_CHECK_BIN_DIR:-$HOME/.local/bin}"
-VERSION="${SKILLS_CHECK_VERSION:-latest}"
+BIN="securevibe"
+BIN_DIR="${SECUREVIBE_BIN_DIR:-$HOME/.local/bin}"
+VERSION="${SECUREVIBE_VERSION:-latest}"
 
 err() { printf 'install: error: %s\n' "$1" >&2; exit 1; }
 need() { command -v "$1" >/dev/null 2>&1 || err "required command not found: $1"; }
@@ -53,8 +53,8 @@ esac
 asset="${BIN}-${os}-${arch}"
 
 # Resolve the release tag (skip the API call when a tag is pinned).
-if [ -n "${SKILLS_CHECK_BASE_URL:-}" ]; then
-  base="$SKILLS_CHECK_BASE_URL"
+if [ -n "${SECUREVIBE_BASE_URL:-}" ]; then
+  base="$SECUREVIBE_BASE_URL"
 elif [ "$VERSION" = "latest" ]; then
   tag=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" |
     sed -n 's/.*"tag_name"[ ]*:[ ]*"\([^"]*\)".*/\1/p' | head -n1)

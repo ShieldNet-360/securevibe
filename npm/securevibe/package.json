@@ -1,0 +1,44 @@
+{
+  "name": "@shieldnet360/securevibe",
+  "version": "0.0.0-dev",
+  "description": "SecureVibe — one binary for AI-assisted secure coding: secret / dependency / Dockerfile / GitHub Actions scanning, an offline OSV cache, a CI gate, 28 hardening skills, and an MCP server (securevibe mcp).",
+  "keywords": [
+    "security",
+    "mcp",
+    "model-context-protocol",
+    "sast",
+    "sca",
+    "secret-detection",
+    "osv",
+    "claude",
+    "claude-code",
+    "cursor",
+    "skills"
+  ],
+  "homepage": "https://github.com/shieldnet-360/securevibe#readme",
+  "bugs": "https://github.com/shieldnet-360/securevibe/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shieldnet-360/securevibe.git",
+    "directory": "npm/securevibe"
+  },
+  "license": "Apache-2.0",
+  "type": "commonjs",
+  "bin": {
+    "securevibe": "bin/securevibe.js"
+  },
+  "files": [
+    "bin/",
+    "data/"
+  ],
+  "optionalDependencies": {
+    "@shieldnet360/securevibe-darwin-x64": "0.0.0-dev",
+    "@shieldnet360/securevibe-darwin-arm64": "0.0.0-dev",
+    "@shieldnet360/securevibe-linux-x64": "0.0.0-dev",
+    "@shieldnet360/securevibe-linux-arm64": "0.0.0-dev",
+    "@shieldnet360/securevibe-win32-x64": "0.0.0-dev"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

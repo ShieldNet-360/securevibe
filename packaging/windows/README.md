@@ -1,6 +1,6 @@
 # SecureVibe — Windows MSI installer
 
-Build a Windows `.msi` for the `skills-check` CLI (part of **SecureVibe**)
+Build a Windows `.msi` for the `securevibe` CLI (part of **SecureVibe**)
 using the [WiX Toolset](https://wixtoolset.org/) v4+.
 
 ## Prerequisites
@@ -12,7 +12,7 @@ using the [WiX Toolset](https://wixtoolset.org/) v4+.
    ```powershell
    $env:GOOS = "windows"
    $env:GOARCH = "amd64"
-   go build -trimpath -ldflags "-s -w" -o skills-check.exe ./cmd/skills-check
+   go build -trimpath -ldflags "-s -w" -o securevibe.exe ./cmd/securevibe
    ```
 
 ## Build the MSI
@@ -20,25 +20,25 @@ using the [WiX Toolset](https://wixtoolset.org/) v4+.
 ```powershell
 cd packaging\windows
 wix build `
-    -d BinaryPath=..\..\skills-check.exe `
+    -d BinaryPath=..\..\securevibe.exe `
     -d Version=2026.05.12.0 `
-    -o build\skills-check.msi `
-    skills-check.wxs
+    -o build\securevibe.msi `
+    securevibe.wxs
 ```
 
-The resulting MSI is at `build\skills-check.msi`.
+The resulting MSI is at `build\securevibe.msi`.
 
 ## What the installer does
 
-- Installs `skills-check.exe` to `C:\Program Files\Skills-Check\`.
+- Installs `securevibe.exe` to `C:\Program Files\SecureVibe\`.
 - Adds the install directory to the system `PATH`.
 - Does **not** register a scheduled task; run
-  `skills-check scheduler install` post-install for background updates.
+  `securevibe scheduler install` post-install for background updates.
 
 ## Signing (recommended)
 
 Sign the MSI with `signtool` from the Windows SDK:
 
 ```powershell
-signtool sign /f cert.pfx /p <password> /tr http://timestamp.digicert.com /td sha256 build\skills-check.msi
+signtool sign /f cert.pfx /p <password> /tr http://timestamp.digicert.com /td sha256 build\securevibe.msi
 ```

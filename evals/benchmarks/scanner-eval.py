@@ -144,8 +144,9 @@ class MCPClient:
     """Minimal JSON-RPC client over the skills-mcp stdio protocol."""
 
     def __init__(self, binary: pathlib.Path, allowed_roots: list[pathlib.Path]):
-        cmd = [str(binary), "--allowed-roots", ",".join(str(p) for p in allowed_roots)]
-        # We deliberately do NOT pipe stderr — skills-mcp writes its
+        # The MCP server is the `mcp` subcommand of the unified securevibe binary.
+        cmd = [str(binary), "mcp", "--allowed-roots", ",".join(str(p) for p in allowed_roots)]
+        # We deliberately do NOT pipe stderr — securevibe writes its
         # request log there, and surfacing it during the eval makes
         # the failure mode obvious when something goes wrong.
         self.proc = subprocess.Popen(  # noqa: S603 — trusted binary path
@@ -316,17 +317,17 @@ def _run_scanner(
 
 
 def _build_skills_mcp() -> pathlib.Path:
-    """Locate or build the skills-mcp binary."""
-    bin_path = REPO_ROOT / "skills-mcp"
+    """Locate or build the securevibe binary (the MCP server is `securevibe mcp`)."""
+    bin_path = REPO_ROOT / "securevibe"
     if bin_path.exists() and os.access(bin_path, os.X_OK):
         return bin_path
-    found = shutil.which("skills-mcp")
+    found = shutil.which("securevibe")
     if found:
         return pathlib.Path(found)
     # Build into the repo root so subsequent runs reuse it.
-    print("    building skills-mcp ...")
+    print("    building securevibe ...")
     subprocess.run(
-        ["go", "build", "-o", str(bin_path), "./cmd/skills-mcp"],
+        ["go", "build", "-o", str(bin_path), "./cmd/securevibe"],
         cwd=REPO_ROOT,
         check=True,
     )

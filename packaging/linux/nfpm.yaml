@@ -1,10 +1,10 @@
-# nfpm configuration for the skills-check Linux .deb and .rpm packages.
+# nfpm configuration for the securevibe Linux .deb and .rpm packages.
 #
 # Build:
-#   make BINARY=../../dist-build/skills-check-linux-amd64 VERSION=2026.05.13
+#   make BINARY=../../dist-build/securevibe-linux-amd64 VERSION=2026.05.13
 #
 # nfpm reference: https://nfpm.goreleaser.com/configuration/
-name: skills-check
+name: securevibe
 arch: amd64
 platform: linux
 version: ${VERSION}
@@ -13,7 +13,7 @@ priority: optional
 maintainer: Skills Library <ken@uney.com>
 description: |
   Open-source security skills, rules, and vulnerability intelligence for
-  AI-assisted coding tools. The skills-check binary validates skill manifests,
+  AI-assisted coding tools. The securevibe binary validates skill manifests,
   generates IDE-specific configuration files, and pulls signed updates of
   vulnerability data and detection rules.
 vendor: Skills Library
@@ -21,7 +21,7 @@ homepage: https://github.com/shieldnet-360/securevibe
 license: MIT
 contents:
   - src: ${BINARY}
-    dst: /usr/local/bin/skills-check
+    dst: /usr/local/bin/securevibe
     file_info:
       mode: 0755
 deb:

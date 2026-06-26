@@ -74,44 +74,44 @@
     },
     {
       "path": "dist/.clinerules",
-      "sha256": "e76444d4feaf46c984ef718d4c95754b2a753e99e8ad1266dad0b93535f07636",
-      "size": 4026,
+      "sha256": "9da6570bbdfa13aac0635eb3b81776621f85e68a07e44347953424d741525ad0",
+      "size": 4032,
       "action": "unchanged"
     },
     {
       "path": "dist/.cursorrules",
-      "sha256": "b5e4042f58eaf9b20f43b54e166481f6d261e89a598fc1fbbcde0252c41178d4",
-      "size": 4017,
+      "sha256": "1ab261d263140f744063baa956c0d66c8d828185f727e75d9e8ed4b9250232fe",
+      "size": 4023,
       "action": "unchanged"
     },
     {
       "path": "dist/.windsurfrules",
-      "sha256": "8eef02d2143a9205bebc3bb69c48f3ec5ade870cfca7e350594d5293c80aeee3",
-      "size": 4021,
+      "sha256": "543f0af5e9b8fef6bffdffba7c0e8c07bc4a1abcbed2bf0259a2f2978453b94b",
+      "size": 4027,
       "action": "unchanged"
     },
     {
       "path": "dist/AGENTS.md",
-      "sha256": "90be4865ffce3accfd69ce700756db42ede3572c9c2f342c00612eba89e60f16",
-      "size": 3958,
+      "sha256": "7f9fff0dd43bede23a79156205aca3678fdcec6babc4cd42d08320fae8279b83",
+      "size": 3962,
       "action": "unchanged"
     },
     {
       "path": "dist/CLAUDE.md",
-      "sha256": "d26323c92a5f372e7d20d6da0129c86ea721b1ad26d3ad60c83dbcba3df3eaa7",
-      "size": 3948,
+      "sha256": "efd4190b5acbabc4e17ab0ceb3088170e3e4b9fd73c3e0a2f5acd4cf25bd64f9",
+      "size": 3952,
       "action": "unchanged"
     },
     {
       "path": "dist/SECURITY-SKILLS.md",
-      "sha256": "65d0eefdc1dbb114cb4e9487f6fa6ac138d4a2e437fcf230e14e58444173f47f",
-      "size": 110581,
+      "sha256": "f76f75d407edc08fb29e35df8725c6a52c9962ad38f2a3be390c113af7eaf162",
+      "size": 110583,
       "action": "unchanged"
     },
     {
       "path": "dist/agent-skills/.agents/skills/api-security/SKILL.md",
-      "sha256": "c0f77ebded87d2291e59f0f160da5c65ac1b52d628d12f58ac9048396e542cc6",
-      "size": 3957,
+      "sha256": "66083ea609f2083c385c1bc60f4f2a6297d402ca26dc6eadf9b7ae4edb5a4ef3",
+      "size": 3959,
       "action": "unchanged"
     },
     {
@@ -122,8 +122,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/auth-security/SKILL.md",
-      "sha256": "a32583f6c916bba726004a813da3b784f5fa66e83829cd79cd363fc8e3417d20",
-      "size": 3818,
+      "sha256": "fd08ddb6af5bc157012e1943f75c8b4bc5e223eb0a14b70c8590ae87a62bb790",
+      "size": 3820,
       "action": "unchanged"
     },
     {
@@ -134,8 +134,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/cicd-security/SKILL.md",
-      "sha256": "de0aa2bdfca7bd43dc6a9e749e5fba2d5a550a45ace4a3664dbe48b2ed7e70b2",
-      "size": 4420,
+      "sha256": "2319764e5450cfe7ea7d0c821904f7a322257e37b8004f07d6d156d9e6b33706",
+      "size": 4422,
       "action": "unchanged"
     },
     {
@@ -146,8 +146,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/compliance-awareness/SKILL.md",
-      "sha256": "ba1dffd8ac37e13b5e3ef01488094e34884559d2cf4a067bf36d4c4b9245d399",
-      "size": 2287,
+      "sha256": "0fbd58b9fd33cf07e87c3a0d745ca3d8e7b8d518f10148775c363882d78a3bd0",
+      "size": 2289,
       "action": "unchanged"
     },
     {
@@ -158,8 +158,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/container-security/SKILL.md",
-      "sha256": "b974e49ce905641702dd934e4e42055e36ce512ede33d766847cfacba8aad0d3",
-      "size": 7207,
+      "sha256": "398cc4a7687de41bef1d7b5321272c93f8bab4451da0593458970b971a2243a1",
+      "size": 7209,
       "action": "unchanged"
     },
     {
@@ -170,8 +170,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/cors-security/SKILL.md",
-      "sha256": "9967bba9c9f49ef80e38418928075b4fd88168fac7b70db0c602287c952fff77",
-      "size": 3366,
+      "sha256": "a2c8e7b61abdf9c2563ecefe85368192c73a17a91f9e04da7a8ab8d431fa2f30",
+      "size": 3368,
       "action": "unchanged"
     },
     {
@@ -182,8 +182,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/crypto-misuse/SKILL.md",
-      "sha256": "902b33025932f53912241e57fd022425c7b12802c0f468e473468dc56b281df8",
-      "size": 3329,
+      "sha256": "d47b7561053f4b62b356054d2c647da0efeb4c881e936dcf467e85e120d3cb4a",
+      "size": 3331,
       "action": "unchanged"
     },
     {
@@ -194,8 +194,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/database-security/SKILL.md",
-      "sha256": "e50b41e0da412e1e1e5ea819d47e3f6b073f355878fb19d44a555c1b2ee96fc1",
-      "size": 3562,
+      "sha256": "77c1545a0275002b92b5b9d4f8c80e59d06e28ff48ae9d0d03fbbb19ad14b56d",
+      "size": 3564,
       "action": "unchanged"
     },
     {
@@ -206,8 +206,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/dependency-audit/SKILL.md",
-      "sha256": "0aa528ae7e9f38866e25e675b6e449eb881281899891e84bfae711dd73f8a810",
-      "size": 2363,
+      "sha256": "4a2ec1ec5c3cb1f7c63cf1d8671b4dec6f4ff059dc969092f7ffaa985fa6af72",
+      "size": 2365,
       "action": "unchanged"
     },
     {
@@ -218,8 +218,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/deserialization-security/SKILL.md",
-      "sha256": "3fe5423b8168fc0b8f2ab447d41382a07a314f8643d6134197bcac7c702fbdf6",
-      "size": 4565,
+      "sha256": "cf17b51ef363dfe9c7d560908751db43d3a8d3e5e591522573d564d02dd089ea",
+      "size": 4567,
       "action": "unchanged"
     },
     {
@@ -230,8 +230,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/electron-security/SKILL.md",
-      "sha256": "efc455c3fc9b36bfa80b5a903a188a31ab4165f5d730aa057186e04039aeb953",
-      "size": 6550,
+      "sha256": "b407f979ed55c8227e40f1fce4a1e0b4f4066fa288e79b4cfb65ea5d21917909",
+      "size": 6552,
       "action": "unchanged"
     },
     {
@@ -242,8 +242,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/error-handling-security/SKILL.md",
-      "sha256": "11fb638e2169b4d58a54cebe2903497c2819486ba53663fc38f6993aa2b67083",
-      "size": 3302,
+      "sha256": "0ac79ef006570fa3505b378acf8f15e71740b00afc714ecd5276d571ae9c5311",
+      "size": 3304,
       "action": "unchanged"
     },
     {
@@ -254,8 +254,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/file-upload-security/SKILL.md",
-      "sha256": "c53cdd37c7a7556e817d56a43aaabf3f18983a71b17467413c881f3def279776",
-      "size": 4822,
+      "sha256": "671eff70a71a1627afc2f50f75eff7b162c2ed9b0fa9630a1168bd7edb03fd89",
+      "size": 4824,
       "action": "unchanged"
     },
     {
@@ -266,8 +266,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/frontend-security/SKILL.md",
-      "sha256": "d0f05729c805c5e2578a65b984c4e18be88a5ea4d0b504b843fea7beabe1d4ef",
-      "size": 3340,
+      "sha256": "15e80ed6fbb00a89ca24a1b2d8deb59d21c3b73490a0d07170fb514f399a461d",
+      "size": 3342,
       "action": "unchanged"
     },
     {
@@ -278,8 +278,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/graphql-security/SKILL.md",
-      "sha256": "4123545df0df5f977ff6c62a6f1ae62f722636be80cae8e2d160d2dcd42959e0",
-      "size": 4163,
+      "sha256": "8eca35434a592035ec040d3e313232a7e76ce192d6a292336322bb4d009c1eac",
+      "size": 4165,
       "action": "unchanged"
     },
     {
@@ -290,8 +290,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/iac-security/SKILL.md",
-      "sha256": "fb716ef7c2d33bb349278ff5818834cb7820ba7460c4fe5b4a560ab0106537c7",
-      "size": 3322,
+      "sha256": "f37fd18f2b1e5b218339be7f3a04f4b7f1d15ea21c6edef6518ac86efd21305e",
+      "size": 3324,
       "action": "unchanged"
     },
     {
@@ -302,8 +302,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/iam-best-practices/SKILL.md",
-      "sha256": "54019fe5788ab0be12ba7c72cb53b6c846577f013e565d0bf11a6388a684b5fc",
-      "size": 4917,
+      "sha256": "6a061f091e80721dbfe6038fd98c4f155bca818d30b7e580da952ac15e3891eb",
+      "size": 4919,
       "action": "unchanged"
     },
     {
@@ -314,8 +314,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/llm-app-security/SKILL.md",
-      "sha256": "00e71c02684a7bad9a287acca2e6817140882a92f526c6842fc951baa51b3d25",
-      "size": 3879,
+      "sha256": "03a8106dfe235afca7ce25e461c88f90088625f9be08b807562e3c15c15b170b",
+      "size": 3881,
       "action": "unchanged"
     },
     {
@@ -326,8 +326,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/logging-security/SKILL.md",
-      "sha256": "85d5617ac235d6258a9682bead1346cb521930d4339708c7b54ae35474fd618f",
-      "size": 3266,
+      "sha256": "3b60a74dad92e159301b8bff68968e375ef0ef49851bbcb2d9e94aa8a2886e15",
+      "size": 3268,
       "action": "unchanged"
     },
     {
@@ -338,8 +338,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/ml-security/SKILL.md",
-      "sha256": "6cd382075c01bf28d4b37c415c0d1ac32ed2c7703d93dd164c96fa135da2e26b",
-      "size": 2593,
+      "sha256": "527d9ccca025712363c9051ef10b20f185610631772a0a914a59334dc8bd9513",
+      "size": 2595,
       "action": "unchanged"
     },
     {
@@ -350,8 +350,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/mobile-security/SKILL.md",
-      "sha256": "91af5f165c87c1806f43c50b7f2af8043f22c646cc6913a881a2710114d783c0",
-      "size": 3931,
+      "sha256": "41758d7e4174ffd20fd28e7303ca47bde195a919bd3a141a5716c91fff3e62ea",
+      "size": 3933,
       "action": "unchanged"
     },
     {
@@ -362,8 +362,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/protocol-security/SKILL.md",
-      "sha256": "1f1e92ecb8cbf2f2454d3346ba8ffc5b23f8d2c886009a240aaba9a689998b72",
-      "size": 3538,
+      "sha256": "a036d9300fc8dcc0b28813f761cbb3faa78ae82b3d2c1634730014c266943c64",
+      "size": 3540,
       "action": "unchanged"
     },
     {
@@ -374,8 +374,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/saas-security/SKILL.md",
-      "sha256": "7a5e3213186f98ece68f11bea28ed2c116bc0aeeb14fb49fe993c8567f4fbbf5",
-      "size": 7564,
+      "sha256": "2c79522fc634a90662e9c6596caf71bce9340aa1410ef012c08da0eed3c538df",
+      "size": 7566,
       "action": "unchanged"
     },
     {
@@ -386,8 +386,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/secret-detection/SKILL.md",
-      "sha256": "9e375f63bb53921c708787ae2656bd7a47156a25a69f04b484161a1332dd50e3",
-      "size": 3072,
+      "sha256": "7a3215e7e30f20972c3e3529a910c778fcc84c154b8f90f7924d98c9fefbd141",
+      "size": 3074,
       "action": "unchanged"
     },
     {
@@ -398,8 +398,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/secure-code-review/SKILL.md",
-      "sha256": "5920ac1f2452a61357baace9df8397cf81678e7afeaff992071f62879e9130c9",
-      "size": 3037,
+      "sha256": "e673f9a7f7601ee5b972c386d51d66dd378ac4c4bd8b556174574722ed00325a",
+      "size": 3039,
       "action": "unchanged"
     },
     {
@@ -410,8 +410,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/serverless-security/SKILL.md",
-      "sha256": "2ef671b232e268e2c42463d489aaf0f323c66396eecbde0824c1702f2bd563fc",
-      "size": 3357,
+      "sha256": "f8e7cf69b4aa82655b15c90ad3252161e5e439033ba5d263c3fd3fb6645ee3ec",
+      "size": 3359,
       "action": "unchanged"
     },
     {
@@ -422,8 +422,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/ssrf-prevention/SKILL.md",
-      "sha256": "52f12ca06b548a242f0181db57f568d6b59ae9976345059cf64a9dede2e62468",
-      "size": 5157,
+      "sha256": "d63901faf7a0fd6a2fa4ec99a3380489fd5b8d1e602b3a3ee4dfaef01ca8e844",
+      "size": 5159,
       "action": "unchanged"
     },
     {
@@ -434,8 +434,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/supply-chain-security/SKILL.md",
-      "sha256": "6e7f659943bbfed0affcc4b8fc70c85d8aade96d894eb2a02e480fdfbc889209",
-      "size": 3857,
+      "sha256": "9ba9dbfff191951bd51872324ac42e9a5e87e83ee68260024476aed7aabadb94",
+      "size": 3859,
       "action": "unchanged"
     },
     {
@@ -446,8 +446,8 @@
     },
     {
       "path": "dist/agent-skills/.agents/skills/websocket-security/SKILL.md",
-      "sha256": "a1ca48f3f7e0081b7cc92324e9a0565e30def8db056a8d3b81466c684629aa40",
-      "size": 4347,
+      "sha256": "bd9b9b800a35e8ba5dbb1db1162611dfec8ea1d106dc1fb081950b86cd2e8293",
+      "size": 4349,
       "action": "unchanged"
     },
     {
@@ -458,8 +458,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/api-security/SKILL.md",
-      "sha256": "96dd64aaf69b8cd48b48dfbd7b7518e2c9280d0e419b6c4a165eee2f5541f5a5",
-      "size": 3932,
+      "sha256": "ddcf06ff5dc512bceb9c300abb97219e5e233478483e345fc716f5430cee2d68",
+      "size": 3934,
       "action": "unchanged"
     },
     {
@@ -470,8 +470,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/auth-security/SKILL.md",
-      "sha256": "ab6de240a5786185e98038ebe7ad99119b8452f610aa4f6fd485b062150a6a67",
-      "size": 3793,
+      "sha256": "454e0c0f406aafcb685224b28eb05820627238ee4225c8e4a780c29fb6833001",
+      "size": 3795,
       "action": "unchanged"
     },
     {
@@ -482,8 +482,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/cicd-security/SKILL.md",
-      "sha256": "3a01a1f8f8e7cc386f4a4f5958bab0cdbb89b66fb9af219520f45ec0f93ce497",
-      "size": 4395,
+      "sha256": "5619877fc21a03eb2fa4f72566d2077da4dc7c71695d620f03257db523b2357d",
+      "size": 4397,
       "action": "unchanged"
     },
     {
@@ -494,8 +494,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/compliance-awareness/SKILL.md",
-      "sha256": "92ce37502b25cf24db370d5e336c541153761e7b7bc4c41cebce205027ce894d",
-      "size": 2262,
+      "sha256": "6789b3cec88251bd1e07f0704f73fdf0abcb63b74f5f1132055e3f50d3fade8d",
+      "size": 2264,
       "action": "unchanged"
     },
     {
@@ -506,8 +506,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/container-security/SKILL.md",
-      "sha256": "8c235e4f16c490175434f8731695e9553960eccc118b0fca2e23542ac6dbfa58",
-      "size": 7182,
+      "sha256": "26c8995fd8919f7c72fd71f5c01b3088169f92984ba0712f76282c4c3034b8f1",
+      "size": 7184,
       "action": "unchanged"
     },
     {
@@ -518,8 +518,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/cors-security/SKILL.md",
-      "sha256": "4f1200299d6b4d86aaf855404858d89791cd22c196c0efeba6da57515ae69f56",
-      "size": 3341,
+      "sha256": "e2bcfdb39aaa81e17d6760e2fbafe87dbd47e30fc577bb975804f820efc966fb",
+      "size": 3343,
       "action": "unchanged"
     },
     {
@@ -530,8 +530,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/crypto-misuse/SKILL.md",
-      "sha256": "b0f0e7ebd8aa2d713d4518be7a8c8587ee1ac117212092ecef2cbe17fddd7485",
-      "size": 3304,
+      "sha256": "97789969c46d8d37ea0b43365bd38b48921eff759e9b664d37e33a0d6adaffa4",
+      "size": 3306,
       "action": "unchanged"
     },
     {
@@ -542,8 +542,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/database-security/SKILL.md",
-      "sha256": "74b768db8c0c150b050c905a44ff575d80f464509474fa6a75032fc5f89a27c7",
-      "size": 3537,
+      "sha256": "941ffc1fc6920bb8effac24985cd02e542eb53c7a13022b2854fd899f293df59",
+      "size": 3539,
       "action": "unchanged"
     },
     {
@@ -554,8 +554,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/dependency-audit/SKILL.md",
-      "sha256": "0ff1717c2b7433a925c59db325d3c1e29474f04c9fbf758486c47ba6fd1c28ef",
-      "size": 2338,
+      "sha256": "518d52751570eff5d647541ad65b85ef24839eafbf7ee9ba7c02ae03381b49a6",
+      "size": 2340,
       "action": "unchanged"
     },
     {
@@ -566,8 +566,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/deserialization-security/SKILL.md",
-      "sha256": "55e3f82f7ce1a613b796cf1d48b0a746c59f876ba669f1d6752b65da1cc9a2c7",
-      "size": 4540,
+      "sha256": "3b8199695a71155e5c9f52a02a1e5b566d02f3f092fd64e4680f2603f3725b0e",
+      "size": 4542,
       "action": "unchanged"
     },
     {
@@ -578,8 +578,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/electron-security/SKILL.md",
-      "sha256": "2baf2733917e1b943a47969d68d2ad291c5103345d1424a55011e2ba7a63be41",
-      "size": 6525,
+      "sha256": "aef53a21e79603bb48ecac18ebc17cf02df15aede0fa4570a83973cc96566d8f",
+      "size": 6527,
       "action": "unchanged"
     },
     {
@@ -590,8 +590,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/error-handling-security/SKILL.md",
-      "sha256": "930962ff78016cf280468c4b9deb866df016c1a963f13d0c8d3ddb649fe22491",
-      "size": 3277,
+      "sha256": "df93fde7358394f856f0d45797f05ba0bf654da4ced36f90e4751d5543a1780b",
+      "size": 3279,
       "action": "unchanged"
     },
     {
@@ -602,8 +602,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/file-upload-security/SKILL.md",
-      "sha256": "1e99781927d234761a212ccbaf67a1b72cb591ae5b5a658a37b0965406c40679",
-      "size": 4797,
+      "sha256": "c319b0f0d2107cba3a0c2f37e585fb617c9ce66868c5c6a892278b9302489dc8",
+      "size": 4799,
       "action": "unchanged"
     },
     {
@@ -614,8 +614,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/frontend-security/SKILL.md",
-      "sha256": "b5d5f1c2f6d1de65b03dc45857e336a010f6a15401c5446af99be29d1757746b",
-      "size": 3315,
+      "sha256": "f2d0fa94e02d1d40579e6d8afa9ffeca9f97502aed47b40f40a86f06d56096c2",
+      "size": 3317,
       "action": "unchanged"
     },
     {
@@ -626,8 +626,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/graphql-security/SKILL.md",
-      "sha256": "e93729ed4a27ee6704c8993292b462bcd89cb1e0ba653a2d72e5d8d935298154",
-      "size": 4138,
+      "sha256": "a6149c0f850230379bc94154353750c217ccb460eb6d2f233c5f4f0d5fa03776",
+      "size": 4140,
       "action": "unchanged"
     },
     {
@@ -638,8 +638,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/iac-security/SKILL.md",
-      "sha256": "515badda38dfaa5f41299893041d708f2448c88cc2c58a52908d2f638f44ecf3",
-      "size": 3297,
+      "sha256": "810b7b7fa8efc46db5e8334bccaf9cee55e71de2045a35d6ded1f85f59e91d0a",
+      "size": 3299,
       "action": "unchanged"
     },
     {
@@ -650,8 +650,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/iam-best-practices/SKILL.md",
-      "sha256": "3105cb0251c7a966335f130a89d6247abb6f70a0b2b41c169e495b807d0d4777",
-      "size": 4892,
+      "sha256": "1cf9d014f2c5dcd5aa086aec3128176287274ed9daea3b608254315a063f0757",
+      "size": 4894,
       "action": "unchanged"
     },
     {
@@ -662,8 +662,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/llm-app-security/SKILL.md",
-      "sha256": "efba2d4de6b70325bef7d7504a79c0d3886d024a0298240d4c6628156a726dff",
-      "size": 3854,
+      "sha256": "89813cb7071a2dce1e4922ff7e1ddcaa7643e58bbe7933473c819894277f83b7",
+      "size": 3856,
       "action": "unchanged"
     },
     {
@@ -674,8 +674,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/logging-security/SKILL.md",
-      "sha256": "490c7f00b0fb7c2aff2a520076554972bd355ab4012d7122150e78604430b967",
-      "size": 3241,
+      "sha256": "0a3fc56ecde94ffdd5a8741260b39909c4f4027e8a714e393764495b96111394",
+      "size": 3243,
       "action": "unchanged"
     },
     {
@@ -686,8 +686,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/ml-security/SKILL.md",
-      "sha256": "d9109615e6484ea4429196c9c08e58a69538f0d52aabd3f679eca01dd5d543c0",
-      "size": 2568,
+      "sha256": "92e52d3bf1edc314b5aae977132c9562d3da6933040c8f46194c8ce044438cb1",
+      "size": 2570,
       "action": "unchanged"
     },
     {
@@ -698,8 +698,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/mobile-security/SKILL.md",
-      "sha256": "2e6e77c65519451b47f07de15c87a80b261dd5f54d8d538c1e0653dcb84e5997",
-      "size": 3906,
+      "sha256": "37241bd5d8e19b3754d34f5e34b102ea1ed625403aa76a5f970d1dc755e273b3",
+      "size": 3908,
       "action": "unchanged"
     },
     {
@@ -710,8 +710,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/protocol-security/SKILL.md",
-      "sha256": "a86c444fbc73f324e4c24a5f7d16a83b4c4f2c51092ca20fc2be80bb1ff52bba",
-      "size": 3513,
+      "sha256": "8bd614090826ddbe31652227b7dd3d2fa9267bbe44a16dbaf6c6359158afb9a6",
+      "size": 3515,
       "action": "unchanged"
     },
     {
@@ -722,8 +722,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/saas-security/SKILL.md",
-      "sha256": "c92a3249df5ada9f13b8a3a59e92be9801b8dee0c23faf0816fd4bf47188f536",
-      "size": 7539,
+      "sha256": "d2ba639d67be3ba3caa5327929b5d9b497ebfb30350499b56b8ea626f1f5114b",
+      "size": 7541,
       "action": "unchanged"
     },
     {
@@ -734,8 +734,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/secret-detection/SKILL.md",
-      "sha256": "08ae0143845bf5fe0ed2993f8751137882dc72a3ad4d0991dd6eb60dee5cc712",
-      "size": 3047,
+      "sha256": "75e50a3bbdc0fb055aa861ac3861f1e486dfa2c5e73a4edf020da8a6e382912e",
+      "size": 3049,
       "action": "unchanged"
     },
     {
@@ -746,8 +746,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/secure-code-review/SKILL.md",
-      "sha256": "489d133556b7eedd4046d0a5b1001532543bba041b36ca60f0f89c45d3c68ba1",
-      "size": 3012,
+      "sha256": "8daae16355a771f0d52264c48e3405d9694ef9a2dd986c905cd22d6335034213",
+      "size": 3014,
       "action": "unchanged"
     },
     {
@@ -758,8 +758,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/serverless-security/SKILL.md",
-      "sha256": "ad9410a15aba88abfa6933f19178660089296568bc0f68def1b8a090681a6f70",
-      "size": 3332,
+      "sha256": "ed73e9004b164365b00993972530529c9073f3b790b8115ac1fbb4f3c1cdc50d",
+      "size": 3334,
       "action": "unchanged"
     },
     {
@@ -770,8 +770,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/ssrf-prevention/SKILL.md",
-      "sha256": "15e829fdc903964ecb50a5bda2a9599522e0bfcf26b85fbf4b897759604e8a77",
-      "size": 5132,
+      "sha256": "08c5845d59b27422c54d359cc4b4a8cc1719ad8bf7f623d2a589efd9fd35cec0",
+      "size": 5134,
       "action": "unchanged"
     },
     {
@@ -782,8 +782,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/supply-chain-security/SKILL.md",
-      "sha256": "787c4cc982539345dd0daba4cb53cdab26b5679f5aea8cf08a4a54563e2f0949",
-      "size": 3832,
+      "sha256": "c3cb00565dd5eaa29391e2518737ae9b9e814be94e88a22937a687c3fc4f22c9",
+      "size": 3834,
       "action": "unchanged"
     },
     {
@@ -794,8 +794,8 @@
     },
     {
       "path": "dist/claude-skills/.claude/skills/websocket-security/SKILL.md",
-      "sha256": "18a977b5853ab0af170255c3fd8e3df9851e7cd3c20fe180a99c656dc49f55ec",
-      "size": 4322,
+      "sha256": "7a36497883d216ae98a2b059b5f4759e4f0202b8db9f85da7f8253f32b3bf73d",
+      "size": 4324,
       "action": "unchanged"
     },
     {
@@ -806,188 +806,188 @@
     },
     {
       "path": "dist/copilot-instructions.md",
-      "sha256": "86ae2af8c5790c8bec22a25a4c472d0a762cf32ed43b691a89751ab554994c9a",
-      "size": 3965,
+      "sha256": "70e0cc8a5b2ebd58180f53a8633f2564dded3dbdab1158be912a610bac356cf5",
+      "size": 3969,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/api-security.instructions.md",
-      "sha256": "e3e3ea175e07d0968692fa39d2063628033b5aeea1818f4f51b3f49b98e11455",
-      "size": 3668,
+      "sha256": "1c6d6d52725786247b498a165536a7a07aefcd8f8eb0b632bd6be5f593e94cee",
+      "size": 3670,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/auth-security.instructions.md",
-      "sha256": "3c28a9adb956650ec4d95a22a2cd4889b2a67ff1e1ef5e169414c384f8eccaa3",
-      "size": 3465,
+      "sha256": "275f7b69dd7984f87d9dc30a3d240ea83f08058583f9cb5e0bea7722fc81975b",
+      "size": 3467,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/cicd-security.instructions.md",
-      "sha256": "7f8d62728517e041aa1a7123a44e2b6ed246d2c21557b128d7edd01e916453e0",
-      "size": 4061,
+      "sha256": "b122d83353b441de4b81af6a6138900b2b01e5b62ce1554f08b819b1c010c42b",
+      "size": 4063,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/compliance-awareness.instructions.md",
-      "sha256": "58ead0bb160e8aa1cdb2891bbd9f499c532b7405aef7034f4346a6e6388630b4",
-      "size": 1954,
+      "sha256": "261a83d542a52a7feb056aced136a2b818bc953b527eb1f819d00e10654efe3d",
+      "size": 1956,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/container-security.instructions.md",
-      "sha256": "91e24b79f8c2fc74bd0a73259f9e2763e5448f64f502a39f83578d5fe7c4a2c2",
-      "size": 6990,
+      "sha256": "1f8d6d68589bfec5edae84b57518f734a18e7a74cee325b4b0c81514215543f4",
+      "size": 6992,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/cors-security.instructions.md",
-      "sha256": "7a72e45d43b9d3b9441cc4ada9b4d82122769c8cef0ff632bc47c7b80c5dd46f",
-      "size": 3004,
+      "sha256": "d53bdccede74a5284f20861119a764c9b1067195f79be521fe37e3b17fedbf29",
+      "size": 3006,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/crypto-misuse.instructions.md",
-      "sha256": "a6bd509140b8b0371254afa6547c15e42fedcbf070dd15e5060271308e7df963",
-      "size": 3003,
+      "sha256": "7c7a67b7a69822a29d8925cd91804c541049eab22c8e2d982296c26dd13a6621",
+      "size": 3005,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/database-security.instructions.md",
-      "sha256": "eb3f6b36f3ced5e48a4e7b8346e463bb2ecc872884e131f59535dd8795311e79",
-      "size": 3285,
+      "sha256": "1698bae131d626e27260e64901d5384de8d490968fdaf5673f59adcb380f339d",
+      "size": 3287,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/dependency-audit.instructions.md",
-      "sha256": "08f831557f7f5cc277f761d1c1d439450290d509087e930c4c4cca6a6c038042",
-      "size": 2003,
+      "sha256": "d701bd22c05890118f7ef0977a1a5c7ad76be542dee48e2ef06a09bb580f34f9",
+      "size": 2005,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/deserialization-security.instructions.md",
-      "sha256": "c16d82b83e7f85a493d96245bc9dd7ff2b1002e87e5a7a546251ab0bdbca33f9",
-      "size": 4191,
+      "sha256": "7aac39a783dddcf364ca0e42ec218fdd39c0ae749c352a34fe10bd9fe2800e5e",
+      "size": 4193,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/electron-security.instructions.md",
-      "sha256": "0b68937552a26d8a08dd4876506b18f8be822ac04ce73d17b19fc58674c3d65d",
-      "size": 6037,
+      "sha256": "264cd160b4d3b9abcfa2c03d51aba9476bbe27e5f21cfb6dcf73a97b9d52f526",
+      "size": 6039,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/error-handling-security.instructions.md",
-      "sha256": "c709e9bed0dec5fe96233e195a9749a876da0fbdce1667e1ec39214d95787128",
-      "size": 2965,
+      "sha256": "4145d313d77f3ddf07b9ddba3b63627e992921a903e09b4eede8493010a1806f",
+      "size": 2967,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/file-upload-security.instructions.md",
-      "sha256": "7a70207c2c39a58d61c0fdb6edd2d0dcbd7c1ac399f3e1bd81f7e8eec59f1b00",
-      "size": 4396,
+      "sha256": "ad6b58dbe33ef92f8d755d77a69ca633f61982d235a63a7bdb4e2c4dd7c3abf4",
+      "size": 4398,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/frontend-security.instructions.md",
-      "sha256": "86cdc3d94571f1633b6d57ff04c11290096ad1f20394c9fe8bfb998c13468fb3",
-      "size": 3076,
+      "sha256": "c10f857bd4d84046a7f502f2875487b8d1e40bd72f48ccc3c6507284acbd86df",
+      "size": 3078,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/graphql-security.instructions.md",
-      "sha256": "0f6c876e1507e1af7ae1e3c7807466809b1bf849522079376a3d16ceeaa60836",
-      "size": 3807,
+      "sha256": "6ca60fe5627f5db6c191fe0792381e4667fb10c89d69a80083aab97312a064f8",
+      "size": 3809,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/iac-security.instructions.md",
-      "sha256": "1876cac1494f9ef4049d0e7bd0bc1feaf03f785cb917e6af7e023e4b71ba8577",
-      "size": 3121,
+      "sha256": "3736e3af7bf0feddc0fdf0fd20adb0e98148d53fddd7acba45eb65f79d0faff0",
+      "size": 3123,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/iam-best-practices.instructions.md",
-      "sha256": "864feb042d61fe1a95a03e2ceb0cb9645e7dcf1b922a9742ec6b3a647f9374a5",
-      "size": 4563,
+      "sha256": "52829f539ef1602b2cc56e805adbf6ca6ede689b756073a2d0a6f139ede88afc",
+      "size": 4565,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/llm-app-security.instructions.md",
-      "sha256": "5663bacec4d3e55b0884159a565b4301155f56737c960e4d09404d751d27cfe0",
-      "size": 3328,
+      "sha256": "1d29c983f3746fedad3863006c6f302d20b90e5bd647b90bd5ff25474c773423",
+      "size": 3330,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/logging-security.instructions.md",
-      "sha256": "b60621bd5e3d5304030922e4c71e6d4c0c2b97cd20a30c227cf1e9a8bb1f8ecd",
-      "size": 2935,
+      "sha256": "5cccc7a97fb1b10a1cc6ccaf932bdc4716085f869a5f92c025f4457056c651b8",
+      "size": 2937,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/ml-security.instructions.md",
-      "sha256": "9b16f4cccbeabbe7be3b67b4f0777c1217fb8943a20e143b08c1ce6304f7c134",
-      "size": 2184,
+      "sha256": "43310cc29b6e8c1f0273a9c9a09a7cbf38d9f5055ea94b99969a6898931c0fef",
+      "size": 2186,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/mobile-security.instructions.md",
-      "sha256": "e19bdc3bf3d07b0855adf6f81daefc004641836d79ae8293ecea4b53597b7356",
-      "size": 3637,
+      "sha256": "cf7e48f61536b9ab3d416212854230a1f4653114baaa6a98c8c2b9194d8fa92e",
+      "size": 3639,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/protocol-security.instructions.md",
-      "sha256": "67c830bd5a0b1b34f4b16fe0cec522d3783472f7466638f10f4e04663248529f",
-      "size": 3196,
+      "sha256": "0ecd691983249dcebaa1050be5b7d83a5702942a068a0b6269595648b0dc5ba8",
+      "size": 3198,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/saas-security.instructions.md",
-      "sha256": "11c5708d08e9f9009ca98b098c2210ccb809687ab4728f7f566178494c34575c",
-      "size": 7048,
+      "sha256": "d24e2b417aa53aff6448d80729806f3375a20ef1504c266ccb10e3e6a625b855",
+      "size": 7050,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/secret-detection.instructions.md",
-      "sha256": "f62c62d529cd4978d6786fb8c2ed9c88787c2d23b0c0931614b44224982e9daa",
-      "size": 2786,
+      "sha256": "dc7623e7b3280870b650ee9e0f6d4c5df29a3b825756028132b8a98c69472e1d",
+      "size": 2788,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/secure-code-review.instructions.md",
-      "sha256": "6149c289ba3acaec0e6d1f1a9ee87af3423e78c615901905788b5bcc33ae9a26",
-      "size": 2717,
+      "sha256": "bcde61f42d34b6dab6ef511282b67b896f68ee5e843b36c3cecfb8c1b9c72021",
+      "size": 2719,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/serverless-security.instructions.md",
-      "sha256": "ebd8e29945076946bd266ba09a39b79856e4cae7df77c7682c1403a98978cd53",
-      "size": 3080,
+      "sha256": "e964fc96e2327952cecd2463520d849b7098548d08693b7057e28fce31570032",
+      "size": 3082,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/ssrf-prevention.instructions.md",
-      "sha256": "cc1fd9f8a03e51b4639834330ec8e41de143cede87bb847a826805fe1d0b37dc",
-      "size": 4690,
+      "sha256": "9f2b1b34ee478580772c42f1d866c64edc322fb2422565449738f9b2f6e87a0e",
+      "size": 4692,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/supply-chain-security.instructions.md",
-      "sha256": "465c7d2e995827e3a8daecad9a2c14b5fcb2f24cc973793d5494245206064927",
-      "size": 3503,
+      "sha256": "3d9b9e34f8879890c07a9949d962e1f88cfc051ae53e423040952695c980f993",
+      "size": 3505,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-rules/.github/instructions/websocket-security.instructions.md",
-      "sha256": "f116cb2ade8b71a7326c7186a8a77082e7a3980eb2b30ab398f1a6860550e239",
-      "size": 4047,
+      "sha256": "4a4b8133f2da89a5b9b1b5a38a576fb533309f5380747916172d6a0fb5fcb0d5",
+      "size": 4049,
       "action": "unchanged"
     },
     {
       "path": "dist/copilot-skills/.github/skills/api-security/SKILL.md",
-      "sha256": "5588988f7285018a4441052db408aa6e9ae387990fa7cd6b55929b3bb97fbb36",
-      "size": 3935,
+      "sha256": "07f8f87d9a8b001a1b2151c2b6151453db34adaaccb54b2b4057b8b3237c9601",
+      "size": 3937,
       "action": "unchanged"
     },
     {
@@ -998,8 +998,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/auth-security/SKILL.md",
-      "sha256": "95b3b0a3d473a89ce1cc2f6ff47362941acad4df97e0d56fd2968671643d83ff",
-      "size": 3796,
+      "sha256": "d1f7ba80c95b043d2d1e4dc334e15f80df8fb9c640be7cb00e44ee7c186a44de",
+      "size": 3798,
       "action": "unchanged"
     },
     {
@@ -1010,8 +1010,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/cicd-security/SKILL.md",
-      "sha256": "f8f2ac17892fd28f5a040cf2c6131ab7a9a64da5a8aa873b5893493a301ca682",
-      "size": 4398,
+      "sha256": "c0bc0e36a4431ab7b23197703a78babf7dd5e60ad6ba1db8237185b02acabd6b",
+      "size": 4400,
       "action": "unchanged"
     },
     {
@@ -1022,8 +1022,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/compliance-awareness/SKILL.md",
-      "sha256": "48d2aba531a2bdef8704e2b245844fbe244d3408f4aa8841677a26ad430968d5",
-      "size": 2265,
+      "sha256": "1b1394a68fbd57a3031abb7040e571108677d329713f2bea7f62bec2ef59dfe8",
+      "size": 2267,
       "action": "unchanged"
     },
     {
@@ -1034,8 +1034,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/container-security/SKILL.md",
-      "sha256": "366d79002efe53f0bd081ad00e33a523bbfb8004109163775534e4dd78ffcf58",
-      "size": 7185,
+      "sha256": "7f28e62ff923fd0f0f269367d917895e28eda8d4cd912b016e7a64aa3746de38",
+      "size": 7187,
       "action": "unchanged"
     },
     {
@@ -1046,8 +1046,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/cors-security/SKILL.md",
-      "sha256": "d873918affb09782fa067d22faaea49409e093e771a871b823a974a42601f40b",
-      "size": 3344,
+      "sha256": "2c75daaa7c254a4b3134fb442a537990c33d1087c2bbd5711abee83122a1f39b",
+      "size": 3346,
       "action": "unchanged"
     },
     {
@@ -1058,8 +1058,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/crypto-misuse/SKILL.md",
-      "sha256": "f8b41a673a839aa006be1af35158f52d3ba08d70b161121460ef9031d73678e0",
-      "size": 3307,
+      "sha256": "b321114c5955767d87dd4f7a0a70c54e302e0728e315183df555f1e9eddd29f3",
+      "size": 3309,
       "action": "unchanged"
     },
     {
@@ -1070,8 +1070,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/database-security/SKILL.md",
-      "sha256": "daf12c2337d669fb740d4446603c620a098bc294d45761a08857c6baa89e8afd",
-      "size": 3540,
+      "sha256": "0b124d64dbeac11ff2630dd132b8146553947755313a327f7e9c99335e4e4243",
+      "size": 3542,
       "action": "unchanged"
     },
     {
@@ -1082,8 +1082,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/dependency-audit/SKILL.md",
-      "sha256": "e32a2655e305414a61f1e51d404a0e55442eae9c46d1a5525274163f71f88237",
-      "size": 2341,
+      "sha256": "4d29e43056ff96dc48d166c342963942227d0cf2c4406bac6bea3bfeff259651",
+      "size": 2343,
       "action": "unchanged"
     },
     {
@@ -1094,8 +1094,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/deserialization-security/SKILL.md",
-      "sha256": "79b7b28037f3b81732d3fd2b77b89d689bc57baaaa960f8e38bb997958a87d67",
-      "size": 4543,
+      "sha256": "feb171b57cb877668da50340d76afcfe5c8387684152570ddd9bd1ee55544729",
+      "size": 4545,
       "action": "unchanged"
     },
     {
@@ -1106,8 +1106,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/electron-security/SKILL.md",
-      "sha256": "25dd7250d7eeabaf401e716b99e24dae99e5df57b6cebdd6f8f5603670dee88e",
-      "size": 6528,
+      "sha256": "0ae2a575a957127322f58b93484dfc5475a962ab592aaa66f9a9e4947fd78373",
+      "size": 6530,
       "action": "unchanged"
     },
     {
@@ -1118,8 +1118,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/error-handling-security/SKILL.md",
-      "sha256": "761c9f7e4c6c227032444740a70b589df335eefb4336fe8693b45ec491f62bf3",
-      "size": 3280,
+      "sha256": "2a7e5bdba8713dc60a3b2bc28b1dd7f0595cc9446c7d6d49c718dd2cdb567b2b",
+      "size": 3282,
       "action": "unchanged"
     },
     {
@@ -1130,8 +1130,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/file-upload-security/SKILL.md",
-      "sha256": "2eb54c0d671d564ee840ed30db4f42935de59c63a80f61ea7ae41035d5f263ee",
-      "size": 4800,
+      "sha256": "8c890a52cf2504e9961a7df28cb2e3895c83075ea9f3a132c54e0a7354ac3295",
+      "size": 4802,
       "action": "unchanged"
     },
     {
@@ -1142,8 +1142,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/frontend-security/SKILL.md",
-      "sha256": "7855c0fe2e5b349e9934a51ac643abe275dc81dcbaf18254c4e04bb8b5154cd6",
-      "size": 3318,
+      "sha256": "75cc48188afc82e23f8d97ebb56b95f0005a4364539860ccc794461b79fa45c7",
+      "size": 3320,
       "action": "unchanged"
     },
     {
@@ -1154,8 +1154,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/graphql-security/SKILL.md",
-      "sha256": "f44fe7adf5e42d633fb6fadbcf990302e40607c76f17eb7d8b3ddae1b6ba0b14",
-      "size": 4141,
+      "sha256": "e4a919f976d1356109ee5aea81a826bbbfa2162c64931f0dbc62abcd5944184e",
+      "size": 4143,
       "action": "unchanged"
     },
     {
@@ -1166,8 +1166,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/iac-security/SKILL.md",
-      "sha256": "f3044714b6a226494b64f4b4b95c955c7a8a2c31bf7b8452177eadb866112f64",
-      "size": 3300,
+      "sha256": "3da9de00b6b0147d2476ed7df2c6f46c469c827e804649b3e4f05a38ef498526",
+      "size": 3302,
       "action": "unchanged"
     },
     {
@@ -1178,8 +1178,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/iam-best-practices/SKILL.md",
-      "sha256": "6ad21563def16e500ed838561b7ffb50f39cb42bb01d95ead57f33c252f0e323",
-      "size": 4895,
+      "sha256": "10c76b1528518373d617d81548519506913704da01759066a836e0f680fc47be",
+      "size": 4897,
       "action": "unchanged"
     },
     {
@@ -1190,8 +1190,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/llm-app-security/SKILL.md",
-      "sha256": "3888540c9ad6ac2badb814f14cac073eade4144555bd8c7998630f90ae8ba4da",
-      "size": 3857,
+      "sha256": "0a69511000227f03745706f1b1c6b030350fbcfb5dd7b05f292d5e7cd53dd9f9",
+      "size": 3859,
       "action": "unchanged"
     },
     {
@@ -1202,8 +1202,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/logging-security/SKILL.md",
-      "sha256": "9f97b899bd0fc0303aff42325609e672c18111c4edbcda8e8d72d5e95d01520f",
-      "size": 3244,
+      "sha256": "cb44c4a13bf52c9e8c88e2b2d840ff792797b5607585db1251293b91de4ff3ec",
+      "size": 3246,
       "action": "unchanged"
     },
     {
@@ -1214,8 +1214,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/ml-security/SKILL.md",
-      "sha256": "0865e89585d90cb226eeb52a83c0434916ef4e954a5e7dd9949e8511aab47dc5",
-      "size": 2571,
+      "sha256": "716bda284e4365c7307a5ef71db93290bc81e8b33f836f33cbca04a3302459c1",
+      "size": 2573,
       "action": "unchanged"
     },
     {
@@ -1226,8 +1226,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/mobile-security/SKILL.md",
-      "sha256": "d8dd939be432de9b02dd3d9ef9b65929e1992f39a944e5f47d11efc33b4c74e7",
-      "size": 3909,
+      "sha256": "393235888d6f80e4f25ae84acb87e239bebf9e901689d9b061bd7d39eaa09d23",
+      "size": 3911,
       "action": "unchanged"
     },
     {
@@ -1238,8 +1238,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/protocol-security/SKILL.md",
-      "sha256": "62fef5fd16fed9bd42f80baf10261a57b77faa2bea498a45b848208733442316",
-      "size": 3516,
+      "sha256": "645d8bba25add6dad768b35d9d75b7dab107ce4795a99c2a7b658aeaa9ebe0ee",
+      "size": 3518,
       "action": "unchanged"
     },
     {
@@ -1250,8 +1250,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/saas-security/SKILL.md",
-      "sha256": "130af63b8b92856d7b9b49d0e1819e03fda6e5277540da4ad026c8ec14502fe3",
-      "size": 7542,
+      "sha256": "d031aebc99aacaa395efffe3edc2685082da81273cf4d158b8f6040acfb548df",
+      "size": 7544,
       "action": "unchanged"
     },
     {
@@ -1262,8 +1262,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/secret-detection/SKILL.md",
-      "sha256": "ff46dcc8ab6039e4d00ed6407ebfeb678bdd857de9b049fe18ef6b044c069102",
-      "size": 3050,
+      "sha256": "da04982575ee50dff92c67812f89cc40fb92966256646f8509f668b42dd7b8b7",
+      "size": 3052,
       "action": "unchanged"
     },
     {
@@ -1274,8 +1274,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/secure-code-review/SKILL.md",
-      "sha256": "f1b32333a666431c6468e81d73bed5b1a128058f07c79f6cfca205b49b0e0db0",
-      "size": 3015,
+      "sha256": "559d10b73f78ec0cbc0a634113574a680ec4ec0797280a098bb84a56d7f1c333",
+      "size": 3017,
       "action": "unchanged"
     },
     {
@@ -1286,8 +1286,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/serverless-security/SKILL.md",
-      "sha256": "cc0f2bb4bb72254ed232aea27bbad8e530f2d5c0f5b6ab752ac1d3de306c8b89",
-      "size": 3335,
+      "sha256": "9fd9cc2b9a34c59d3cce24016f636e4c06fe51dee5be9a4db6f4a15d71f39872",
+      "size": 3337,
       "action": "unchanged"
     },
     {
@@ -1298,8 +1298,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/ssrf-prevention/SKILL.md",
-      "sha256": "2382d05e3c84cbcb2f44678cba81e7e2c6c542cc1e49c20282bd2a6b594f5bfa",
-      "size": 5135,
+      "sha256": "2ad02d2b6c18ce2441b08e9943226fba5a39d32bae6893726aed5c10dc51be60",
+      "size": 5137,
       "action": "unchanged"
     },
     {
@@ -1310,8 +1310,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/supply-chain-security/SKILL.md",
-      "sha256": "d285284e417d7ce651e25647a9e6b36dd4969d06e63ba9bf181707949a45c60c",
-      "size": 3835,
+      "sha256": "ad2875f169296c9ce8447cb3cfa870f7434a00ad56ec812bfb82a6d7a89ae25b",
+      "size": 3837,
       "action": "unchanged"
     },
     {
@@ -1322,8 +1322,8 @@
     },
     {
       "path": "dist/copilot-skills/.github/skills/websocket-security/SKILL.md",
-      "sha256": "4cfdded709a18a5ff5cee1bf590d1327fce6fb9c45377b5158e92fe393c4ffc7",
-      "size": 4325,
+      "sha256": "854f207f7637a35e5315ed5bc343a461d140d935f39848bf8a0d687944988f1a",
+      "size": 4327,
       "action": "unchanged"
     },
     {
@@ -1334,356 +1334,356 @@
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/api-security.mdc",
-      "sha256": "06fbb38806b3497d467ec724028ce94fd4ad2e58b3a6daf45b0890a6f75788a0",
-      "size": 3923,
+      "sha256": "c20b6b0124610580afe0c704728824f5a51ec74ca0642d82015a49473d7d0daa",
+      "size": 3925,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/auth-security.mdc",
-      "sha256": "1d5bc3fdd333b9c866225bea2997e71a3fe1fc9f47e83bceb48233db2a877f5b",
-      "size": 3783,
+      "sha256": "5091afd622b05fed066e65243e55529be3cad071e69ee4d2e4a0c90eecf6f0e7",
+      "size": 3785,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/cicd-security.mdc",
-      "sha256": "49b77b5583be77a5a1f236963d6554b79816aff733bc6a154bedc8251a0ff5e5",
-      "size": 4447,
+      "sha256": "6917d8d022625b53f007a3839e381e3be922f00fc66a701e72a56afbb76f0546",
+      "size": 4449,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/compliance-awareness.mdc",
-      "sha256": "ecdff142d81b9f72503dba5b78cedcf490e97a641c1e2d6544ced6f8c42a872b",
-      "size": 2245,
+      "sha256": "124a1e8abaacc2fbe3bc781c148a6789acc485a9e108245dccad69b1ae551b1f",
+      "size": 2247,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/container-security.mdc",
-      "sha256": "be1848f2ce1121fe5b99aa78026908b981083626fa8bbdc61012adeb03a47b46",
-      "size": 7255,
+      "sha256": "313de9e7308f63bd3fc344a2f412e2e59188006c1e8c5179edfa336fe7abee2b",
+      "size": 7257,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/cors-security.mdc",
-      "sha256": "7505d363830f3fd6c0da5fefb4472cc3a78f42ae41869c8912d8880567728ed4",
-      "size": 3331,
+      "sha256": "c702a5db652b797c99db85b07f88ca0e73af01a2349a8c123f192b26d7c6c5a9",
+      "size": 3333,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/crypto-misuse.mdc",
-      "sha256": "9167d327e9a1ca6cb9c1b7c2b1b5038a69ebe4f9b2cdaac1ae6f726135b7159a",
-      "size": 3294,
+      "sha256": "3169a86ddcb35d72e654ff4a5665cfff7e10c1a138a939e08bf337657ec62ebb",
+      "size": 3296,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/database-security.mdc",
-      "sha256": "9f88b844ebb335ffb512380b5c641e3fc77d7076d057c007fbd738ff257cc77a",
-      "size": 3598,
+      "sha256": "a7eeafa281c3ff1281a506fbf64d9d578f0192a1fa20874a8820400f30eacf25",
+      "size": 3600,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/dependency-audit.mdc",
-      "sha256": "a26f0dedc768d2b37d4de1ab0cae5d73862482486d88560c2ae2a4273b061a9b",
-      "size": 2325,
+      "sha256": "031dff7fea095d053a1813ff0fda6b38a0427657f5d2526f6219c1086db58255",
+      "size": 2327,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/deserialization-security.mdc",
-      "sha256": "4e85ea8ee830f040e737874ef33f30016bfce566358608e3ba3c0d66efaefea8",
-      "size": 4586,
+      "sha256": "b853c93090943f718f3bb200df75c2054108cd2fda52579b28759627605ae876",
+      "size": 4588,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/electron-security.mdc",
-      "sha256": "c454223bb7161a390fdd04c9e2e66abb6edace01d77c1a913e2eccdee0206e83",
-      "size": 6570,
+      "sha256": "0be90d95db08f24a61d3ac164718d536088d18e5fbb74f3439719d6811b4a18c",
+      "size": 6572,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/error-handling-security.mdc",
-      "sha256": "7adb51cc8df9764554c5accadcef2e3e865f19ce707d2e9cfbc8a9278aa5e5cc",
-      "size": 3257,
+      "sha256": "8efde0d0234ff52aa4e9938359b3fb63b6bea65bde0a320a26092730bb6049f0",
+      "size": 3259,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/file-upload-security.mdc",
-      "sha256": "3302957fcaedb34acaeae401c2ef48baebfdffa1e43f706fda61522466657002",
-      "size": 4780,
+      "sha256": "96e7a7250ea2a55353df50380ae3ed14300e2e786f8a1afd75f77e9c2f05363d",
+      "size": 4782,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/frontend-security.mdc",
-      "sha256": "59eb0ab879984ac072580309981c9e47ec09157d4e67250231e54a985fe91be8",
-      "size": 3360,
+      "sha256": "e92f1f6c07e3e8d4d07b84f6d79cb3151cb26ea690ef4d517129191e4525e41a",
+      "size": 3362,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/graphql-security.mdc",
-      "sha256": "ed715b67a6790e33dab4d73737c5c99ed4176b710148295ae95b969c073070ae",
-      "size": 4200,
+      "sha256": "bbc96e9cda8974ac7c98f27771fb938e8aa391eb85b12e9604c4ba10d7ae9652",
+      "size": 4202,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/iac-security.mdc",
-      "sha256": "0b0f48984a240193ff163a2c65f77dfafc5a87ca1d36afa1225338e9b099a1e3",
-      "size": 3386,
+      "sha256": "2748043251fb5da351e84db645d62401905adf2f15d2f66d01a5df445c425084",
+      "size": 3388,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/iam-best-practices.mdc",
-      "sha256": "7a374603d96acd0c67343995eed031bd5ce30009ca4506e356f0ef8450960f75",
-      "size": 4975,
+      "sha256": "f9a2a2cf38486e6adbed17981f756fcaf1f7998325dab2fc98860c8c9a2b4225",
+      "size": 4977,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/llm-app-security.mdc",
-      "sha256": "87cd2c5b08c29429d798a08b25f0cc7d9e7f8b42168485009ab10fac4348b25c",
-      "size": 3916,
+      "sha256": "0cc397fc1c19cc5db4dc046965dfb52ee18116f4564485194f24185d517a3817",
+      "size": 3918,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/logging-security.mdc",
-      "sha256": "f9553a44c46b7459c86720003006ef315de6618853337dbf780a2f33162875a0",
-      "size": 3228,
+      "sha256": "6e6fc131826ca3337427e683bd55df332d4eacd38e5755abb4c56730c8a341aa",
+      "size": 3230,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/ml-security.mdc",
-      "sha256": "517146cd8f67624414b6229f7a012e26a1bdf9c6886f558d848af79010c01e09",
-      "size": 2575,
+      "sha256": "e05110306c4cb93e36f4e3f14dcce9fc795b526bdda86e81bfa8caa1ca4d804f",
+      "size": 2577,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/mobile-security.mdc",
-      "sha256": "96b49046b44ab856f61de8f4de1098fcdf3615ffd535029d609725776fcc5554",
-      "size": 3953,
+      "sha256": "e5e3b9b07f2aec38900e738cd5281a8290952c8db41fad36080e30c9cfdf5e21",
+      "size": 3955,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/protocol-security.mdc",
-      "sha256": "7a1684681667a65fd1aecada7f4881cd203ccb36f952f4809042161c827c27d2",
-      "size": 3499,
+      "sha256": "9a8db7177bc9a9a924e631f977e1124de089cc4e8a6c8fd695a0db2dc357a0f1",
+      "size": 3501,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/saas-security.mdc",
-      "sha256": "2b3d600155421b645c966be653fa6b249175aba623fc199b3dc8f979c9230e90",
-      "size": 7529,
+      "sha256": "f681296149be1f4e1a9189919ba14e34e497c9def0eecd247a5981f86c3a0b90",
+      "size": 7531,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/secret-detection.mdc",
-      "sha256": "3a95996cc570e3853d0eb4d5e5c581966cb53497af301b24f4bb262e319384c1",
-      "size": 3034,
+      "sha256": "f6492998905b9cddcf42e2db23a054d7338b63d48c0ffcd755a0e36b139fcfa6",
+      "size": 3036,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/secure-code-review.mdc",
-      "sha256": "ac7659c465d4e516376262de22bf02330e6266a3f3037b21e194c070a0129161",
-      "size": 2997,
+      "sha256": "c219bda84b07175fea1a12aa9b2db6b52ab63aae6ad5d32686be7dfd1e65d6ad",
+      "size": 2999,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/serverless-security.mdc",
-      "sha256": "670464786ede949c06f2f091c5721b576aad04abf8502a6326b5cdbc58394e01",
-      "size": 3410,
+      "sha256": "92fa011a82c70fd74a09b5071cb590efb89a181861fa86f352ee80817b1524b3",
+      "size": 3412,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/ssrf-prevention.mdc",
-      "sha256": "4b7cb703773ff148041818b1052b4256562101c0aeb99d3957d376424b05ae5b",
-      "size": 5120,
+      "sha256": "32aa4683489f27108db827da68cc08dac9d2b73308ccc839521c4f860c98c40b",
+      "size": 5122,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/supply-chain-security.mdc",
-      "sha256": "ecd5676dddc40db54b63400b6f9dd28b5775178c3b70d40f9acfc95677444acb",
-      "size": 3814,
+      "sha256": "e445b6e38661d02ac90abb2d42dd67e9e644f1f46d5b01adc0bfb3b0e365f41a",
+      "size": 3816,
       "action": "unchanged"
     },
     {
       "path": "dist/cursor-rules/.cursor/rules/websocket-security.mdc",
-      "sha256": "0713b795ff402bc77e6cd860c79d7812dc028076a7aa00edc1a9474c32994c59",
-      "size": 4382,
+      "sha256": "28b695d616349fb8ed7f5a233a1e440a0eaf892f747ca9408b038a91c873d927",
+      "size": 4384,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/api-security.md",
-      "sha256": "ea799c9c6a53461f7add8b4246ce00793017ae291190c9f201a2bbb17f1601e4",
-      "size": 3927,
+      "sha256": "2accd8e22da95b8603e5bf46a25dd426bcc016b81ee7d5650711bccc7d6d066a",
+      "size": 3929,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/auth-security.md",
-      "sha256": "45b10bee540c4f96bc1f69da76eeca339b4740e5e7cc8954c97d5e29c005c4c3",
-      "size": 3787,
+      "sha256": "0c1360850f592bcd288ae95ded5d57ea408c2f8415a01fe12cc3c5fa6bd512d0",
+      "size": 3789,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/cicd-security.md",
-      "sha256": "4d60e2b754c36a2de57ac53d5b50f58b711c9bc737e5767980bbe867962e32c4",
-      "size": 4062,
+      "sha256": "271700d3b3c5c7280259e9c3bf8aea77f47ab46a30a41674dbb9d29efcbf6242",
+      "size": 4064,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/compliance-awareness.md",
-      "sha256": "59939f1b6505be4eeea63d050ba6cf167a88932f48b6fc9f2cbaa31fe53781d8",
-      "size": 2249,
+      "sha256": "d64109cc63118b02d48968cb653660582258391febfa079a9fb31f176e260325",
+      "size": 2251,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/container-security.md",
-      "sha256": "df6a24a4f234a61286f96f0fa32e4caa46a789f2371e92876d9685e78440dbd7",
-      "size": 6991,
+      "sha256": "b00119cee9b68a92c84ba20eacdc733999ddbce547fce30140049789644a17d7",
+      "size": 6993,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/cors-security.md",
-      "sha256": "33baeb48d4e651bd552c087c50c368d696da0bf8df50623249f2b0be17fc0929",
-      "size": 3335,
+      "sha256": "df53ea4221b3075979babd3f90f4d263a67ffbf162d9ac44891ad572021ab38a",
+      "size": 3337,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/crypto-misuse.md",
-      "sha256": "ab47cad802a46d376338526d1a61760d452484ada97f53e3a66d1f595fed6c23",
-      "size": 3298,
+      "sha256": "175afd3994b22c68cf48894ea73ee727bddb0d6dc1fb1c23d3f29b7c62e9ecfb",
+      "size": 3300,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/database-security.md",
-      "sha256": "8988f2972c25e5817ccd209e72c11e9c7646d60fdf55d3d8212752c668006e8f",
-      "size": 3286,
+      "sha256": "5c72db38af55ad462df029730c90415a98c44f71aedfee1a6363fd0791599fa3",
+      "size": 3288,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/dependency-audit.md",
-      "sha256": "74515afdca456d942f7a25e9339b9f7f45c4d46fc8b1ff95be17757401dc04f3",
-      "size": 2329,
+      "sha256": "d3a944743497d4cd5745a70b70f5e9ebf69520f54148cc63589082c00f3d4191",
+      "size": 2331,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/deserialization-security.md",
-      "sha256": "2a2ed25d63170f14c8ea3b2a11b4ccc1c4515c8203d539cfe143774ae4c48146",
-      "size": 4192,
+      "sha256": "2b6d0434414932ea47589da9b276e20ed43bea53e886b33d7d72e18624b9dbd2",
+      "size": 4194,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/electron-security.md",
-      "sha256": "0a54b1ce7bd4dcdb79cbcc13f94f8fa85a0b94cec55b97045f974e447d91b864",
-      "size": 6038,
+      "sha256": "87c0cb968469480b6bfd4e7ea08677f253b7dde254cff18b7322e68e47a824f1",
+      "size": 6040,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/error-handling-security.md",
-      "sha256": "641bd34839b178796d798dcaa2a8bed5a3f46d54e501479bb83ea4ed841f1324",
-      "size": 3261,
+      "sha256": "fc76e8be3d0e85d72fe574ac9f399eb826a227ced6e318dc02b06e035f7eb374",
+      "size": 3263,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/file-upload-security.md",
-      "sha256": "469630ee2e786d275cc50dcd793abc261cada3c2d91f3eba63b4dd8f5130ede6",
-      "size": 4784,
+      "sha256": "0c08d1238c4d8f6315c19c7ffd85d554aa79e732af0824061439be8fb34a859a",
+      "size": 4786,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/frontend-security.md",
-      "sha256": "c0fe51d2a1dc1a86fdb77384e86cb95f162f1580f362089b636e59e4efb67002",
-      "size": 3077,
+      "sha256": "c65854ed66654e1e74362906cd20791c6097ae02a9792cf02e938e33110276b1",
+      "size": 3079,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/graphql-security.md",
-      "sha256": "7094b0ce5497d5ef890400b71e7d9dc96b33138ddddf196c46380a25b8b64610",
-      "size": 3808,
+      "sha256": "add182e041819b009e7fa692849dd40ade7ad0e67f94b8c67813ba8a5701b9d2",
+      "size": 3810,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/iac-security.md",
-      "sha256": "4e37c37f110c1783fa21a7f8dcdd24a0704d3c1770736bc4892617b7df40970c",
-      "size": 3122,
+      "sha256": "fbeae21cbbef0c16e701f5cf379bb96d48f8c07145d2bb33389dbcfcf678c1c5",
+      "size": 3124,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/iam-best-practices.md",
-      "sha256": "49b3187e3ead8774bb9c912f52f57bba49babd0a853a9730a6885f6b4be185cc",
-      "size": 4564,
+      "sha256": "e714036a4702802638fc03aa8aa64e5be7eff9077b1e52b82c017a512b5c9be3",
+      "size": 4566,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/llm-app-security.md",
-      "sha256": "4c3524e849f0a8bfc66d41263cafcbc236322cf85eea4760f99a6bd555fe03b2",
-      "size": 3394,
+      "sha256": "5bd7fd0273b67b1ca00e7965aa35887d7301843bf94b3687f54bb1d6c261346d",
+      "size": 3396,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/logging-security.md",
-      "sha256": "56f046f7a5aab390492ffb9e11ada36982b09a48009a572845ef598af842da85",
-      "size": 3232,
+      "sha256": "7e73c3415f632235a6ab5f5f664a29adb253c605338145ad4c4609b0a0e95c28",
+      "size": 3234,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/ml-security.md",
-      "sha256": "30e222752867799c7de952e38d07f956ed713dc675e9cd8c95db3370f7d5f62b",
-      "size": 2185,
+      "sha256": "af29d393a252a2a6d2d44bc9208b6108669bc243b73e4167cb1c6cf2afbc9f57",
+      "size": 2187,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/mobile-security.md",
-      "sha256": "b52addab0115fa109ef352f8f8b5d4008f29b1a9faf72d43203d08da1d2590d9",
-      "size": 3638,
+      "sha256": "b1c0128cc03751f53f874a51234091094e5663d47e2347e5990ed69a9aa170b8",
+      "size": 3640,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/protocol-security.md",
-      "sha256": "65677094b98c10257bca9a0490124ff16fbaa08e7612521f935dbe654ae906ee",
-      "size": 3503,
+      "sha256": "b90e09157e6cf0b48c08b39778f85ee0308bc2e7ce02f2ee79fb62734821c122",
+      "size": 3505,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/saas-security.md",
-      "sha256": "0135daa0228fe8e7fce35736beb6663a0b4ba7478028b852942564d153aaeff1",
-      "size": 7533,
+      "sha256": "eed5ab542f0afd7f058b79fea8758225ec44df111204f18547408d421d70ff4b",
+      "size": 7535,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/secret-detection.md",
-      "sha256": "3eeda5b914f06f8fe71141dd1b283a88ceb2e59d063c88e1bf3251b9d5646323",
-      "size": 3038,
+      "sha256": "08f92bca0c0cbe8b1abfcc1d0bc4ab2eac6636caba1f3376ea940a8bd8b36eb3",
+      "size": 3040,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/secure-code-review.md",
-      "sha256": "b0f66ef8c8719afe5490a984314279c0313984ee84a1aa1adafe1959e85dd2cb",
-      "size": 3001,
+      "sha256": "9fddf28dfff4f63823aa3b7ebd87b0b2c70876262f32d66a7b32286a44eca8ee",
+      "size": 3003,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/serverless-security.md",
-      "sha256": "f1ddf697793355731d639d7ae35671c0927f2c998dce73cdd0b2b5f0e3a0d255",
-      "size": 3081,
+      "sha256": "aa9d660ed62bbe700f64cbca261d7501fa7baca5f8dbfa2551b3b13db0b5b2db",
+      "size": 3083,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/ssrf-prevention.md",
-      "sha256": "e446d7713d5ca9717179b67664ec688bcb74697b9aef5a9cedd148077ef6c3ec",
-      "size": 5124,
+      "sha256": "d67092810e1b30fdb3deebc844407221f55e71b820a2f9bcba0031a5c53daca5",
+      "size": 5126,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/supply-chain-security.md",
-      "sha256": "ec483a4fc824c9b43569675607757827e3047b6bae8ed18cf70d7d7da6e313bb",
-      "size": 3818,
+      "sha256": "bc3a84294efedd033390d0dc34b08061a7755b021361cd413317713783230a32",
+      "size": 3820,
       "action": "unchanged"
     },
     {
       "path": "dist/devin-rules/.devin/rules/websocket-security.md",
-      "sha256": "96d2006e014314d8a2488eb58f4251cb45426b258e66c6701b9390d3e6127a75",
-      "size": 4048,
+      "sha256": "925a779793bf79a0df178b06eebb7f53518493390bcc921293735841af440096",
+      "size": 4050,
       "action": "unchanged"
     },
     {
       "path": "dist/devin.md",
-      "sha256": "2a24bc5f4e601be6b6a4fa522ffa278ccd52defd2638c6841ab364d055ed735f",
-      "size": 3941,
+      "sha256": "782d4677bd5944881d325847ed9479b22a01e15da42ab94606450a68b666867a",
+      "size": 3945,
       "action": "unchanged"
     },
     {

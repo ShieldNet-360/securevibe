@@ -1,7 +1,7 @@
 # Makefile for the APT / YUM release repositories.
 #
 # Inputs:
-#   ARTIFACTS — directory containing skills-check_*.deb and skills-check-*.rpm
+#   ARTIFACTS — directory containing securevibe_*.deb and securevibe-*.rpm
 #   VERSION   — release version string (informational; baked into the deb/rpm names already)
 #   GPG_KEY   — GPG key id used to sign the APT Release file and the RPM packages
 #
@@ -25,7 +25,7 @@ YUM_ROOT = $(SITE)/yum
 site: apt yum
 
 apt: $(APT_ROOT)/conf/distributions
-	reprepro --basedir $(APT_ROOT) includedeb stable $(ARTIFACTS)/skills-check_*.deb
+	reprepro --basedir $(APT_ROOT) includedeb stable $(ARTIFACTS)/securevibe_*.deb
 	gpg --armor --export $(GPG_KEY) > $(APT_ROOT)/pubkey.gpg
 
 $(APT_ROOT)/conf/distributions:
@@ -33,7 +33,7 @@ $(APT_ROOT)/conf/distributions:
 	printf 'Origin: Skills Library\nLabel: Skills Library\nCodename: stable\nArchitectures: amd64 arm64\nComponents: main\nSignWith: $(GPG_KEY)\n' > $@
 
 yum: $(YUM_ROOT)/packages
-	cp $(ARTIFACTS)/skills-check-*.rpm $(YUM_ROOT)/packages/
+	cp $(ARTIFACTS)/securevibe-*.rpm $(YUM_ROOT)/packages/
 	rpmsign --define '_gpg_name $(GPG_KEY)' --addsign $(YUM_ROOT)/packages/*.rpm
 	createrepo_c $(YUM_ROOT)
 	gpg --detach-sign --armor --default-key $(GPG_KEY) $(YUM_ROOT)/repodata/repomd.xml

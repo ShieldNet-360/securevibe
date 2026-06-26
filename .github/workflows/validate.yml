@@ -303,13 +303,12 @@ jobs:
       - name: go test
         run: go test ./...
 
-      - name: Build skills-check + skills-mcp
+      - name: Build securevibe
         run: |
-          go build -trimpath -ldflags "-s -w" -o /tmp/skills-check ./cmd/skills-check
-          go build -o /tmp/skills-mcp ./cmd/skills-mcp
+          go build -trimpath -ldflags "-s -w" -o /tmp/securevibe ./cmd/securevibe
 
-      - name: skills-check validate (enforces token budgets)
-        run: /tmp/skills-check validate --path .
+      - name: securevibe dev validate (enforces token budgets)
+        run: /tmp/securevibe dev validate --path .
 
       - name: derive-checklists --check (SKILL.md ↔ checklists/*.yaml sync)
         shell: bash
@@ -319,37 +318,37 @@ jobs:
           for skill in skills/*/; do
             skill_id=$(basename "$skill")
             [ -f "$skill/SKILL.md" ] || continue
-            if ! /tmp/skills-check derive-checklists "$skill_id" --path . --check; then
+            if ! /tmp/securevibe dev derive-checklists "$skill_id" --path . --check; then
               fail=1
             fi
           done
           if [ "$fail" -ne 0 ]; then
-            echo "::error::One or more checklists/*.yaml is out of sync with its SKILL.md. Run 'skills-check derive-checklists <skill-id>' and commit the result."
+            echo "::error::One or more checklists/*.yaml is out of sync with its SKILL.md. Run 'securevibe dev derive-checklists <skill-id>' and commit the result."
             exit 1
           fi
 
       - name: manifest checksums match repo contents
-        run: /tmp/skills-check manifest verify --path . --checksums-only
+        run: /tmp/securevibe dev manifest verify --path . --checksums-only
 
       - name: dist/ matches skills/
         shell: bash
         run: |
           set -e
-          /tmp/skills-check regenerate --path .
+          /tmp/securevibe dev regenerate --path .
           if ! git diff --exit-code -- dist/; then
-            echo "::error::dist/ files are out of date. Run 'skills-check regenerate' and commit."
+            echo "::error::dist/ files are out of date. Run 'securevibe dev regenerate' and commit."
             exit 1
           fi
 
       - name: Scanner eval (dependencies / cicd / dockerfile)
-        # skills-mcp resolves its library data from --path / $SKILLS_LIBRARY_PATH
+        # securevibe resolves its library data from --path / $SKILLS_LIBRARY_PATH
         # / the binary's own dir. The binary lives in /tmp here, so point it at
-        # the checkout explicitly.
+        # the checkout explicitly. The eval drives `securevibe mcp`.
         env:
           SKILLS_LIBRARY_PATH: ${{ github.workspace }}
         run: |
           python3 evals/benchmarks/scanner-eval.py \
-            --skills-mcp /tmp/skills-mcp \
+            --skills-mcp /tmp/securevibe \
             --out evals/baselines/scanner-eval-static.md \
             --verbose
 
@@ -391,8 +390,8 @@ jobs:
           fail=0
           for corpus in skills/*/tests/corpus.json; do
             skill_id=$(basename "$(dirname "$(dirname "$corpus")")")
-            echo "::group::skills-check test $skill_id"
-            if ! /tmp/skills-check test "$skill_id" --library .; then
+            echo "::group::securevibe dev test $skill_id"
+            if ! /tmp/securevibe dev test "$skill_id" --library .; then
               fail=1
               echo "::warning::corpus failures in $skill_id"
             fi
