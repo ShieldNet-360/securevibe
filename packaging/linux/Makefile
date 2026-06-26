@@ -1,15 +1,15 @@
-# Makefile for building skills-check Linux .deb and .rpm packages with nfpm.
+# Makefile for building securevibe Linux .deb and .rpm packages with nfpm.
 #
 # Prerequisites:
 #   - nfpm v2+ (https://nfpm.goreleaser.com/install/)
-#   - Pre-built skills-check binary at $(BINARY)
+#   - Pre-built securevibe binary at $(BINARY)
 #
 # Usage:
-#   make BINARY=../../dist-build/skills-check-linux-amd64 VERSION=2026.05.13
-#   # produces: build/skills-check_$(VERSION)_amd64.deb
-#   #           build/skills-check-$(VERSION).x86_64.rpm
+#   make BINARY=../../dist-build/securevibe-linux-amd64 VERSION=2026.05.13
+#   # produces: build/securevibe_$(VERSION)_amd64.deb
+#   #           build/securevibe-$(VERSION).x86_64.rpm
 
-BINARY  ?= ../../skills-check
+BINARY  ?= ../../securevibe
 VERSION ?= 0.0.0
 ARCH    ?= amd64
 

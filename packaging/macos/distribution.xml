@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <installer-gui-script minSpecVersion="2">
-    <title>Skills-Check CLI</title>
+    <title>SecureVibe CLI</title>
     <organization>com.skills-library</organization>
     <domains enable_localSystem="true"/>
     <options customize="never" require-scripts="false" hostArchitectures="x86_64,arm64"/>
@@ -11,14 +11,14 @@
     </volume-check>
     <choices-outline>
         <line choice="default">
-            <line choice="com.skills-library.skills-check"/>
+            <line choice="com.skills-library.securevibe"/>
         </line>
     </choices-outline>
     <choice id="default"/>
-    <choice id="com.skills-library.skills-check" visible="false">
-        <pkg-ref id="com.skills-library.skills-check"/>
+    <choice id="com.skills-library.securevibe" visible="false">
+        <pkg-ref id="com.skills-library.securevibe"/>
     </choice>
-    <pkg-ref id="com.skills-library.skills-check"
+    <pkg-ref id="com.skills-library.securevibe"
              version="0"
              onConclusion="none">component.pkg</pkg-ref>
 </installer-gui-script>
