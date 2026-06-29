@@ -119,7 +119,7 @@ func TestRedirectProbe_RefutesSafe(t *testing.T) {
 }
 
 func TestRegistryHasAllProbes(t *testing.T) {
-	for _, want := range []string{"ssrf", "sqli", "redirect"} {
+	for _, want := range []string{"ssrf", "sqli", "xss", "redirect", "path-traversal", "command-injection", "ssti", "xxe"} {
 		if _, ok := registry[want]; !ok {
 			t.Errorf("probe %q not registered", want)
 		}

@@ -1,7 +1,7 @@
 # SecureVibe
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
-[![Skills](https://img.shields.io/badge/skills-29-blue)](#skill-catalogue)
+[![Skills](https://img.shields.io/badge/skills-30-blue)](#skill-catalogue)
 [![Vulnerabilities](https://img.shields.io/badge/CVE%20patterns-58-orange)](./vulnerabilities/cve/code-relevant/cve_patterns.json)
 [![Ecosystems](https://img.shields.io/badge/supply--chain%20ecosystems-9-purple)](./vulnerabilities/supply-chain/malicious-packages)
 [![secret-detection patterns](https://img.shields.io/badge/Secret%20patterns-74-red)](./skills/secret-detection/checklists/secret_detection.yaml)
@@ -68,7 +68,7 @@ generation*, before the diff ever touches your repo.
 
 | Area | Path | Description |
 |------|------|-------------|
-| **Skills** | [`skills/`](./skills) | 28 self-contained `SKILL.md` manifests with rules, patterns, and checklists. Each skill is a security capability the AI tool consults at generation time. |
+| **Skills** | [`skills/`](./skills) | 30 self-contained `SKILL.md` manifests with rules, patterns, and checklists. Each skill is a security capability the AI tool consults at generation time. |
 | **Vulnerability database** | [`vulnerabilities/`](./vulnerabilities) | Curated supply-chain corpus (malicious packages, typosquats, CVE detection patterns, dependency-confusion rules) plus an offline OSV cache. Delta-updatable. See the [Vulnerability database](#vulnerability-database--repo-sample-vs-full-upstream) section below for ecosystem coverage and counts. |
 | **Detection rules** | [`rules/`](./rules) | Sigma-format detection rules for AWS, GCP, Azure, K8s, Linux, macOS, Windows, O365, Google Workspace, Salesforce, and Slack — designed to complement the prevention-time rules in `skills/`. |
 | **Compliance maps** | [`compliance/`](./compliance) | OWASP Top 10, CWE Top 25, SANS Top 25 framework mappings plus developer-facing compliance coverage maps (SOC 2, HIPAA, PCI-DSS, FedRAMP). |
@@ -90,7 +90,7 @@ Two published packages:
 | Package | What it is |
 |---------|------------|
 | [`@shieldnet360/secure-code-mcp`](https://www.npmjs.com/package/@shieldnet360/secure-code-mcp) | the MCP server (Go binary + data), agent-agnostic |
-| [`@shieldnet360/secure-code-skill`](https://www.npmjs.com/package/@shieldnet360/secure-code-skill) | the 29 skills + a connector, for Claude Code |
+| [`@shieldnet360/secure-code-skill`](https://www.npmjs.com/package/@shieldnet360/secure-code-skill) | the 30 skills + a connector, for Claude Code |
 
 **MCP server** — add to any MCP client's config (no install; `npx` fetches and
 runs it on demand):
@@ -110,7 +110,7 @@ Or, in Claude Code: `claude mcp add SecureVibe -- npx -y @shieldnet360/secure-co
 optionally wire up the MCP for active scanning:
 
 ```bash
-# install the 29 skills into ./.claude/skills (self-contained; no MCP needed)
+# install the 30 skills into ./.claude/skills (self-contained; no MCP needed)
 npx @shieldnet360/secure-code-skill init
 
 # (optional) connect the MCP engine for precise automated scanning
@@ -386,7 +386,7 @@ Select your tier with `skills-check init --budget compact`. Compact is the defau
 ```
 skills-library/
 ├── README.md  PROPOSAL.md  ARCHITECTURE.md  SIGNING.md  LICENSE
-├── skills/                              # 29 skill definitions (the core product)
+├── skills/                              # 30 skill definitions (the core product)
 │   ├── secret-detection/                #   74 secret-detection patterns + exclusions + test corpus
 │   ├── dependency-audit/                #   known-malicious package corpus
 │   ├── supply-chain-security/           #   typosquat + dependency-confusion rules
@@ -414,7 +414,8 @@ skills-library/
 │   ├── graphql-security/                #   depth / cost limits, introspection
 │   ├── file-upload-security/            #   MIME + magic-byte validation
 │   ├── websocket-security/              #   origin check, auth, rate limits
-│   └── saas-security/                   #   GWS / Atlassian / Slack / Salesforce / 14 services
+│   ├── saas-security/                   #   GWS / Atlassian / Slack / Salesforce / 14 services
+│   └── dynamic-verification/            #   confirm findings with live DAST probes
 ├── vulnerabilities/                     # Supply-chain vulnerability database
 │   ├── manifest.json                    #   versioned, checksummed, delta-updatable
 │   ├── supply-chain/
@@ -774,7 +775,7 @@ out-of-band YubiKey-backed signing procedure and key management policy.
 
 ## Skill catalogue
 
-All 29 skills are language-agnostic unless otherwise noted.
+All 30 skills are language-agnostic unless otherwise noted.
 
 | Skill | Category | Severity | Languages |
 |-------|----------|----------|-----------|
@@ -807,6 +808,7 @@ All 29 skills are language-agnostic unless otherwise noted.
 | `file-upload-security` | prevention | high | * |
 | `websocket-security` | prevention | high | javascript, typescript, python, go, java, csharp, ruby, elixir |
 | `saas-security` | prevention | critical | * |
+| `dynamic-verification` | detection | high | * |
 
 ## Enterprise profiles
 

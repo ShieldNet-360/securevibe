@@ -7,7 +7,7 @@ hide:
 
 <p class="ti-lede">
 The security knowledge SecureVibe feeds your AI assistant at generation time —
-<strong>29 curated skills</strong>, each ranked by severity, mapped to CWEs, and
+<strong>30 curated skills</strong>, each ranked by severity, mapped to CWEs, and
 shipped in three token tiers. This is the actual corpus; browse it below.
 </p>
 

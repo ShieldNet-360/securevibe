@@ -40,7 +40,7 @@ flowchart LR
 
 Everything below ships in the current release. It is fully offline, requires no API key, and arrives as Ed25519-signed binaries.
 
-- **29 skills** — structured `SKILL.md` knowledge in 3 token tiers (minimal / compact / full) for feeding AI assistants at generation time.
+- **30 skills** — structured `SKILL.md` knowledge in 3 token tiers (minimal / compact / full) for feeding AI assistants at generation time.
 - **4 deterministic scanners** — secrets, dependencies (malicious / typosquat / CVE / OSV), Dockerfile, GitHub Actions. Narrow by design.
 - **16 MCP tools** — `scan_dependencies`, `scan_secrets`, `scan_dockerfile`, `scan_github_actions`, `lookup_vulnerability`, `check_secret_pattern`, `map_compliance_control`, `gate`, and more, exposed over stdio by `skills-mcp`.
 - **Curated malicious-package DB — 3,623 entries across 10 ecosystems** (npm, nuget, pypi, rubygems, plus curated composer/crates/docker/maven/go/github-actions). Every curated entry is web-cited; exact-match lookups carry zero false positives. This is the data moat.

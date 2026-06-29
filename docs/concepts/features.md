@@ -8,7 +8,7 @@ Most tools wait for code to exist and then look for what's wrong. SecureVibe sta
 
 ## 1. Generation-time skills (PREVENT)
 
-**What it is.** 29 signed `SKILL.md` documents — structured security knowledge in three token tiers (`minimal` / `compact` / `full`) so an assistant can load the right depth for its context budget. `skills-check init` writes the matching config for your assistant (`CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`, `AGENTS.md`, and others), and the assistant reads the skills *while it writes code*.
+**What it is.** 30 signed `SKILL.md` documents — structured security knowledge in three token tiers (`minimal` / `compact` / `full`) so an assistant can load the right depth for its context budget. `skills-check init` writes the matching config for your assistant (`CLAUDE.md`, `.cursorrules`, `.github/copilot-instructions.md`, `AGENTS.md`, and others), and the assistant reads the skills *while it writes code*.
 
 **Why it matters.** This is the lane that post-hoc tools structurally cannot occupy. Semgrep, Snyk, and gitleaks all run *after* the code exists — they can only tell you what's already wrong. SecureVibe moves the security knowledge to generation time, so "secure" is the path of least resistance the model takes in the first place. The cheapest vulnerability is the one never written.
 
