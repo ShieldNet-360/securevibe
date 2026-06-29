@@ -51,6 +51,10 @@ not inlined; query them via MCP (or read the source on disk):
 
 - `compliance-awareness` — Compliance Awareness
 
+### detection
+
+- `dynamic-verification` — Dynamic Finding Verification
+
 ### hardening
 
 - `container-security` — Container Security

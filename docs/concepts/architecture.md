@@ -27,7 +27,7 @@ flowchart LR
 
     subgraph GROUND["Grounding layer — SecureVibe (deterministic, offline, signed)"]
         DB["Curated malicious-package DB<br/>+ CVE / OSV"]
-        SK["29 security skills"]
+        SK["30 security skills"]
         SC["4 scanners"]
         SG["Ed25519 signing / verify"]
         GT["CI gate"]
@@ -211,7 +211,7 @@ The top-level directories that matter for understanding the build:
 
 ```text
 skills-library/
-├── skills/                       # 29 security SKILL.md knowledge files (3 token tiers)
+├── skills/                       # 30 security SKILL.md knowledge files (3 token tiers)
 ├── vulnerabilities/
 │   ├── supply-chain/             # curated malicious-package DB (3,623 entries, 10 ecosystems)
 │   ├── cve/                      # 58 CVE code-patterns

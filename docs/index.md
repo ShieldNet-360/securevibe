@@ -14,7 +14,7 @@ hide:
   <img src="https://img.shields.io/badge/License-MIT-yellow" alt="MIT">
   <img src="https://img.shields.io/github/actions/workflow/status/shieldnet-360/securevibe/validate.yml?branch=main&label=CI" alt="CI">
   <img src="https://img.shields.io/github/last-commit/shieldnet-360/securevibe?label=last%20update&color=brightgreen" alt="Last commit">
-  <img src="https://img.shields.io/badge/skills-29-blue" alt="Skills">
+  <img src="https://img.shields.io/badge/skills-30-blue" alt="Skills">
   <img src="https://img.shields.io/badge/CVE%20patterns-58-orange" alt="CVE patterns">
   <img src="https://img.shields.io/badge/supply--chain%20ecosystems-10-purple" alt="Supply-chain ecosystems">
   <img src="https://img.shields.io/badge/Secret%20patterns-83-red" alt="secret-detection patterns">
@@ -37,7 +37,7 @@ hide:
 <div class="ss-stats">
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="malicious">3,623</span><span class="ss-stat-label">Curated Entries</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="ecosystems">10</span><span class="ss-stat-label">Supply-Chain Ecosystems</span></div>
-  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="skills">29</span><span class="ss-stat-label">Skills</span></div>
+  <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="skills">30</span><span class="ss-stat-label">Skills</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="cve">58</span><span class="ss-stat-label">CVE Patterns</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="secret">83</span><span class="ss-stat-label">Secret Patterns</span></div>
   <div class="ss-stat"><span class="ss-stat-value" data-sv-stat="integrations">8</span><span class="ss-stat-label">AI Client Integrations</span></div>
@@ -99,7 +99,7 @@ flowchart LR
     AI -->|JSON-RPC on demand| MCP["skills-mcp<br/>server"]
     subgraph LIB [" SecureVibe library "]
         direction TB
-        SK["skills/<br/>29 SKILL.md"]
+        SK["skills/<br/>30 SKILL.md"]
         VU["vulnerabilities/<br/>npm · pypi · cargo · gem · go ·<br/>nuget · maven · gh-actions · docker"]
         CV["CVE patterns<br/>58 code-relevant"]
         SECRETS["Secret patterns<br/>83 detection rules"]
@@ -124,7 +124,7 @@ Every surface is optional. Drop a static `CLAUDE.md` for zero-config baseline co
 <a class="ss-card" data-pkg="skills" href="https://github.com/shieldnet-360/securevibe/tree/main/skills">
 <span class="ss-card-icon">🧠</span>
 <span class="ss-card-body"><span class="ss-card-title">Skill Catalogue</span>
-<span class="ss-card-desc">29 structured security skills, machine-readable, ranked by severity. Three token tiers (minimal / compact / full) per skill.</span></span>
+<span class="ss-card-desc">30 structured security skills, machine-readable, ranked by severity. Three token tiers (minimal / compact / full) per skill.</span></span>
 </a>
 <a class="ss-card" data-pkg="cve" href="https://github.com/shieldnet-360/securevibe/tree/main/vulnerabilities/cve">
 <span class="ss-card-icon">🛡️</span>

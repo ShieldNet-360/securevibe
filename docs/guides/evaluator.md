@@ -12,7 +12,7 @@ The lifecycle has four stages:
 
 | Stage | What it does | How |
 |-------|--------------|-----|
-| **PREVENT** | Stop insecure code from being written at all | 29 signed security skills fed to 8 AI assistants at generation time |
+| **PREVENT** | Stop insecure code from being written at all | 30 signed security skills fed to 8 AI assistants at generation time |
 | **DETECT** | Catch known issues that slip through | 4 deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) |
 | **ENFORCE** | Block insecure diffs before merge | `gate` command, exits non-zero above a severity floor, emits SARIF |
 | **LEARN** | Grow coverage from real findings | Signed contribution overlays shared you → team → org |

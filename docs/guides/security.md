@@ -43,7 +43,7 @@ Being explicit here is part of the trust contract:
 
 ## Detection scope (honest)
 
-Four scanners are **enforced** by the tooling. The 29 skills cover a broader set of security domains as *prevention guidance* at generation time, but only the four below are backed by a deterministic scanner and the CI gate.
+Four scanners are **enforced** by the tooling. The 30 skills cover a broader set of security domains as *prevention guidance* at generation time, but only the four below are backed by a deterministic scanner and the CI gate.
 
 | Scanner | Command | What it catches |
 |---|---|---|

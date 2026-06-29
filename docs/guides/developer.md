@@ -8,7 +8,7 @@ SecureVibe works **left of the cursor**. Instead of waiting for a scanner to fla
 
 The lifecycle is **PREVENT → DETECT → ENFORCE → LEARN**:
 
-- **PREVENT** — 29 skills are installed into your assistant's config and consulted as it writes.
+- **PREVENT** — 30 skills are installed into your assistant's config and consulted as it writes.
 - **DETECT** — 4 narrow, deterministic scanners (secrets, dependencies, Dockerfile, GitHub Actions) check the result.
 - **ENFORCE** — a `gate` blocks insecure diffs locally and in CI.
 - **LEARN** — when you find a bad package the DB doesn't know about, you teach it in 30 seconds.
