@@ -336,7 +336,7 @@ _Block unsafe deserialization across Java, Python, .NET, PHP, Ruby, Node.js — 
 - Build-time / configuration-time deserialization of files that ship in the repository (pickle test fixtures, etc.) — but mark them clearly and never load them from a download.
 - Cryptographically-authenticated session formats like Rails' default signed-cookie sessions are intended use of Marshal, but only because the HMAC gates the deserialization.
 
-## Dynamic Finding Verification (`dynamic-verification`)
+## Verify Findings (`dynamic-verification`)
 
 _Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it_
 

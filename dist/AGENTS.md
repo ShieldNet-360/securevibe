@@ -53,7 +53,7 @@ not inlined; query them via MCP (or read the source on disk):
 
 ### detection
 
-- `dynamic-verification` — Dynamic Finding Verification
+- `dynamic-verification` — Verify Findings
 
 ### hardening
 

@@ -1,7 +1,7 @@
 ---
 id: dynamic-verification
 version: "1.0.0"
-title: "Dynamic Finding Verification"
+title: "Verify Findings"
 description: "Confirm or refute a vulnerability candidate against a live target with a deterministic probe before acting on it"
 category: detection
 severity: high
@@ -22,7 +22,7 @@ sources:
   - "PortSwigger Web Security Academy"
 ---
 
-# Dynamic Finding Verification
+# Verify Findings
 
 ## Rules (for AI agents)
 
