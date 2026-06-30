@@ -117,7 +117,10 @@ root, or generate a project-specific one with `securevibe init`:
 # Copy once:
 cp securevibe/dist/CLAUDE.md /your-project/CLAUDE.md
 # …or symlink for auto-updates, or generate the file with `init` (all 30 skills by default):
-securevibe init --tool claude                  # add --skills a,b,c to narrow, --budget <tier> to set depth
+npx -y @shieldnet360/securevibe init --tool claude   # no clone needed — npm bundles the skills
+#   add --skills a,b,c to narrow · --budget <tier> for depth
+#   installed the binary instead? run `securevibe init …` from a checkout, or set
+#   $SKILLS_LIBRARY_PATH (or --library <checkout>) so it can find the skills data.
 ```
 
 For Claude Code's native skill bundles, copy `dist/claude-skills/.claude/skills/`

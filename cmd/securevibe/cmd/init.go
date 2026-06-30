@@ -37,7 +37,11 @@ func initCmd() *cobra.Command {
 				tier = skill.Tier(budget)
 			}
 
-			lib, err := filepath.Abs(libraryPath)
+			// Resolve like the scanners: an explicit --library wins, else
+			// $SKILLS_LIBRARY_PATH (so `npx @shieldnet360/securevibe init` and
+			// any installed binary find the bundled/checked-out data tree
+			// instead of looking for ./skills in the user's project), else cwd.
+			lib, err := filepath.Abs(resolveLibraryRoot(libraryPath))
 			if err != nil {
 				return err
 			}
@@ -104,7 +108,7 @@ func initCmd() *cobra.Command {
 			return nil
 		},
 	}
-	c.Flags().StringVar(&libraryPath, "library", ".", "path to the skills-library checkout")
+	c.Flags().StringVar(&libraryPath, "library", ".", "library root (default: $SKILLS_LIBRARY_PATH, else cwd)")
 	c.Flags().StringVar(&tool, "tool", "", "target tool (claude|cursor|copilot|codex|agents|windsurf|devin|cline|universal)")
 	c.Flags().StringVar(&skillsList, "skills", "", "comma-separated skill IDs (narrows the --profile selection when combined; both filters apply)")
 	c.Flags().StringVar(&budget, "budget", "", "tier override (minimal|compact|full)")
