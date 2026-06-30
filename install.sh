@@ -5,9 +5,13 @@
 #
 # Downloads the securevibe binary for your OS/arch from the latest GitHub
 # release, verifies its SHA-256 against the release's SHA256SUMS.txt, and
-# installs it to ~/.local/bin. Override with these environment variables:
+# installs it to ~/.local/bin. It also fetches the library data tarball and
+# extracts it to the per-user data dir securevibe reads by default, so
+# data-backed commands (init, status, scan, gate) work without a checkout.
+# Override with these environment variables:
 #
 #   SECUREVIBE_BIN_DIR   install directory          (default: ~/.local/bin)
+#   SECUREVIBE_DATA_DIR  library data directory     (default: $XDG_DATA_HOME/securevibe, else ~/.local/share/securevibe)
 #   SECUREVIBE_VERSION   release tag to install     (default: latest)
 #   SECUREVIBE_BASE_URL  release download base URL  (default: GitHub releases)
 #
@@ -17,6 +21,7 @@ set -eu
 REPO="shieldnet-360/securevibe"
 BIN="securevibe"
 BIN_DIR="${SECUREVIBE_BIN_DIR:-$HOME/.local/bin}"
+DATA_DIR="${SECUREVIBE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/securevibe}"
 VERSION="${SECUREVIBE_VERSION:-latest}"
 
 err() { printf 'install: error: %s\n' "$1" >&2; exit 1; }
@@ -24,6 +29,7 @@ need() { command -v "$1" >/dev/null 2>&1 || err "required command not found: $1"
 
 need curl
 need uname
+need tar
 
 # Checksum tool: sha256sum (Linux) or shasum (macOS).
 if command -v sha256sum >/dev/null 2>&1; then
@@ -88,6 +94,27 @@ chmod +x "${tmp}/${BIN}"
 mkdir -p "$BIN_DIR"
 mv "${tmp}/${BIN}" "${BIN_DIR}/${BIN}"
 printf 'install: installed %s -> %s\n' "$BIN" "${BIN_DIR}/${BIN}"
+
+# Fetch the library data so data-backed commands (init, status, scan, gate)
+# work without a checkout. securevibe looks here by default when no --path /
+# $SKILLS_LIBRARY_PATH is given. Soft-fail: a missing data tarball leaves the
+# binary installed (the user can still `securevibe update` or pass --path), but
+# a checksum MISMATCH is treated as tampering and aborts.
+data_asset="skills-library-data.tar.gz"
+if curl -fsSL "${base}/${data_asset}" -o "${tmp}/${data_asset}" 2>/dev/null; then
+  if [ -f "${tmp}/SHA256SUMS.txt" ]; then
+    dwant=$(awk -v a="$data_asset" '$2 == a || $2 == "*"a {print $1; exit}' "${tmp}/SHA256SUMS.txt")
+    if [ -n "$dwant" ]; then
+      dgot=$(sha256 "${tmp}/${data_asset}")
+      [ "$dwant" = "$dgot" ] || err "checksum mismatch for ${data_asset} (want ${dwant}, got ${dgot})"
+    fi
+  fi
+  mkdir -p "$DATA_DIR"
+  tar -xzf "${tmp}/${data_asset}" -C "$DATA_DIR" || err "failed to extract library data into ${DATA_DIR}"
+  printf 'install: library data -> %s\n' "$DATA_DIR"
+else
+  printf 'install: warning: %s unavailable; data-backed commands need `securevibe update` or --path.\n' "$data_asset" >&2
+fi
 
 # Nudge the user if the install dir is not on PATH.
 # SC2016: the literal $PATH below is intentional — we print a command for the

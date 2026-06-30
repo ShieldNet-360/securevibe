@@ -36,6 +36,9 @@ func repoRootForTest(t *testing.T) string {
 // makes `securevibe policy-check` usable from a user's CI / pre-commit
 // without a skills-library checkout in the working directory.
 func TestResolveLibraryRoot(t *testing.T) {
+	// Isolate the data-dir fallback to an empty dir so the "stays cwd" cases
+	// are deterministic regardless of a real ~/.local/share/securevibe.
+	t.Setenv("XDG_DATA_HOME", t.TempDir())
 	cases := []struct {
 		name    string
 		flagVal string
@@ -78,6 +81,50 @@ func run(t *testing.T, args ...string) (string, string, error) {
 	cmd.SetArgs(args)
 	err := cmd.Execute()
 	return stdout.String(), stderr.String(), err
+}
+
+// TestResolveLibraryRootDataDirFallback locks in the install.sh path: when
+// neither --path nor $SKILLS_LIBRARY_PATH is set and the cwd is not itself a
+// checkout, resolution falls back to the per-user data dir an installer
+// populated — but a cwd that IS a checkout still wins (contributor default).
+func TestResolveLibraryRootDataDirFallback(t *testing.T) {
+	os.Unsetenv("SKILLS_LIBRARY_PATH")
+
+	xdg := t.TempDir()
+	t.Setenv("XDG_DATA_HOME", xdg)
+	dataDir := filepath.Join(xdg, "securevibe")
+	if err := os.MkdirAll(filepath.Join(dataDir, "skills"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+
+	// Non-library cwd → fall back to the populated data dir.
+	withCwd(t, t.TempDir())
+	if got := resolveLibraryRoot("."); got != dataDir {
+		t.Errorf("non-library cwd: resolveLibraryRoot(\".\") = %q; want data dir %q", got, dataDir)
+	}
+
+	// A cwd that is itself a checkout wins over the data dir.
+	libCwd := t.TempDir()
+	if err := os.MkdirAll(filepath.Join(libCwd, "skills"), 0o755); err != nil {
+		t.Fatal(err)
+	}
+	withCwd(t, libCwd)
+	if got := resolveLibraryRoot("."); got != "." {
+		t.Errorf("library cwd: resolveLibraryRoot(\".\") = %q; want \".\"", got)
+	}
+}
+
+// withCwd chdir's into dir for the rest of the test (Go 1.22-compatible; no t.Chdir).
+func withCwd(t *testing.T, dir string) {
+	t.Helper()
+	orig, err := os.Getwd()
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := os.Chdir(dir); err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { _ = os.Chdir(orig) })
 }
 
 func TestCheckDependencyHappyPath(t *testing.T) {

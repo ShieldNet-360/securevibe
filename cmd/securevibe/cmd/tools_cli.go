@@ -59,13 +59,19 @@ var supportedOutputFormats = map[string]bool{
 //  2. $SKILLS_LIBRARY_PATH, so the CLI can run inside an arbitrary
 //     project (CI, pre-commit, a hook) while pointed at a bundled data
 //     tree — mirroring how cmd/skills-mcp resolves its own root;
-//  3. the current working directory ("."), the in-repo contributor
-//     default.
+//  3. the current working directory, when it is itself a checkout (the
+//     in-repo contributor default — kept ahead of the data dir so a
+//     contributor's working tree always wins);
+//  4. the per-user default data dir (tools.DefaultDataDir), which
+//     install.sh populates with the release data tarball — so a binary
+//     installed via `curl | sh` works from any project without --path.
 //
 // Treating the "." default the same as "unset" is deliberate: a bare
 // `securevibe scan-dockerfile Dockerfile` run from a user's project
-// should fall through to the env, not fail because that project has no
-// skills/ tree of its own.
+// should fall through to the env / data dir, not fail because that
+// project has no skills/ tree of its own. The final "." keeps the old
+// behaviour (and surfaces the helpful "no skills/" error) when nothing
+// is configured and no data dir exists.
 func resolveLibraryRoot(flagVal string) string {
 	if flagVal != "" && flagVal != "." {
 		return flagVal
@@ -73,10 +79,13 @@ func resolveLibraryRoot(flagVal string) string {
 	if env := strings.TrimSpace(os.Getenv("SKILLS_LIBRARY_PATH")); env != "" {
 		return env
 	}
-	if flagVal == "" {
+	if tools.IsLibraryRoot(".") {
 		return "."
 	}
-	return flagVal
+	if d := tools.DefaultDataDir(); tools.IsLibraryRoot(d) {
+		return d
+	}
+	return "."
 }
 
 // newLibraryForCmd constructs a Library suitable for one CLI run.

@@ -54,20 +54,30 @@ MIT-licensed, offline, and keyless.
 
 ## Install
 
-`securevibe` reads its library data from a directory (resolution order:
-`--path` → `$SKILLS_LIBRARY_PATH` → current dir), so install the binary, then
-point it at a library checkout.
-
 ```bash
-# 1. Binary — prebuilt (macOS/Linux, amd64/arm64); verifies SHA-256 against the release
+# Prebuilt binary (macOS/Linux, amd64/arm64) — verifies SHA-256, and also
+# fetches the library data so commands work out of the box. Turnkey.
 curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
-#    …or with Go:
-go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
 
-# 2. Library data (skills + vuln DB) — clone, then keep it current
-git clone https://github.com/shieldnet-360/securevibe.git lib
-securevibe update --path ./lib
+# …or via npm (no Go; bundles the data) — see "Run the MCP server" below
+npx -y @shieldnet360/securevibe version
+
+# …or with Go (builds only the binary — see the data note below)
+go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
 ```
+
+`securevibe` reads its library data (skills + vuln DB) from a directory,
+resolved as: `--path`/`--library` → `$SKILLS_LIBRARY_PATH` → the current dir if
+it's a checkout → the per-user data dir (`$XDG_DATA_HOME/securevibe`). **`curl |
+sh` and `npm` populate that data dir for you**, so they're turnkey. With
+**`go install`** (binary only) point it at data once — clone the repo and
+`securevibe update --path ./lib`, or set `$SKILLS_LIBRARY_PATH`.
+
+Homebrew, winget, `.deb` / `.rpm`, and air-gapped installs: see
+[docs/install-macos.md](./docs/install-macos.md),
+[docs/install-linux.md](./docs/install-linux.md),
+[docs/install-windows.md](./docs/install-windows.md), and
+[docs/air-gapped-install.md](./docs/air-gapped-install.md).
 
 Homebrew, winget, `.deb` / `.rpm`, and air-gapped installs: see
 [docs/install-macos.md](./docs/install-macos.md),

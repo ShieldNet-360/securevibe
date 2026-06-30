@@ -76,13 +76,17 @@ func RunStdio(o StdioOptions) error {
 }
 
 // resolveLibraryRoot determines the skills-library root, in order:
-// --path, $SKILLS_LIBRARY_PATH, then the directory of the running binary.
+// --path, $SKILLS_LIBRARY_PATH, the per-user default data dir (populated by
+// install.sh), then the directory of the running binary.
 func resolveLibraryRoot(arg string) (string, error) {
 	if arg != "" {
 		return filepath.Abs(arg)
 	}
 	if env := os.Getenv("SKILLS_LIBRARY_PATH"); env != "" {
 		return filepath.Abs(env)
+	}
+	if d := tools.DefaultDataDir(); tools.IsLibraryRoot(d) {
+		return filepath.Abs(d)
 	}
 	exe, err := os.Executable()
 	if err != nil {
