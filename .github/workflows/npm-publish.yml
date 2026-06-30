@@ -101,7 +101,19 @@ jobs:
           done
 
       - name: Assemble npm packages
-        run: node npm/build.mjs --binaries npm-binaries --root . --version "${{ steps.ver.outputs.version }}" --out npm/dist
+        shell: bash
+        run: |
+          set -euo pipefail
+          node npm/build.mjs --binaries npm-binaries --root . --version "${{ steps.ver.outputs.version }}" --out npm/dist
+          # Refuse to publish an incomplete set: build.mjs only WARNS and drops a
+          # platform if its binary is missing/misnamed, which would ship a release
+          # that's broken for that os/cpu. All 5 platform packages must be present.
+          count=$(find npm/dist -maxdepth 1 -type d -name 'securevibe-*' | wc -l | tr -d ' ')
+          if [ "$count" -ne 5 ]; then
+            echo "::error::assembled $count/5 platform packages — a binary is missing or misnamed; refusing to publish a partial set"
+            exit 1
+          fi
+          echo "all 5 platform packages assembled"
 
       - name: Smoke-test (build host pkg + initialize handshake + gate)
         run: node npm/smoke-test.mjs
@@ -113,14 +125,27 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+          # Idempotent: skip any package@version already on npm so a re-run after
+          # a mid-set failure completes the publish instead of dying on E409
+          # ("cannot publish over existing version"). npm publishes are
+          # irreversible, so a partial first publish must be resumable.
+          publish_if_new() {
+            local dir="$1" name version
+            name="$(node -p "JSON.parse(require('fs').readFileSync('${dir%/}/package.json','utf8')).name")"
+            version="$(node -p "JSON.parse(require('fs').readFileSync('${dir%/}/package.json','utf8')).version")"
+            if npm view "$name@$version" version >/dev/null 2>&1; then
+              echo "skip $name@$version (already on npm)"
+            else
+              echo "publishing $name@$version"
+              npm publish "$dir" --access public
+            fi
+          }
           # Platform packages must exist before the main package (which lists
           # them as optionalDependencies) so a first install resolves cleanly.
           for d in npm/dist/securevibe-*/; do
-            echo "publishing $(basename "$d")"
-            npm publish "$d" --access public
+            publish_if_new "$d"
           done
-          echo "publishing securevibe (main)"
-          npm publish npm/dist/securevibe --access public
+          publish_if_new npm/dist/securevibe
 
       - name: Token not configured (no-op)
         if: ${{ env.HAS_NPM_TOKEN != 'true' }}
