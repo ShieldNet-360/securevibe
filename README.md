@@ -77,18 +77,25 @@ Homebrew, winget, `.deb` / `.rpm`, and air-gapped installs: see
 
 ### Run the MCP server
 
-Any MCP client speaks to `securevibe mcp` over stdio. Wire it in by absolute path:
+Any MCP client speaks to `securevibe mcp` over stdio. Register it in Claude Code with one command:
+
+```bash
+# npm — no install, no JSON editing (recommended)
+claude mcp add SecureVibe -- npx -y @shieldnet360/securevibe mcp
+
+# or, if you installed the binary (go install / curl | sh), let it wire itself in:
+securevibe connect-mcp        # runs: claude mcp add -s local securevibe -- securevibe mcp --path <root>
+```
+
+Or configure any MCP client by hand:
 
 ```jsonc
 {
   "mcpServers": {
-    "SecureVibe": { "command": "securevibe", "args": ["mcp", "--path", "/abs/path/lib"] }
+    "SecureVibe": { "command": "npx", "args": ["-y", "@shieldnet360/securevibe", "mcp"] }
   }
 }
 ```
-
-No Go? The MCP server is also published to npm:
-`npx -y @shieldnet360/secure-code-mcp` (binary + data bundled).
 
 ## Embed skills in your IDE
 
@@ -109,8 +116,8 @@ root, or generate a project-specific one with `securevibe init`:
 ```bash
 # Copy once:
 cp securevibe/dist/CLAUDE.md /your-project/CLAUDE.md
-# …or symlink for auto-updates, or generate a project-specific file with only the skills you want:
-securevibe init --tool claude --skills secret-detection,dependency-audit,secure-code-review --budget compact
+# …or symlink for auto-updates, or generate the file with `init` (all 30 skills by default):
+securevibe init --tool claude                  # add --skills a,b,c to narrow, --budget <tier> to set depth
 ```
 
 For Claude Code's native skill bundles, copy `dist/claude-skills/.claude/skills/`
