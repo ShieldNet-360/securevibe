@@ -1,27 +1,28 @@
 name: npm publish
 
-# Publishes the SecureVibe MCP server to npm as:
-#   @shieldnet360/secure-code-mcp                      (launcher + library data)
-#   @shieldnet360/secure-code-mcp-<os>-<arch>  x5      (per-platform binaries)
+# Publishes the consolidated SecureVibe binary to npm as:
+#   @shieldnet360/securevibe                      (launcher + library data)
+#   @shieldnet360/securevibe-<os>-<arch>  x5      (per-platform `securevibe` binary)
 #
-# The binaries are rebuilt from the tagged source in this run (not downloaded
-# from the GitHub release). The platform packages are published BEFORE the main
-# package because the main package lists them as optionalDependencies.
+# SecureVibe is ONE Go binary (`securevibe`) — CLI scanners, the `gate`, `init`,
+# `securevibe mcp` (MCP server), and `securevibe dev …`. The binaries are rebuilt
+# from the tagged source in this run (not downloaded from the GitHub release).
+# Platform packages are published BEFORE the main package because the main
+# package lists them as optionalDependencies.
 #
 # Note: --provenance is NOT used because npm provenance requires a PUBLIC source
-# repository (npm rejects private repos with E422). This repo is private, so we
-# publish without the sigstore attestation. If the repo is ever made public,
+# repository (npm rejects private repos with E422). If the repo is public you may
 # re-add `--provenance` to the publish commands and `id-token: write` below.
 #
-# Manual by design (matches the repo's deliberate draft -> sign -> publish
-# release flow); also runs when a GitHub release is published. Both paths
-# resolve the version from the tag (npm version = tag without the leading "v").
+# Manual by design (matches the repo's draft -> sign -> publish release flow);
+# also runs when a GitHub release is published. Both paths resolve the version
+# from the tag (npm version = tag without the leading "v").
 
 on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Git tag to publish (e.g. v0.1.0). npm version = tag without the leading 'v'."
+        description: "Git tag to publish (e.g. v0.10.1). npm version = tag without the leading 'v'."
         required: true
         type: string
   release:
@@ -80,39 +81,32 @@ jobs:
           node-version: "20"
           registry-url: "https://registry.npmjs.org"
 
-      - name: Cross-compile skills-mcp + skills-check for every target
+      - name: Cross-compile securevibe for every target
         shell: bash
         env:
           CGO_ENABLED: "0"
           SOURCE_DATE_EPOCH: "0"
+          TAG: ${{ steps.ver.outputs.tag }}
         run: |
           set -euo pipefail
           mkdir -p npm-binaries
+          ldflags="-s -w -X github.com/shieldnet-360/securevibe/cmd/securevibe/cmd.CLIVersion=${TAG}"
           for pair in linux/amd64 linux/arm64 darwin/amd64 darwin/arm64 windows/amd64; do
             goos="${pair%/*}"; goarch="${pair#*/}"
             ext=""; [ "$goos" = "windows" ] && ext=".exe"
             GOOS="$goos" GOARCH="$goarch" go build \
-              -trimpath -ldflags "-s -w" \
-              -o "npm-binaries/skills-mcp-${goos}-${goarch}${ext}" ./cmd/skills-mcp
-            GOOS="$goos" GOARCH="$goarch" go build \
-              -trimpath -ldflags "-s -w" \
-              -o "npm-binaries/skills-check-${goos}-${goarch}${ext}" ./cmd/skills-check
-            echo "built skills-mcp + skills-check for ${goos}/${goarch}"
+              -trimpath -ldflags "$ldflags" \
+              -o "npm-binaries/securevibe-${goos}-${goarch}${ext}" ./cmd/securevibe
+            echo "built securevibe for ${goos}/${goarch}"
           done
 
       - name: Assemble npm packages
         run: node npm/build.mjs --binaries npm-binaries --root . --version "${{ steps.ver.outputs.version }}" --out npm/dist
 
-      - name: Smoke-test (build host pkg + initialize handshake)
+      - name: Smoke-test (build host pkg + initialize handshake + gate)
         run: node npm/smoke-test.mjs
 
-      - name: Assemble skill package
-        run: node npm/build-skill.mjs --root . --version "${{ steps.ver.outputs.version }}" --out npm/dist-skill
-
-      - name: Smoke-test skill (init + connect-mcp)
-        run: node npm/smoke-test-skill.mjs
-
-      - name: Publish to npm (platform packages first, then main, then skill)
+      - name: Publish to npm (platform packages first, then the main package)
         if: ${{ env.HAS_NPM_TOKEN == 'true' }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -121,16 +115,12 @@ jobs:
           set -euo pipefail
           # Platform packages must exist before the main package (which lists
           # them as optionalDependencies) so a first install resolves cleanly.
-          for d in npm/dist/secure-code-mcp-*/; do
+          for d in npm/dist/securevibe-*/; do
             echo "publishing $(basename "$d")"
             npm publish "$d" --access public
           done
-          echo "publishing secure-code-mcp (main)"
-          npm publish npm/dist/secure-code-mcp --access public
-          # The skill package is independent (no binaries) and references the
-          # MCP package by name; publish it last.
-          echo "publishing secure-code-skill"
-          npm publish npm/dist-skill/secure-code-skill --access public
+          echo "publishing securevibe (main)"
+          npm publish npm/dist/securevibe --access public
 
       - name: Token not configured (no-op)
         if: ${{ env.HAS_NPM_TOKEN != 'true' }}

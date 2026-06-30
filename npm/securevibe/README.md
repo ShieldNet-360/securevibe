@@ -1,74 +1,63 @@
-# @shieldnet360/secure-code-mcp
+# @shieldnet360/securevibe
 
-The **secure-code** security skills server, speaking the [Model Context
-Protocol](https://modelcontextprotocol.io) over stdio. Point your AI coding
-agent at it to get secret detection, dependency / CVE scanning (offline OSV
-cache), Dockerfile & GitHub Actions hardening checks, and 28 security skills.
+**SecureVibe** in one command — secret detection, dependency / CVE scanning (offline
+OSV cache), Dockerfile & GitHub Actions hardening, a CI `gate`, 30 security skills,
+and a [Model Context Protocol](https://modelcontextprotocol.io) server. It's a single
+Go binary (`securevibe`); this package ships it plus the library data, with the
+prebuilt binary delivered as a per-platform optional dependency.
 
-## Use it
+## As an MCP server
 
-No global install needed — reference it with `npx` in your MCP client config.
-
-**Claude Code / Claude Desktop / Cursor** (`mcpServers` block):
+Reference it with `npx` in your MCP client config — no global install:
 
 ```json
 {
   "mcpServers": {
-    "secure-code": {
+    "SecureVibe": {
       "command": "npx",
-      "args": ["-y", "@shieldnet360/secure-code-mcp"]
+      "args": ["-y", "@shieldnet360/securevibe", "mcp"]
     }
   }
 }
 ```
 
-That's it. On first run npm fetches the package plus the one prebuilt server
-binary matching your OS/CPU.
+On first run npm fetches this package plus the one prebuilt binary matching your
+OS/CPU. The file-reading tools (`scan_secrets`, `scan_dependencies`,
+`scan_github_actions`, `scan_dockerfile`, `gate`) default to the current working
+directory; widen the allow-list by appending `--allowed-roots /path/to/project` to
+the `args`.
 
-### Restricting file access
+## As a CLI gate
 
-The file-reading tools (`scan_secrets`, `scan_dependencies`,
-`scan_github_actions`, `scan_dockerfile`, `gate`) default to the
-current working directory. To widen or pin the allow-list, pass through
-flags after the package name:
-
-```json
-{ "command": "npx", "args": ["-y", "@shieldnet360/secure-code-mcp", "--allowed-roots", "/path/to/project"] }
-```
-
-## CLI — `secure-code-check` (the gate)
-
-The same package also ships the `skills-check` CLI as a second command,
-`secure-code-check`, for use in scripts, pre-commit hooks, and CI — no
+The same binary is a scanner/gate for scripts, pre-commit hooks, and CI — no
 JSON-RPC, just an exit code:
 
 ```bash
-npm i -D @shieldnet360/secure-code-mcp
-# pick the right scanner for a file and fail (exit 1) on findings >= floor
-npx -p @shieldnet360/secure-code-mcp secure-code-check gate Dockerfile --severity-floor high
+# pick the right scanner for a file (or a whole directory) and fail (exit 1)
+# on any finding at or above the severity floor
+npx -y @shieldnet360/securevibe gate Dockerfile --severity-floor high
+npx -y @shieldnet360/securevibe scan-dependencies .
 ```
 
-`gate` dispatches to the dependency / Dockerfile / GitHub Actions scanners by
-file shape and falls back to a secret scan for anything else. The bundled
-data tree is located automatically (no `--path` needed).
+`gate` dispatches to the dependency / Dockerfile / GitHub Actions scanners by file
+shape and falls back to a secret scan for anything else. The bundled data tree is
+located automatically (no `--path` needed). Add `--format json|sarif` for CI.
 
 ## How it's packaged
 
-This is a thin launcher. The server and CLI are Go binaries; this package
-declares one optional dependency per platform (`-darwin-arm64`, `-linux-x64`,
-…) gated by `os`/`cpu`, so npm installs **only** the binaries for your machine
-— no postinstall download, works offline and under `npm ci --ignore-scripts`.
-The library data (skills, the OSV cache, checklists) ships once inside this
-package and is shared by both bins (`secure-code-mcp` via `--path`,
-`secure-code-check` via `$SKILLS_LIBRARY_PATH`).
+A thin Node launcher over the Go binary. This package declares one optional
+dependency per platform (`-darwin-arm64`, `-linux-x64`, …) gated by `os`/`cpu`, so
+npm installs **only** the binary for your machine — no postinstall download, works
+offline and under `npm ci --ignore-scripts`. The library data (skills, the OSV
+cache, checklists) ships once inside this package and is handed to the binary via
+`$SKILLS_LIBRARY_PATH`.
 
 ## Also available
 
-- **Go:** `go install github.com/shieldnet-360/securevibe/cmd/skills-mcp@latest`
-  (then point `--path` at a library checkout or a `skills-check update` cache).
-- **Binaries + data tarball:** attached to each
-  [GitHub Release](https://github.com/shieldnet-360/securevibe/releases).
+- **Go:** `go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest`
+- **Prebuilt binary:** `curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh`
+- **Binaries + data tarball:** attached to each [GitHub Release](https://github.com/shieldnet-360/securevibe/releases).
 
 ## License
 
-Apache-2.0. See the [repository](https://github.com/shieldnet-360/securevibe).
+MIT. See the [repository](https://github.com/shieldnet-360/securevibe).

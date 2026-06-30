@@ -1,15 +1,17 @@
 #!/usr/bin/env node
 // End-to-end smoke test for the npm packaging, host-platform only.
 //
-//   1. cross-build skills-mcp for the host
+//   1. cross-build `securevibe` for the host
 //   2. run build.mjs to assemble the main + host platform package
 //   3. wire the platform package into the main package's node_modules
 //      (what npm would do via the optionalDependency)
-//   4. launch `bin/launch.js` and assert the MCP `initialize` handshake
-//      returns serverInfo.name === "skills-mcp"
+//   4. launch `bin/securevibe.js mcp` and assert the MCP `initialize`
+//      handshake returns a serverInfo.name
+//   5. run `bin/securevibe.js gate` on a bad Dockerfile and assert exit 1
 //
 // No network, no `npm install`, no registry — it exercises the launcher's
-// binary resolution, the bundled data path, and the JSON-RPC handshake.
+// binary resolution, the bundled data path, the JSON-RPC handshake, and the
+// CLI gate.
 //
 // Usage: node npm/smoke-test.mjs
 
@@ -21,8 +23,8 @@ import url from 'node:url';
 
 const HERE = path.dirname(url.fileURLToPath(import.meta.url));
 const REPO = path.resolve(HERE, '..');
-const SCOPE = '@shieldnet-360';
-const MAIN = 'secure-code-mcp';
+const SCOPE = '@shieldnet360';
+const MAIN = 'securevibe';
 
 const NODE_TO_GO = {
   'darwin-x64': { go: 'darwin-amd64', exe: false },
@@ -42,25 +44,24 @@ function run(cmd, args, opts = {}) {
   if (r.status !== 0) die(`\`${cmd} ${args.join(' ')}\` exited ${r.status}`);
 }
 
+async function stat(p) {
+  try { await fs.access(p); return true; } catch { return false; }
+}
+
 async function main() {
   const key = `${process.platform}-${process.arch}`;
   const target = NODE_TO_GO[key];
   if (!target) die(`unsupported host ${key}`);
 
-  const work = await fs.mkdtemp(path.join(os.tmpdir(), 'scmcp-smoke-'));
+  const work = await fs.mkdtemp(path.join(os.tmpdir(), 'securevibe-smoke-'));
   const binDir = path.join(work, 'bin');
   const outDir = path.join(work, 'out');
   await fs.mkdir(binDir, { recursive: true });
 
   // 1. build host binary
-  const binName = `skills-mcp-${target.go}${target.exe ? '.exe' : ''}`;
-  const checkName = `skills-check-${target.go}${target.exe ? '.exe' : ''}`;
-  console.log(`[1/5] building ${binName} + ${checkName}`);
-  run('go', ['build', '-trimpath', '-ldflags', '-s -w', '-o', path.join(binDir, binName), './cmd/skills-mcp'], {
-    cwd: REPO,
-    env: { ...process.env, CGO_ENABLED: '0' },
-  });
-  run('go', ['build', '-trimpath', '-ldflags', '-s -w', '-o', path.join(binDir, checkName), './cmd/skills-check'], {
+  const binName = `securevibe-${target.go}${target.exe ? '.exe' : ''}`;
+  console.log(`[1/5] building ${binName}`);
+  run('go', ['build', '-trimpath', '-ldflags', '-s -w', '-o', path.join(binDir, binName), './cmd/securevibe'], {
     cwd: REPO,
     env: { ...process.env, CGO_ENABLED: '0' },
   });
@@ -78,9 +79,10 @@ async function main() {
   await fs.mkdir(path.dirname(nm), { recursive: true });
   await fs.cp(platPkg, nm, { recursive: true });
 
-  // 4. launch + initialize handshake
-  console.log('[4/5] launching server and sending initialize');
-  const launcher = path.join(mainPkg, 'bin', 'launch.js');
+  const launcher = path.join(mainPkg, 'bin', 'securevibe.js');
+
+  // 4. `securevibe mcp` + initialize handshake
+  console.log('[4/5] launching `securevibe mcp` and sending initialize');
   const req =
     JSON.stringify({
       jsonrpc: '2.0',
@@ -90,7 +92,7 @@ async function main() {
     }) + '\n';
 
   const resp = await new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, [launcher], { stdio: ['pipe', 'pipe', 'inherit'] });
+    const child = spawn(process.execPath, [launcher, 'mcp'], { stdio: ['pipe', 'pipe', 'inherit'] });
     let buf = '';
     const timer = setTimeout(() => { child.kill(); reject(new Error('timed out waiting for initialize response')); }, 15000);
     child.stdout.on('data', (d) => {
@@ -107,24 +109,19 @@ async function main() {
   });
 
   const name = resp?.result?.serverInfo?.name;
-  if (name !== 'skills-mcp') die(`unexpected initialize response: ${JSON.stringify(resp)}`);
+  if (!name) die(`initialize did not return a serverInfo.name: ${JSON.stringify(resp)}`);
 
-  // 5. run the CLI gate via the check launcher; it must resolve the
-  //    skills-check binary + the bundled data tree (via SKILLS_LIBRARY_PATH)
-  //    and exit 1 on a deliberately bad Dockerfile.
-  console.log('[5/5] running `secure-code-check gate` on a bad Dockerfile');
-  const checker = path.join(mainPkg, 'bin', 'check.js');
+  // 5. run the CLI gate via the same launcher; it must resolve the binary +
+  //    the bundled data tree (via SKILLS_LIBRARY_PATH) and exit 1 on a
+  //    deliberately bad Dockerfile.
+  console.log('[5/5] running `securevibe gate` on a bad Dockerfile');
   const df = path.join(work, 'Dockerfile');
   await fs.writeFile(df, 'FROM node:latest\nUSER root\n');
-  const gate = spawnSync(process.execPath, [checker, 'gate', df, '--severity-floor', 'high'], { stdio: 'inherit' });
+  const gate = spawnSync(process.execPath, [launcher, 'gate', df, '--severity-floor', 'high'], { stdio: 'inherit' });
   if (gate.status !== 1) die(`expected \`gate\` to exit 1 on a bad Dockerfile, got ${gate.status}`);
 
   await fs.rm(work, { recursive: true, force: true });
-  console.log(`smoke-test: PASS — ${SCOPE}/${MAIN} (${key}) MCP handshakes (serverInfo.name=${name}) and \`secure-code-check gate\` gates`);
-}
-
-async function stat(p) {
-  try { await fs.access(p); return true; } catch { return false; }
+  console.log(`smoke-test: PASS — ${SCOPE}/${MAIN} (${key}) MCP handshakes (serverInfo.name=${name}) and \`securevibe gate\` gates`);
 }
 
 main().catch((e) => die(e.message));
