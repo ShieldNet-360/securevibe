@@ -1,0 +1,36 @@
+# SecureVibe gate — copy this file to .github/workflows/securevibe.yml
+#
+# Fails the build on secrets, vulnerable / typosquatted dependencies, and
+# Dockerfile / GitHub Actions issues at or above the severity floor. The action
+# runs the published @shieldnet360/secure-code-mcp package (CLI + rule data
+# bundled), so no extra setup or checkout-of-this-repo is needed.
+name: SecureVibe gate
+on: [push, pull_request]
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shieldnet-360/securevibe@v0.4.0
+        with:
+          # Space-separated files to gate. gate routes each to the right scanner
+          # (Dockerfile / lockfile / workflow → specialised; else → secret scan).
+          files: Dockerfile package-lock.json requirements.txt .github/workflows/ci.yml
+          # critical | high | medium | low
+          severity-floor: high
+
+  # --- Optional: also publish findings to the Security tab + PR annotations ---
+  # gate-sarif:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     security-events: write
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: shieldnet-360/securevibe@vNEXT   # first tag with gate --format sarif
+  #       with:
+  #         files: Dockerfile package-lock.json requirements.txt
+  #         severity-floor: high
+  #         sarif-file: gate.sarif

@@ -1,0 +1,8 @@
+# Your AI assistant suggested these. Spot the problem?
+#
+#   colourama  ← TYPOSQUAT of "colorama" (British spelling bait).
+#               A real malware family has shipped under this name.
+#
+# SecureVibe catches it before it ever reaches your lockfile.
+requests==2.31.0
+colourama==0.4.6

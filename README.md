@@ -7,24 +7,52 @@
 [![secret-detection patterns](https://img.shields.io/badge/Secret%20patterns-74-red)](./skills/secret-detection/checklists/secret_detection.yaml)
 [![Platforms](https://img.shields.io/badge/platforms-win%20%7C%20mac%20%7C%20linux-green)](#platform-support)
 
-**SecureVibe** is a structured, machine-readable library of security skills and
-supply-chain vulnerability intelligence designed to be embedded directly into AI
-coding assistants — Claude Code, Cursor, GitHub Copilot, Codex, Windsurf,
-Cline / OpenCode, Antigravity, and Devin. It ships bundled rules offline and
-supports incremental, Ed25519-signed remote updates. See
-[SIGNING.md](./SIGNING.md) for the signing model.
+> **Stop your AI coding assistant from shipping insecure code.**
 
-Maintained by **[ShieldNet360](https://www.shieldnet360.com)** and released under
-the [MIT license](./LICENSE) — free to fork, embed, and ship in commercial products.
+**SecureVibe** drops current security knowledge — secret patterns, known-malicious
+packages, typosquats, CVE-to-code patterns, and 29 security skills — straight into
+your AI coding assistant (Claude Code, Cursor, GitHub Copilot, Codex, Windsurf,
+Cline / OpenCode, Antigravity, Devin). Vulnerabilities get caught **as the code is
+written**, not in a review three weeks later.
+
+Runs **fully offline**. Ships as plain files plus one static Go binary. Updates are
+incremental and Ed25519-signed ([SIGNING.md](./SIGNING.md)). MIT-licensed — free to
+fork, embed, and ship in commercial products. Maintained by
+**[ShieldNet360](https://www.shieldnet360.com)**.
+
+![SecureVibe gate blocking a typosquatted dependency and leaked secrets, offline](./docs/assets/demo.gif)
+
+> 📊 **Does it actually work?** In SecureVibe's own evals, loading the skills into
+> the model's context drops the **insecure-output rate from 17.5% → 7.5%** — see
+> [prevention-lift](./evals/baselines/leaderboard/claude-haiku-max-judged/prevention-lift.md).
+> That's prevention a post-hoc scanner structurally cannot produce, because it only
+> ever runs *after* the code exists.
+
+### Who it's for
+
+| You are a… | SecureVibe gives you… |
+|------------|-----------------------|
+| 👩‍💻 **Developer** | Inline security guidance in your IDE, plus one-command scans for secrets and risky packages before you commit. |
+| ⚙️ **DevOps / Platform** | A CI gate that fails the build on secrets, malicious dependencies, and typosquats — offline, no SaaS, no API key. |
+| 🛡️ **Security / AppSec** | A signed, auditable rule library you roll out fleet-wide and extend with your own findings. |
+
+**New here? → [Quick start (60 seconds)](#quick-start-60-seconds).**
 
 ---
 
 ## Table of contents
 
+**Getting started**
+- [Quick start (60 seconds)](#quick-start-60-seconds)
 - [Why SecureVibe](#why-securevibe)
+- [Scope & limitations](#scope--limitations)
 - [What's inside](#whats-inside)
-- [Install & run](#install--run)
-- [Quick start — embed in your IDE](#quick-start--embed-in-your-ide)
+- [Install & run — all methods](#install--run)
+- [Embed in your IDE](#quick-start--embed-in-your-ide)
+- [Run scans from the terminal](#same-tools-from-the-terminal)
+- [Gate in pre-commit and CI](#gate-in-pre-commit-and-ci)
+
+**Reference**
 - [CLI install and routine updates](#cli-install-and-routine-updates)
 - [Vulnerability database — repo sample vs full upstream](#vulnerability-database--repo-sample-vs-full-upstream)
 - [Token efficiency](#token-efficiency)
@@ -46,6 +74,52 @@ the [MIT license](./LICENSE) — free to fork, embed, and ship in commercial pro
 
 ---
 
+## Quick start (60 seconds)
+
+Pick the line that matches you. Each one is copy-paste, works offline after the
+first fetch, and needs nothing installed first (`npx` and `curl` do the work).
+
+**👩‍💻 Developer — add security skills to Claude Code:**
+
+```bash
+npx @shieldnet360/secure-code-skill init        # writes 29 skills to ./.claude/skills
+```
+
+Using Cursor, Copilot, Codex, Windsurf, Cline, or Devin instead? Copy one
+pre-built file — see [Embed in your IDE](#quick-start--embed-in-your-ide).
+
+**🤖 Any AI agent — live scanning over MCP (17 tools):**
+
+```bash
+claude mcp add SecureVibe -- npx -y @shieldnet360/secure-code-mcp
+```
+
+Or paste the `mcpServers` block into any MCP client — see
+[Install method A](#a-npm--npx--no-go-no-clone-easiest).
+
+**⚙️ DevOps / Security — scan from the terminal or in CI:**
+
+```bash
+# install the prebuilt CLI (verifies its SHA-256), then scan this repo
+curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
+
+skills-check scan-secrets .               # secrets, API keys, tokens, PEM material
+skills-check check-typosquat -p left-pad  # is this package name a typosquat?
+skills-check scan-dependencies .          # every resolved dep vs malicious / CVE / OSV DBs
+```
+
+Wire those same commands into pre-commit and CI (non-zero exit fails the build) —
+see [Gate in pre-commit and CI](#gate-in-pre-commit-and-ci).
+
+> 🎬 **Want to feel it first?** Clone the repo and run **`make demo`** — it gates an
+> intentionally-vulnerable sample and blocks a typosquat + leaked secrets, offline,
+> in one command. Full 3-act walkthrough: [`examples/vibe-demo/DEMO.md`](./examples/vibe-demo/DEMO.md).
+
+> **Prefer Homebrew, winget, `go install`, air-gapped, or from-source?** The full
+> menu is in [Install & run](#install--run).
+
+---
+
 ## Why SecureVibe
 
 - **AI coding assistants don't ship with current security knowledge.** Training
@@ -64,11 +138,28 @@ the [MIT license](./LICENSE) — free to fork, embed, and ship in commercial pro
 SecureVibe closes the loop by shipping security knowledge *at the point of code
 generation*, before the diff ever touches your repo.
 
+## Scope & limitations
+
+SecureVibe makes insecure code **harder to write and easier to catch** — it is not
+a guarantee.
+
+- **No findings ≠ no risk.** The scanners match known patterns (secrets, malicious
+  packages, typosquats, CVE/OSV signatures). A clean run means nothing matched, not
+  that the code is safe. Keep human review and dedicated SAST/DAST in the loop.
+- **Your AI is only as current as what it's fed.** The bundled vulnerability data is
+  a point-in-time snapshot — run `skills-check update` (or schedule it) so a package
+  compromised this week is actually blocked. Check freshness with `skills-check status`.
+- **The repo ships a *sample* of the vuln database.** Full OSV intelligence is pulled
+  on demand — see [Vulnerability database](#vulnerability-database--repo-sample-vs-full-upstream).
+- **Skills guide the model; they don't constrain it.** They steer generation and
+  review, but an agent can still ignore guidance. The MCP scanners and the CI gate are
+  the deterministic backstop.
+
 ## What's inside
 
 | Area | Path | Description |
 |------|------|-------------|
-| **Skills** | [`skills/`](./skills) | 28 self-contained `SKILL.md` manifests with rules, patterns, and checklists. Each skill is a security capability the AI tool consults at generation time. |
+| **Skills** | [`skills/`](./skills) | 29 self-contained `SKILL.md` manifests with rules, patterns, and checklists. Each skill is a security capability the AI tool consults at generation time. |
 | **Vulnerability database** | [`vulnerabilities/`](./vulnerabilities) | Curated supply-chain corpus (malicious packages, typosquats, CVE detection patterns, dependency-confusion rules) plus an offline OSV cache. Delta-updatable. See the [Vulnerability database](#vulnerability-database--repo-sample-vs-full-upstream) section below for ecosystem coverage and counts. |
 | **Detection rules** | [`rules/`](./rules) | Sigma-format detection rules for AWS, GCP, Azure, K8s, Linux, macOS, Windows, O365, Google Workspace, Salesforce, and Slack — designed to complement the prevention-time rules in `skills/`. |
 | **Compliance maps** | [`compliance/`](./compliance) | OWASP Top 10, CWE Top 25, SANS Top 25 framework mappings plus developer-facing compliance coverage maps (SOC 2, HIPAA, PCI-DSS, FedRAMP). |
@@ -80,7 +171,7 @@ generation*, before the diff ever touches your repo.
 ## Install & run
 
 There are three ways to use SecureVibe, depending on whether you want the
-**MCP server** (16 scanning tools, any agent), the **skills** (knowledge for
+**MCP server** (17 scanning tools, any agent), the **skills** (knowledge for
 Claude Code), or both. Pick one — they're independent.
 
 ### A. npm / npx — no Go, no clone (easiest)
@@ -387,6 +478,14 @@ Select your tier with `skills-check init --budget compact`. Compact is the defau
 
 ## Project layout
 
+The top-level map: **`skills/`** (the 29 security skills — the core product),
+**`vulnerabilities/`** (supply-chain + CVE/OSV data), **`rules/`** (Sigma
+detection rules), **`dist/`** (pre-compiled IDE files), **`cmd/`** (the Go CLI +
+MCP server), and **`compliance/` · `profiles/` · `sdk/` · `docs/`** for the rest.
+
+<details>
+<summary><b>Full directory tree</b></summary>
+
 ```
 skills-library/
 ├── README.md  PROPOSAL.md  ARCHITECTURE.md  SIGNING.md  LICENSE
@@ -482,6 +581,8 @@ skills-library/
     └── release.yml                      # CI: build CLI, tag release, publish manifests
 ```
 
+</details>
+
 ## Documentation
 
 - [PROPOSAL.md](./PROPOSAL.md) — problem statement, design principles, target
@@ -534,7 +635,10 @@ go build -o skills-mcp ./cmd/skills-mcp
 skills-mcp --path /path/to/skills-library
 ```
 
-The server registers fifteen tools on `tools/list`:
+The server registers **17 tools** on `tools/list`:
+
+<details>
+<summary><b>The full tool list</b></summary>
 
 - `lookup_vulnerability(package, ecosystem?, version?)` — search the supply-chain
   malicious-packages database, the typosquat DB, AND the local OSV cache
@@ -590,6 +694,14 @@ The server registers fifteen tools on `tools/list`:
   `exit_code` (0 on pass, 1 on fail). Findings at or above
   `severity_floor` (default `high`) fail the check; counts are returned
   per severity so a wrapper can produce a one-line summary.
+- `list_external_tools()` — list the industry-standard external CLIs the skills
+  recommend (e.g. `gitleaks`, `hadolint`), each marked with whether it's on the
+  current host's PATH. Discovery only — the server never runs them.
+- `verify_finding(...)` — actively verify a detected finding against a **live**
+  target with a deterministic probe (SSRF / SQLi / XSS / open-redirect). Safety-gated:
+  runs dry-run unless the operator sets an explicit `SECURECODE_VERIFY_SCOPE` allow-list.
+
+</details>
 
 The library root is resolved from `--path`, then `$SKILLS_LIBRARY_PATH`, then the
 directory containing the binary.
@@ -690,14 +802,27 @@ It runs `secure-code-check gate` over the staged files and blocks the commit
 when any finding meets the severity floor (default `high`; override with
 `args: ["--severity-floor", "critical"]`).
 
-**GitHub Actions** — gate specific files in a workflow:
+**GitHub Actions** — drop this complete workflow into
+`.github/workflows/securevibe.yml` (also copyable from
+[`examples/ci/securevibe.yml`](./examples/ci/securevibe.yml)):
 
 ```yaml
-- uses: shieldnet-360/securevibe@v0.4.0
-  with:
-    files: Dockerfile package-lock.json .github/workflows/ci.yml
-    severity-floor: high
+name: SecureVibe gate
+on: [push, pull_request]
+
+jobs:
+  gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shieldnet-360/securevibe@v0.4.0
+        with:
+          files: Dockerfile package-lock.json .github/workflows/ci.yml
+          severity-floor: high
 ```
+
+Just need the one step? `- uses: shieldnet-360/securevibe@v0.4.0` with the same
+`with:` block drops into any existing job.
 
 To also surface the findings in GitHub Code Scanning (Security tab + PR
 annotations), set `sarif-file` and grant the workflow the upload permission —

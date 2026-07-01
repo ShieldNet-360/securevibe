@@ -119,6 +119,16 @@ wasm: ## Build the in-browser playground WASM (real scanners, embedded data)
 	cp "$$($(GO) env GOROOT)/lib/wasm/wasm_exec.js" docs/assets/playground/wasm_exec.js
 	@ls -lh docs/assets/playground/skills.wasm | awk '{print "  built docs/assets/playground/skills.wasm ("$$5")"}'
 
+.PHONY: demo
+demo: $(SKILLS_CHECK) ## Run the offline hero demo (gate the intentionally-vulnerable examples/vibe-demo)
+	@echo "→ examples/vibe-demo is intentionally insecure. Watch SecureVibe catch it — offline, no API key."
+	@echo
+	@SKILLS_LIBRARY_PATH="$(CURDIR)" $(SKILLS_CHECK) gate \
+		examples/vibe-demo/requirements.txt examples/vibe-demo/config.py \
+		--severity-floor high || true
+	@echo
+	@echo "↑ Blocked before commit. Full 3-act walkthrough: examples/vibe-demo/DEMO.md"
+
 .PHONY: demo-gif
 demo-gif: $(SKILLS_CHECK) ## Re-record the hero terminal demo (needs vhs)
 	@command -v vhs >/dev/null || { echo "vhs not installed: brew install vhs"; exit 1; }

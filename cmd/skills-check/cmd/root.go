@@ -17,9 +17,13 @@ func Root() *cobra.Command {
 		Long: `skills-check is the Skills Library CLI.
 
 It validates skills, generates IDE-specific configuration files, and pulls
-signed updates of vulnerability data and detection rules.`,
+signed updates of vulnerability data and detection rules.
+
+Run it with no subcommand in a terminal for a guided setup wizard.`,
 		SilenceUsage:  true,
 		SilenceErrors: true,
+		// No subcommand → guided wizard on a TTY, plain help otherwise.
+		RunE: maybeRunWizard,
 	}
 
 	root.AddCommand(initCmd())
