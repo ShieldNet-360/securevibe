@@ -117,22 +117,208 @@ never been filed, so only the runtime net sees it.
 ## The other deterministic detectors
 
 Typosquats are one of several deterministic passes the scanner and the CI
-[`gate`](../reference/cli.md) run. All share the same confidence bands
-(`confirmed` › `high` › `medium` › `low`).
+[`gate`](../reference/cli.md) run. They all share the same four confidence
+bands, set by *how the match was made* — not how bad the issue is:
+
+| Band | Meaning |
+|------|---------|
+| `confirmed` | hand-reviewed curated evidence, **or** an OSV record whose version range covers the resolved version |
+| `high` | unambiguous structured hit not individually triaged (OSSF feed, curated typosquat, a hardening regex) |
+| `medium` | pattern-only signal (substring CVE-name match, runtime typosquat suggestion) |
+| `low` | weakest tier — fuzzy heuristics |
+
+Overview, then the algorithm for each:
 
 | Detector | How it matches | Confidence |
 |----------|----------------|-----------|
-| **Malicious packages** | exact name (+ version) against `malicious-packages/<eco>.json` (sourced from OpenSSF) | `confirmed` / `high` |
-| **OSV advisories** | resolved version evaluated against each advisory's `affected[].ranges` | `confirmed` (in range) / `high` (version unconfirmed) |
-| **CVE patterns** | substring match against curated CVE name/description | `medium` (suggestive) |
-| **Secrets** | regex token shapes + Shannon entropy + hotword proximity (`secret_detection.yaml`) | per-rule |
-| **Dockerfile / GitHub Actions** | regex + structured (AST) passes for hardening anti-patterns | per-rule |
+| **Malicious packages** | exact name (+ version range) against `malicious-packages/<eco>.json` (OpenSSF + curated + local overlay) | `confirmed` / `high` |
+| **OSV advisories** | resolved version evaluated against each advisory's `affected[].ranges` event stream | `confirmed` (in range) / `high` (version unconfirmed) |
+| **CVE patterns** | substring match on curated CVE name/description, filtered by ecosystem + version | `medium` |
+| **Secrets** | regex token shape → Shannon entropy gate → hotword proximity → denylist | per-rule |
+| **Dockerfile / GitHub Actions** | regex pass + structured (AST) pass for hardening anti-patterns | `high` / per-rule |
 
-None of these trace data-flow — a server-side request forgery or a broken
-authorization check has no signature to match. Those are the job of the
-generation-time **skills**, which encode a *generalizable* pattern ("never fetch
-a client-supplied URL without an allowlist") so the assistant recognizes an
-instance that has no CVE.
+The whole dependency pipeline runs every resolved `(name, version, ecosystem)`
+tuple from a lockfile through four checks at once:
+
+```mermaid
+flowchart LR
+    L["lockfile<br/>(package-lock.json, go.sum, …)"] --> P["parse → (name, version, ecosystem)"]
+    P --> M["malicious-packages DB"]
+    P --> T["typosquat DB + popular list"]
+    P --> O["OSV advisories"]
+    P --> C["CVE patterns"]
+    M --> F["findings → SARIF / gate exit code"]
+    T --> F
+    O --> F
+    C --> F
+```
+
+### Malicious packages
+
+A curated + imported canon of packages known to be malicious, one file per
+ecosystem (`vulnerabilities/supply-chain/malicious-packages/<eco>.json`). The
+match is **exact name**, then an optional **version-range** filter:
+
+```
+for each entry in malicious-packages/<eco>.json:
+    if not EqualFold(entry.name, dep.name):  skip
+    if dep.version set and entry.versions_affected set
+       and version NOT in any range:         skip          # already on a safe version
+    → finding
+```
+
+The version grammar is permissive (`all` / `*`, `pre-X.Y.Z`, `>=`, `<=`,
+ranges `A - B`, exact) and falls back to the ecosystem semver matcher. The
+**local contribution overlay** (`.skills-check/overlay.json`, the LEARN loop) is
+consulted here too, so a package you flagged with `contribute add` blocks
+exactly like a curated row.
+
+Confidence depends on provenance:
+
+```
+curated row (no upstream source) ......... confirmed   ← hand-reviewed
+imported source: ossf-malicious-packages . high        ← structured, not triaged
+local overlay (user-asserted) ............ high
+```
+
+### OSV advisories
+
+The OSV layer answers "is this exact version inside a published advisory's
+affected range?" — versions, not just names. Data comes from a local cache
+(`vulnerabilities/osv/<eco>/` or the larger `osv-cache.tar.gz` / `fetch-vulns`
+download), optionally `api.osv.dev` directly.
+
+```mermaid
+flowchart TD
+    A["(name, version, ecosystem)"] --> B["index.json lookup by lowercase name"]
+    B -->|no entry| Z["no advisory"]
+    B -->|candidates| C["for each advisory: evaluate affected[]"]
+    C --> D{"version vs<br/>versions[] + ranges[]"}
+    D -->|in an evaluable range| IN["IN RANGE → keep,<br/>VersionConfirmed → confirmed"]
+    D -->|all evaluable ranges exclude it| OUT["NOT AFFECTED → drop"]
+    D -->|nothing evaluable / no version| UNK["UNKNOWN → keep,<br/>fail-open → high"]
+```
+
+Each `affected[].ranges[].events[]` list is an **ordered state machine** over
+`introduced` / `fixed` / `last_affected` bounds:
+
+```
+affected = false
+for each event in order:
+    introduced=0   → affected = true            # from the beginning
+    introduced=X   → if version >= X: affected = true
+    fixed=X        → if version >= X: affected = false   # exclusive upper bound
+    last_affected=X→ if version  > X: affected = false   # inclusive upper bound
+# unparseable bound on either side → fail open (kept as "unknown")
+```
+
+Range types `ECOSYSTEM` and `SEMVER` are evaluated; `GIT` ranges are skipped.
+Version comparison is **ecosystem-native** — npm (`^`, `~`, X-ranges, pre-release
+rules), PyPI (PEP 440 `~=`, `.postN`, `.devN`), Go (incl. pseudo-versions) — with
+a generic dotted-numeric fallback for crates/maven/nuget/rubygems/etc. Severity
+is read from `database_specific.severity` (GitHub band) first, else parsed from a
+CVSS v3/v2 vector and bucketed (`≥9.0` critical, `≥7.0` high, `≥4.0` medium).
+
+> **Why two bands.** If the version intersects an evaluable range →
+> `confirmed`. If the version is absent or the range grammar can't be evaluated,
+> the advisory is kept on the *name* match alone (fail-open) → `high`. A version
+> proven *outside* every range is dropped entirely.
+
+### CVE patterns
+
+A lighter, name-oriented pass over a curated CVE list. It is a **substring**
+match, deliberately fenced so it stays suggestive rather than noisy:
+
+```
+needle = lower(package name)
+for each cve entry:
+    if needle NOT in lower(entry.name + " " + entry.description):  skip
+    if entry.languages don't overlap this ecosystem:               skip   # "express" in "OGNL expressions"
+    if version known and entry pins affected versions
+       and version not affected:                                   skip
+    → finding (medium)
+```
+
+Because the underlying patterns describe code shapes, not pinned versions, every
+hit is **`medium`** — a strict `gate --severity-floor high` won't fail on it.
+
+### Secrets
+
+Secret detection is regex-first, then three filters that cut the false positives
+regex alone produces. Each rule
+(`skills/secret-detection/checklists/secret_detection.yaml`) carries a `pattern`,
+`severity`, `entropy_min`, `hotwords` / `hotword_window` / `hotword_boost` /
+`require_hotword`, and `denylist_substrings`.
+
+```mermaid
+flowchart TD
+    R["regex match (e.g. AKIA[0-9A-Z]{16})"] --> D{"denylisted substring?<br/>(EXAMPLE, AKIAIOSFODNN7)"}
+    D -->|yes| X1["drop"]
+    D -->|no| E{"Shannon entropy ≥ entropy_min?"}
+    E -->|no| X2["drop (low-randomness → not a real key)"]
+    E -->|yes| H{"hotword within ±window?<br/>(aws, secret, credentials…)"}
+    H -->|require_hotword and none| X3["drop"]
+    H -->|hit| S["score = score_weight + hotword_boost"]
+    H -->|miss, not required| S2["score = score_weight"]
+    S --> F["finding (+ known-false-positive flag)"]
+    S2 --> F
+```
+
+Shannon entropy is computed over the matched bytes,
+`H = −Σ p·log₂(p)` (0–8 bits; base64-style secrets land ~4–6, prose/repeats
+below ~4). The hotword window scans `text[start−window : end+window]` for context
+words. A real rule:
+
+```yaml
+- id: aws-access-key
+  severity: critical
+  pattern: AKIA[0-9A-Z]{16}
+  score_weight: 1
+  hotwords: [aws, access_key, credentials, iam, secret]
+  hotword_window: 200
+  hotword_boost: 2
+  entropy_min: 3.5
+  denylist_substrings: [EXAMPLE, AKIAIOSFODNN7]   # the canonical AWS sample key
+```
+
+So `AKIAIOSFODNN7EXAMPLE` (AWS's own docs key) is dropped by the denylist, while a
+high-entropy `AKIA…` sitting next to the word `credentials` scores `1 + 2 = 3`.
+
+### Dockerfile / GitHub Actions
+
+Two hardening scanners, each a **regex pass plus a structured (AST) pass**. The
+regex pass catches per-line anti-patterns; the AST pass is the *canonical*
+detector for rules that need structure, so the two are split to avoid
+double-firing.
+
+```
+Dockerfile  (regex, "high"):  dkr-explicit-latest-tag, dkr-no-secrets-in-env,
+                              dkr-no-add-remote, dkr-no-curl-pipe-sh, dkr-apt-version-pin …
+            (AST, multi-stage aware):  dkr-pinned-base-digest, dkr-non-root-user
+                              (e.g. final stage with NO USER → implicit root,
+                               which the regex "USER root" check can't see)
+
+GitHub Actions (regex):  gha-default-permissions-read, gha-oidc-cloud-credentials,
+                         gha-no-curl-pipe-bash, gha-no-untrusted-script-injection …
+               (AST, canonical):  gha-pin-actions-by-sha (tag vs 40-hex SHA),
+                         gha-pr-target-no-untrusted-checkout (pull_request_target
+                         + checkout of the untrusted head ref = "pwn request")
+```
+
+Expression-injection deliberately stays a regex check — the structured walk
+missed cases the regex catches.
+
+---
+
+## What none of them can do
+
+Every detector above matches a **signature, name, version, or shape**. None
+trace **data-flow** — a server-side request forgery, a broken authorization
+check, or an injection that crosses function boundaries has nothing to look up.
+Those are the job of the generation-time **skills**, which encode a
+*generalizable* pattern ("never fetch a client-supplied URL without an
+allowlist") so the assistant recognizes an instance that has no CVE. That is the
+only non-database-bound layer — see [What makes SecureVibe different](features.md).
 
 ---
 
