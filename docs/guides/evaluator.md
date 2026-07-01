@@ -28,7 +28,7 @@ flowchart LR
 !!! note "Scope, stated plainly"
     Detection is **narrow by design** — 4 scanners, not a general-purpose SAST. SecureVibe catches *known* patterns (malicious/typosquat packages, secrets, Dockerfile and GitHub Actions misconfigurations) and deliberately does **not** try to find every novel or semantic bug. That trade-off is the point: deterministic, offline, zero-false-positive on exact matches.
 
-It is a Go CLI (`skills-check`) plus an MCP server (`skills-mcp`). MIT licensed, fully offline, no telemetry, no API key, Ed25519-signed releases.
+It is a Go CLI (`securevibe`) plus an MCP server (`securevibe mcp`). MIT licensed, fully offline, no telemetry, no API key, Ed25519-signed releases.
 
 ## Prove it in 5 minutes
 
@@ -37,18 +37,17 @@ Three quick demos: catch a malicious dependency, catch a planted secret, then wa
 ### 1. Install
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
+# bundles the library data — turnkey; run on demand:
+npx -y @shieldnet360/securevibe version
+# …or install globally:
+npm install -g @shieldnet360/securevibe
 ```
 
-??? info "Other install methods"
-    === "Homebrew"
-        ```bash
-        brew install shieldnet-360/tap/skills-check
-        ```
-    === "Go"
-        ```bash
-        go install github.com/shieldnet-360/securevibe/cmd/skills-check@latest
-        ```
+??? info "From source (Go)"
+    ```bash
+    go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
+    # builds only the binary; point it at library data via --path / $SKILLS_LIBRARY_PATH
+    ```
 
 ### 2. Catch a malicious / typosquat dependency
 
@@ -68,7 +67,7 @@ Create a `package.json` that references a known-bad package:
 Then scan its directory:
 
 ```bash
-skills-check scan-dependencies .
+securevibe scan-dependencies .
 ```
 
 ```text
@@ -88,7 +87,7 @@ Drop a hard-coded credential into a file:
 
 ```bash
 printf 'aws_secret_access_key = AKIAIOSFODNN7EXAMPLE\n' > config.env
-skills-check scan-secrets config.env
+securevibe scan-secrets config.env
 ```
 
 ```text
@@ -112,7 +111,7 @@ Suppose you discover a malicious package that isn't in the database yet. Add it 
 
 ```bash
 # add evil-pkg (npm) to a signed local overlay (.skills-check/overlay.json)
-skills-check contribute add -p evil-pkg -e npm
+securevibe contribute add -p evil-pkg -e npm
 ```
 
 ```text
@@ -123,7 +122,7 @@ Overlay signed.
 Now reference `evil-pkg` in a `package.json` and rescan — it is flagged where it was clean a moment ago:
 
 ```bash
-skills-check scan-dependencies .
+securevibe scan-dependencies .
 ```
 
 ```text
@@ -142,12 +141,12 @@ That's the flywheel. Overlays scope outward without ever leaving your control:
 | **Team** | Commit the overlay file — git is the fan-out |
 | **Org** | `$SKILLS_CHECK_OVERLAY` env var with a path-list |
 
-To share peer-to-peer, run `skills-check contribute submit --sign`; a maintainer runs `contribute verify` then `contribute import`. Import is signature-gated (`--allow-unsigned` is an explicit opt-in). Generate keys with `contribute keygen`.
+To share peer-to-peer, run `securevibe contribute submit --sign`; a maintainer runs `contribute verify` then `contribute import`. Import is signature-gated (`--allow-unsigned` is an explicit opt-in). Generate keys with `contribute keygen`.
 
 !!! example "Enforce it in CI"
     The same data drives the gate, which auto-picks the right scanner per file:
     ```bash
-    skills-check gate . --min-severity high --sarif results.sarif
+    securevibe gate . --min-severity high --sarif results.sarif
     ```
     It exits non-zero above the severity floor and emits SARIF for GitHub Code Scanning.
 

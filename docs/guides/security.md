@@ -47,10 +47,10 @@ Four scanners are **enforced** by the tooling. The 30 skills cover a broader set
 
 | Scanner | Command | What it catches |
 |---|---|---|
-| **Secrets** | `skills-check scan-secrets <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
-| **Dependencies** | `skills-check scan-dependencies <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
-| **Dockerfile** | `skills-check scan-dockerfile <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
-| **GitHub Actions** | `skills-check scan-github-actions <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
+| **Secrets** | `securevibe scan-secrets <path>` | Hardcoded API keys, tokens, and credentials via 83 secret-detection patterns. |
+| **Dependencies** | `securevibe scan-dependencies <path>` | Malicious / typosquatted packages, plus CVE/OSV matches, via exact-match lookups against the curated DB (3,623 entries across 10 ecosystems) and 58 CVE code-patterns. |
+| **Dockerfile** | `securevibe scan-dockerfile <path>` | Container anti-patterns — root user, unpinned/`:latest` base images, and related least-privilege drift. |
+| **GitHub Actions** | `securevibe scan-github-actions <path>` | Unpinned actions, mutable refs, and insecure CI workflow configuration. |
 
 !!! note "Skills ≠ scanners"
     Prevention skills span more domains than the four enforced scanners. Treat the table above as the **enforced** detection surface; the skills are advisory at generation time.
@@ -73,7 +73,7 @@ SecureVibe is built so that you can trust the *binary* and the *data* it carries
 
 - **Ed25519-signed releases.** Every release is signed with an Ed25519 key whose private half is held offline.
 - **Per-file SHA-256 manifest.** The release manifest carries a SHA-256 checksum for each file.
-- **Verified self-update.** `skills-check self-update` fetches the signed manifest, then verifies in order: **(1) the detached Ed25519 signature** against the embedded public key, **(2) the SHA-256 checksums**, and only then **(3) atomically replaces** the binary via rename (crash-safe — a failure leaves the existing binary intact).
+- **Verified self-update.** `securevibe self-update` fetches the signed manifest, then verifies in order: **(1) the detached Ed25519 signature** against the embedded public key, **(2) the SHA-256 checksums**, and only then **(3) atomically replaces** the binary via rename (crash-safe — a failure leaves the existing binary intact).
 - **Offline, no telemetry, MIT, auditable.** Fully offline operation, no cloud dependency, no API key required, no telemetry. MIT-licensed and readable end-to-end.
 - **Signed contribution overlays.** Community contributions to the malicious-package data are signed; **import is signature-gated** (`--allow-unsigned` is an explicit opt-in, not the default).
 
@@ -88,7 +88,7 @@ flowchart TD
         S --> R[Published: artifacts + manifest + detached signature]
     end
 
-    subgraph Client["Client: skills-check self-update"]
+    subgraph Client["Client: securevibe self-update"]
         R --> V1{Verify Ed25519 signature
 against embedded public key}
         V1 -- invalid --> X1[Abort: untrusted manifest]
@@ -118,9 +118,9 @@ signature-gated import}
 SecureVibe can emit a **control-coverage report** to support compliance workstreams:
 
 ```bash
-skills-check evidence --framework SOC2 --format markdown
-skills-check evidence --framework HIPAA --format markdown
-skills-check evidence --framework PCI-DSS --format markdown
+securevibe dev evidence --framework SOC2 --format markdown
+securevibe dev evidence --framework HIPAA --format markdown
+securevibe dev evidence --framework PCI-DSS --format markdown
 ```
 
 - **Frameworks:** SOC2, HIPAA, PCI-DSS.
@@ -146,10 +146,10 @@ SecureVibe is designed to be evaluated without trusting anyone — including its
 2. **Run it offline.** No API key, no telemetry, no cloud call is required. Run the scanners on your own fixtures and disconnect the network to confirm there is no egress.
 
    ```bash
-   skills-check scan-secrets .
-   skills-check scan-dependencies .
-   skills-check scan-dockerfile .
-   skills-check scan-github-actions .
+   securevibe scan-secrets .
+   securevibe scan-dependencies .
+   securevibe scan-dockerfile .
+   securevibe scan-github-actions .
    ```
 
 3. **Reproduce the eval.** The eval corpus is committed. Re-run the scanners against it to reproduce the stated precision/recall — and confirm for yourself that the numbers are corpus-bounded, exactly as documented above.
@@ -157,7 +157,7 @@ SecureVibe is designed to be evaluated without trusting anyone — including its
 4. **Verify the release chain.** Inspect the signed manifest and the embedded public key, and confirm `self-update` verifies signature → checksum → atomic rename before trusting an upgrade.
 
    ```bash
-   skills-check self-update
+   securevibe self-update
    ```
 
 5. **Inspect the data moat.** The curated malicious-package DB and every overlay are web-cited and signature-gated. Review the entries and the import path before relying on them.

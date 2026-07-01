@@ -37,13 +37,13 @@ Say you found a malicious npm package and want the gate to start blocking it **n
 1. **Generate a signing key (one time).** This creates an Ed25519 keypair used to sign your contributions for provenance.
 
     ```bash
-    skills-check contribute keygen --out ~/.skills-check/contrib.key
+    securevibe contribute keygen --out ~/.skills-check/contrib.key
     ```
 
 2. **Add the package to your local overlay.** `-p` is the package name, `-e` is the ecosystem. The default severity is `high`, so the gate blocks it.
 
     ```bash
-    skills-check contribute add \
+    securevibe contribute add \
       -p evil-pkg \
       -e npm \
       --versions "1.0.0,1.0.1" \
@@ -77,8 +77,8 @@ Say you found a malicious npm package and want the gate to start blocking it **n
 4. **Confirm the gate now blocks it.** Re-run the dependency scanner or the gate against a project that lists the package; it exits non-zero:
 
     ```bash
-    skills-check scan-dependencies .
-    skills-check gate . --min-severity high
+    securevibe scan-dependencies .
+    securevibe gate . --min-severity high
     ```
 
 !!! tip "Nothing leaves your machine"
@@ -87,8 +87,8 @@ Say you found a malicious npm package and want the gate to start blocking it **n
 You can review or prune your overlay at any time:
 
 ```bash
-skills-check contribute list
-skills-check contribute remove -p evil-pkg -e npm
+securevibe contribute list
+securevibe contribute remove -p evil-pkg -e npm
 ```
 
 ## Share with your team
@@ -117,7 +117,7 @@ flowchart LR
 Set the org-wide overlay in your shell or CI environment:
 
 ```bash
-export SKILLS_CHECK_OVERLAY=/etc/skills-check/org-overlay.json
+export SKILLS_CHECK_OVERLAY=/etc/securevibe/org-overlay.json
 ```
 
 ## Share peer-to-peer
@@ -125,17 +125,17 @@ export SKILLS_CHECK_OVERLAY=/etc/skills-check/org-overlay.json
 To hand a block to a maintainer who is **not** in your repo, export a portable candidate file. Sign it so the recipient can verify where it came from:
 
 ```bash
-skills-check contribute submit --key ~/.skills-check/contrib.key --out evil-pkg.candidate.json
+securevibe contribute submit --key ~/.skills-check/contrib.key --out evil-pkg.candidate.json
 ```
 
 The other maintainer verifies the signature, then imports it into their own overlay:
 
 ```bash
 # 1. Check provenance before trusting anything
-skills-check contribute verify evil-pkg.candidate.json
+securevibe contribute verify evil-pkg.candidate.json
 
 # 2. Merge into the local overlay (signature-gated by default)
-skills-check contribute import evil-pkg.candidate.json
+securevibe contribute import evil-pkg.candidate.json
 ```
 
 !!! warning "Import is signature-gated"
@@ -151,14 +151,14 @@ Skills are structured knowledge that AI assistants read at generation time. Each
 2. Validate the whole library and test your specific skill:
 
     ```bash
-    skills-check validate
-    skills-check test <your-skill-id>
+    securevibe dev validate
+    securevibe dev test <your-skill-id>
     ```
 
 3. Regenerate any derived artifacts if you changed structured data:
 
     ```bash
-    skills-check regenerate
+    securevibe dev regenerate
     ```
 
 4. Open a PR.
@@ -175,7 +175,7 @@ The curated database is the data moat — exact-match lookups give **zero false 
 
     If you cannot cite it, do not add it.
 
-Run `skills-check validate` before opening any PR, and `skills-check test <skill-id>` for skill changes.
+Run `securevibe dev validate` before opening any PR, and `securevibe dev test <skill-id>` for skill changes.
 
 ## The open-core boundary (honest note)
 

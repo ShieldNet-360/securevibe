@@ -1,6 +1,6 @@
 # DevOps / Platform guide
 
-How to roll SecureVibe's `skills-check` gate across CI and fan it out to a whole team or org using git and signed overlays.
+How to roll SecureVibe's `securevibe` gate across CI and fan it out to a whole team or org using git and signed overlays.
 
 This guide is for the platform engineer who owns CI and developer tooling. It covers wiring the gate into pipelines, pre-commit hooks, committing the assistant config and contribution overlay so the team inherits blocks, layering an org-wide policy, running fully air-gapped, and keeping the binary fresh and trusted.
 
@@ -16,7 +16,7 @@ This guide is for the platform engineer who owns CI and developer tooling. It co
 The gate auto-picks the right scanner per file, exits non-zero when it finds anything at or above the severity floor, and emits SARIF for GitHub Code Scanning:
 
 ```bash
-skills-check gate <path> --min-severity high --sarif results.sarif
+securevibe gate <path> --min-severity high --sarif results.sarif
 ```
 
 | Flag | Meaning |
@@ -27,7 +27,7 @@ skills-check gate <path> --min-severity high --sarif results.sarif
 
 ### GitHub Actions workflow
 
-This workflow installs `skills-check`, runs the gate, and uploads the SARIF to GitHub Code Scanning. The `upload-sarif` step runs even if the gate fails, so findings always surface in the Security tab.
+This workflow installs `securevibe`, runs the gate, and uploads the SARIF to GitHub Code Scanning. The `upload-sarif` step runs even if the gate fails, so findings always surface in the Security tab.
 
 ```yaml
 name: SecureVibe gate
@@ -47,12 +47,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install skills-check
-        run: curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
+      - name: Install securevibe
+        run: npm install -g @shieldnet360/securevibe
 
       - name: Run the gate
         id: gate
-        run: skills-check gate . --min-severity high --sarif results.sarif
+        run: securevibe gate . --min-severity high --sarif results.sarif
 
       - name: Upload SARIF to Code Scanning
         if: always()   # surface findings even when the gate fails the build
@@ -71,8 +71,8 @@ jobs:
 ```mermaid
 flowchart TD
     A[Push / Pull request] --> B[Checkout]
-    B --> C[Install skills-check]
-    C --> D["skills-check gate .<br/>--min-severity high<br/>--sarif results.sarif"]
+    B --> C[Install securevibe]
+    C --> D["securevibe gate .<br/>--min-severity high<br/>--sarif results.sarif"]
     D --> E[Auto-pick scanner per file]
     E --> F{Finding at or<br/>above floor?}
     F -- No --> G[Exit 0 - build passes]
@@ -91,7 +91,7 @@ Catch issues before they ever reach CI. Run the gate on the working tree from a 
     ```bash
     # .git/hooks/pre-commit  (chmod +x)
     #!/bin/sh
-    skills-check gate . --min-severity high || {
+    securevibe gate . --min-severity high || {
       echo "SecureVibe gate failed — fix findings or lower the floor."
       exit 1
     }
@@ -106,7 +106,7 @@ Catch issues before they ever reach CI. Run the gate on the working tree from a 
         hooks:
           - id: securevibe-gate
             name: SecureVibe gate
-            entry: skills-check gate . --min-severity high
+            entry: securevibe gate . --min-severity high
             language: system
             pass_filenames: false
     ```
@@ -118,7 +118,7 @@ Two files, committed to the repo, make the whole team inherit the same behaviour
 1. **Commit the assistant config.** Generate it once for the team's primary assistant and commit it so every clone writes secure code at generation time:
 
     ```bash
-    skills-check init --tool claude     # writes CLAUDE.md
+    securevibe init --tool claude     # writes CLAUDE.md
     git add CLAUDE.md
     git commit -m "Add SecureVibe skills config"
     ```
@@ -131,14 +131,14 @@ Two files, committed to the repo, make the whole team inherit the same behaviour
 2. **Commit the contribution overlay.** When anyone blocks a package via the LEARN loop, it lands in a signed local overlay. Commit that file and the whole team inherits the block on their next gate run:
 
     ```bash
-    skills-check contribute add -p evil-pkg -e npm   # writes .skills-check/overlay.json
+    securevibe contribute add -p evil-pkg -e npm   # writes .skills-check/overlay.json
     git add .skills-check/overlay.json
     git commit -m "Block evil-pkg via SecureVibe overlay"
     ```
 
 !!! example "Why this works"
     The overlay is a signed JSON file under `.skills-check/`. Because it lives in the
-    repo, every `git pull` distributes it; the next `skills-check gate` reads it and
+    repo, every `git pull` distributes it; the next `securevibe gate` reads it and
     blocks the package. No registry, no server — the git remote is the distribution
     channel.
 
@@ -176,15 +176,15 @@ flowchart LR
 
 ## Air-gapped / offline
 
-`skills-check` is **fully offline**: bundled data, no telemetry, no cloud dependency, no API key. It runs in an air-gapped network with no changes. The only thing that needs network is bringing in *new* data, and that can be delivered as a file.
+`securevibe` is **fully offline**: bundled data, no telemetry, no cloud dependency, no API key. It runs in an air-gapped network with no changes. The only thing that needs network is bringing in *new* data, and that can be delivered as a file.
 
 1. **Install once** on a connected host (or use the Go install for a self-contained binary) and copy the binary into the air-gapped environment, or run the bundled installer there from a mirror.
 2. **Update from a local source** instead of the public CDN — point `update` at a tarball or an internal CDN mirror:
 
     ```bash
-    skills-check update --source /mnt/airgap/securevibe-data.tar.gz
+    securevibe update --source /mnt/airgap/securevibe-data.tar.gz
     # or an internal mirror
-    skills-check update --source https://mirror.internal/securevibe/
+    securevibe update --source https://mirror.internal/securevibe/
     ```
 
 !!! warning "No outbound calls required"
@@ -198,17 +198,17 @@ Two commands keep the binary current and verifiable:
 
 ```bash
 # Upgrade the binary itself — signature- and checksum-verified
-skills-check self-update
+securevibe self-update
 
 # Fail a job if local data is stale (good as a CI canary)
-skills-check status --fail-if-stale
+securevibe status --fail-if-stale
 ```
 
 `self-update` fetches the signed release manifest, then verifies a **detached Ed25519 signature** against the embedded public key **and** the **SHA-256 checksums** per file, and only then atomically replaces the binary (crash-safe rename). The private signing key is held offline.
 
 ```mermaid
 sequenceDiagram
-    participant C as skills-check
+    participant C as securevibe
     participant R as Release manifest
     C->>R: fetch signed manifest
     R-->>C: manifest + Ed25519 signature + SHA-256 list
@@ -219,7 +219,7 @@ sequenceDiagram
 ```
 
 !!! tip "Wire status into CI"
-    Add `skills-check status --fail-if-stale` as a scheduled job so a pipeline goes red
+    Add `securevibe status --fail-if-stale` as a scheduled job so a pipeline goes red
     when its data falls behind, prompting a refresh via `self-update` or an air-gapped
     `update --source`.
 

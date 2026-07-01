@@ -20,7 +20,7 @@ sequenceDiagram
     actor Dev as Developer
     participant AI as AI assistant
     participant Skills as SecureVibe skills (CLAUDE.md / .cursorrules / …)
-    participant MCP as skills-mcp (MCP tools)
+    participant MCP as securevibe mcp (MCP tools)
 
     Dev->>AI: "Add a Redis client and read the API key from config"
     AI->>Skills: Consult installed security skills
@@ -39,12 +39,12 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 
 ## Set up in your IDE
 
-`skills-check init` writes the right config file for your assistant. Pick the tab for your tool:
+`securevibe init` writes the right config file for your assistant. Pick the tab for your tool:
 
 === "Claude Code"
 
     ```bash
-    skills-check init --tool claude
+    securevibe init --tool claude
     ```
 
     Writes **`CLAUDE.md`** — the project instructions Claude Code reads on every session.
@@ -52,7 +52,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "Cursor"
 
     ```bash
-    skills-check init --tool cursor
+    securevibe init --tool cursor
     ```
 
     Writes **`.cursorrules`** — the rules Cursor applies to its completions and chat.
@@ -60,7 +60,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "GitHub Copilot"
 
     ```bash
-    skills-check init --tool copilot
+    securevibe init --tool copilot
     ```
 
     Writes **`.github/copilot-instructions.md`** — repo-wide instructions for Copilot.
@@ -68,7 +68,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "Codex"
 
     ```bash
-    skills-check init --tool codex
+    securevibe init --tool codex
     ```
 
     Writes **`AGENTS.md`** — the agent instructions file Codex reads.
@@ -76,7 +76,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "Windsurf"
 
     ```bash
-    skills-check init --tool windsurf
+    securevibe init --tool windsurf
     ```
 
     Writes **`.windsurfrules`**.
@@ -84,7 +84,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "Cline"
 
     ```bash
-    skills-check init --tool cline
+    securevibe init --tool cline
     ```
 
     Writes **`.clinerules`**.
@@ -92,7 +92,7 @@ The skills make the assistant *want* to write secure code; the MCP tools let it 
 === "Devin"
 
     ```bash
-    skills-check init --tool devin
+    securevibe init --tool devin
     ```
 
     Writes **`devin.md`**.
@@ -102,45 +102,37 @@ SecureVibe ships skills for **8 assistants** in total — Claude Code, Cursor, G
 Steps:
 
 1. Install the CLI (see the tabs below) if you haven't already.
-2. Run `skills-check init --tool <your-tool>` at the root of your repo.
+2. Run `securevibe init --tool <your-tool>` at the root of your repo.
 3. Commit the generated config file so your whole team gets the same guidance.
 4. Restart your assistant (or start a new session) so it picks up the new instructions.
 
-=== "install.sh"
+=== "npm / npx"
 
     ```bash
-    curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
+    # run on demand — bundles the library data, turnkey:
+    npx -y @shieldnet360/securevibe init --tool <your-tool>
+    # …or install globally for a persistent `securevibe`:
+    npm install -g @shieldnet360/securevibe
     ```
 
-=== "Homebrew"
+=== "Go (from source)"
 
     ```bash
-    brew install shieldnet-360/tap/skills-check
-    ```
-
-=== "Go"
-
-    ```bash
-    go install github.com/shieldnet-360/securevibe/cmd/skills-check@latest
-    ```
-
-=== "npx"
-
-    ```bash
-    npx @shieldnet360/secure-code-skill init
+    go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
+    # builds only the binary; point it at library data via --path / $SKILLS_LIBRARY_PATH
     ```
 
 ## Add the MCP server
 
-The MCP server (`skills-mcp`) exposes SecureVibe's scanners as tools your assistant can call directly while it works, over stdio.
+The MCP server (`securevibe mcp`) exposes SecureVibe's scanners as tools your assistant can call directly while it works, over stdio.
 
 Add it to Claude Code:
 
 ```bash
-claude mcp add securevibe -- npx -y @shieldnet360/secure-code-mcp
+claude mcp add securevibe -- npx -y @shieldnet360/securevibe mcp
 ```
 
-For any other MCP-capable client, point it at the `skills-mcp` binary as a **stdio** server (it speaks MCP over stdin/stdout — no network).
+For any other MCP-capable client, point it at the `securevibe mcp` binary as a **stdio** server (it speaks MCP over stdin/stdout — no network).
 
 The server exposes **16 MCP tools**. The ones your assistant reaches for most often:
 
@@ -163,7 +155,7 @@ The server exposes **16 MCP tools**. The ones your assistant reaches for most of
 The scanners are the backstop; the **gate** is the line your insecure code can't cross. Wire it into a pre-commit hook so nothing risky leaves your machine:
 
 ```bash
-skills-check gate . --min-severity high
+securevibe gate . --min-severity high
 ```
 
 The gate auto-picks the right scanner per file, exits non-zero on anything at or above the severity floor, and (with `--sarif results.sarif`) emits SARIF for GitHub Code Scanning.
@@ -172,7 +164,7 @@ A minimal `.git/hooks/pre-commit`:
 
 ```bash
 #!/bin/sh
-skills-check gate . --min-severity high || {
+securevibe gate . --min-severity high || {
     echo "SecureVibe gate failed — fix the findings above or lower --min-severity."
     exit 1
 }
@@ -185,7 +177,7 @@ Make it executable with `chmod +x .git/hooks/pre-commit`. The same command runs 
 The curated DB is large but not omniscient. When *you* discover a malicious or typosquatted package it doesn't yet flag, teach it:
 
 ```bash
-skills-check contribute add -p <pkg> -e npm
+securevibe contribute add -p <pkg> -e npm
 ```
 
 This writes a **signed** local overlay at `.skills-check/overlay.json`. On the very next run, the gate and scanners block that package.
