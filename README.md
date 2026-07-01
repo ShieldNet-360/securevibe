@@ -54,26 +54,24 @@ MIT-licensed, offline, and keyless.
 
 ## Install
 
-`securevibe` reads its library data from a directory (resolution order:
-`--path` → `$SKILLS_LIBRARY_PATH` → current dir), so install the binary, then
-point it at a library checkout.
+**npm — one command, all platforms (macOS · Linux · Windows).** The package bundles
+the library data (skills + vuln DB), so it works out of the box.
 
 ```bash
-# 1. Binary — prebuilt (macOS/Linux, amd64/arm64); verifies SHA-256 against the release
-curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh
-#    …or with Go:
-go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest
+# run on demand — nothing installed
+npx -y @shieldnet360/securevibe <command>     # status · gate · scan-secrets · init · mcp · …
 
-# 2. Library data (skills + vuln DB) — clone, then keep it current
-git clone https://github.com/shieldnet-360/securevibe.git lib
-securevibe update --path ./lib
+# …or install globally for a persistent `securevibe`
+npm install -g @shieldnet360/securevibe
 ```
 
-Homebrew, winget, `.deb` / `.rpm`, and air-gapped installs: see
-[docs/install-macos.md](./docs/install-macos.md),
-[docs/install-linux.md](./docs/install-linux.md),
-[docs/install-windows.md](./docs/install-windows.md), and
-[docs/air-gapped-install.md](./docs/air-gapped-install.md).
+<details>
+<summary>Build from source (Go)</summary>
+
+`go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest` builds only the
+binary — it does **not** bundle the data. Point it at a library checkout via `--path` /
+`$SKILLS_LIBRARY_PATH`, or clone the repo and `securevibe update --path ./lib`.
+</details>
 
 ### Run the MCP server
 
@@ -83,7 +81,7 @@ Any MCP client speaks to `securevibe mcp` over stdio. Register it in Claude Code
 # npm — no install, no JSON editing (recommended)
 claude mcp add SecureVibe -- npx -y @shieldnet360/securevibe mcp
 
-# or, if you installed the binary (go install / curl | sh), let it wire itself in:
+# or, if you built the binary from source (go install), let it wire itself in:
 securevibe connect-mcp        # runs: claude mcp add -s local securevibe -- securevibe mcp --path <root>
 ```
 
@@ -299,9 +297,9 @@ procedure and key policy.
 
 | OS | Architectures | Install | Scheduled updates |
 |----|---------------|---------|-------------------|
-| macOS | `amd64`, `arm64` | `curl \| sh`, Homebrew, `go install` | `launchd` |
-| Linux | `amd64`, `arm64` | `.deb` / `.rpm`, `apt` / `yum`, `go install` | `systemd` user timer |
-| Windows | `amd64` | MSI, `winget`, `scoop`, `go install` | Task Scheduler |
+| macOS | `amd64`, `arm64` | `npm` / `npx` (or `go install` from source) | `launchd` |
+| Linux | `amd64`, `arm64` | `npm` / `npx` (or `go install` from source) | `systemd` user timer |
+| Windows | `amd64` | `npm` / `npx` (or `go install` from source) | Task Scheduler |
 
 ## Documentation
 

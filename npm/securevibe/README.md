@@ -54,9 +54,8 @@ cache, checklists) ships once inside this package and is handed to the binary vi
 
 ## Also available
 
-- **Go:** `go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest`
-- **Prebuilt binary:** `curl -fsSL https://raw.githubusercontent.com/shieldnet-360/securevibe/main/install.sh | sh`
-- **Binaries + data tarball:** attached to each [GitHub Release](https://github.com/shieldnet-360/securevibe/releases).
+- **Go (from source):** `go install github.com/shieldnet-360/securevibe/cmd/securevibe@latest`
+  — builds only the binary; point it at library data via `--path` / `$SKILLS_LIBRARY_PATH`.
 
 ## License
 
